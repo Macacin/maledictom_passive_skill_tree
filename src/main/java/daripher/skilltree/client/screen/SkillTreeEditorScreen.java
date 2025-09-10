@@ -119,7 +119,7 @@ public class SkillTreeEditorScreen extends Screen {
 
   @Override
   public void tick() {
-    editorWidgets.tick();
+    editorWidgets.onWidgetTick();
   }
 
   private void renderOverlay(GuiGraphics graphics) {

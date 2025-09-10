@@ -23,31 +23,9 @@ public class PSTRecipesProvider extends RecipeProvider {
 
   @Override
   protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
-    // rings
-    ring(PSTItems.GOLDEN_RING, Tags.Items.NUGGETS_GOLD, consumer);
-    ring(PSTItems.COPPER_RING, PSTTags.NUGGETS_COPPER, consumer);
-    ring(PSTItems.IRON_RING, Tags.Items.NUGGETS_IRON, consumer);
     // resources
     packing(Items.COPPER_INGOT, PSTTags.NUGGETS_COPPER, consumer);
     unpacking(PSTItems.COPPER_NUGGET, Tags.Items.INGOTS_COPPER, consumer);
-    // necklaces
-    necklace(PSTItems.ASSASSIN_NECKLACE, Items.BONE, consumer);
-    necklace(PSTItems.TRAVELER_NECKLACE, Items.FEATHER, consumer);
-    necklace(PSTItems.HEALER_NECKLACE, Items.GHAST_TEAR, consumer);
-    necklace(PSTItems.SIMPLE_NECKLACE, consumer);
-    necklace(PSTItems.SCHOLAR_NECKLACE, Items.ENDER_PEARL, consumer);
-    necklace(PSTItems.ARSONIST_NECKLACE, Items.FIRE_CHARGE, consumer);
-    necklace(PSTItems.FISHERMAN_NECKLACE, Items.TROPICAL_FISH, consumer);
-    // quviers
-    quiver(PSTItems.QUIVER, consumer);
-    quiver(PSTItems.ARMORED_QUIVER, Tags.Items.INGOTS_IRON, consumer);
-    quiver(PSTItems.DIAMOND_QUIVER, Tags.Items.GEMS_DIAMOND, consumer);
-    quiver(PSTItems.FIERY_QUIVER, Items.BLAZE_POWDER, consumer);
-    quiver(PSTItems.GILDED_QUIVER, Tags.Items.INGOTS_GOLD, consumer);
-    quiver(PSTItems.HEALING_QUIVER, Items.GHAST_TEAR, consumer);
-    quiver(PSTItems.TOXIC_QUIVER, Items.FERMENTED_SPIDER_EYE, consumer);
-    quiver(PSTItems.SILENT_QUIVER, Items.FEATHER, consumer);
-    quiver(PSTItems.BONE_QUIVER, Items.BONE, consumer);
   }
 
   protected void quiver(

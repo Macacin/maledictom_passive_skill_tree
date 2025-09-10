@@ -25,8 +25,6 @@ public class PSTLivingMultipliers {
       REGISTRY.register("enchants_amount", EnchantsAmountMultiplier.Serializer::new);
   public static final RegistryObject<LivingMultiplier.Serializer> ENCHANTS_LEVELS =
       REGISTRY.register("enchants_levels", EnchantLevelsAmountMultiplier.Serializer::new);
-  public static final RegistryObject<LivingMultiplier.Serializer> GEMS_AMOUNT =
-      REGISTRY.register("gems_amount", GemsAmountMultiplier.Serializer::new);
   public static final RegistryObject<LivingMultiplier.Serializer> FOOD_LEVEL =
       REGISTRY.register("food_level", HungerLevelMultiplier.Serializer::new);
   public static final RegistryObject<LivingMultiplier.Serializer> DISTANCE_TO_TARGET =

@@ -533,121 +533,7 @@ public class PSTSkillsProvider implements DataProvider {
         new BlockBreakSpeedBonus(
             new HasItemInHandCondition(new EquipmentCondition(EquipmentCondition.Type.PICKAXE)),
             0.15f));
-    addSkillBranchBonuses(
-        "miner_defensive_crafting",
-        new GemPowerBonus(new EquipmentCondition(EquipmentCondition.Type.ARMOR), 0.1f),
-        1,
-        7);
-    addSkillBranchBonuses(
-        "miner_offensive_crafting",
-        new GemPowerBonus(new EquipmentCondition(EquipmentCondition.Type.WEAPON), 0.1f),
-        1,
-        7);
-    addSkillBranchBonuses("miner_defensive", ARMOR, 1, ADDITION, 1, 8);
-    addSkillBranchBonuses(
-        "miner_offensive",
-        new DamageBonus(0.05f, MULTIPLY_BASE)
-            .setPlayerCondition(
-                new HasGemsCondition(
-                    1, -1, new EquipmentCondition(EquipmentCondition.Type.WEAPON))),
-        1,
-        8);
-    addSkillBonus(
-        "miner_defensive_notable_1",
-        createAttributeBonus(ARMOR, 2, ADDITION)
-            .setMultiplier(
-                new GemsAmountMultiplier(new EquipmentCondition(EquipmentCondition.Type.HELMET))));
-    addSkillBonus(
-        "miner_offensive_notable_1",
-        new DamageBonus(0.15f, MULTIPLY_BASE)
-            .setPlayerCondition(
-                new HasGemsCondition(
-                    1, -1, new EquipmentCondition(EquipmentCondition.Type.WEAPON))));
-    addSkillBranchBonuses(
-        "miner_life",
-        createAttributeBonus(MAX_HEALTH, 1, ADDITION)
-            .setMultiplier(
-                new GemsAmountMultiplier(new EquipmentCondition(EquipmentCondition.Type.HELMET))),
-        1,
-        2);
-    addSkillBonus(
-        "miner_life_notable_1",
-        createAttributeBonus(MAX_HEALTH, 1, ADDITION)
-            .setMultiplier(
-                new GemsAmountMultiplier(new EquipmentCondition(EquipmentCondition.Type.ARMOR))));
-    addSkillBranchBonuses(
-        "miner_speed",
-        createAttributeBonus(ATTACK_SPEED, 0.02, MULTIPLY_BASE)
-            .setCondition(
-                new HasGemsCondition(
-                    1, -1, new EquipmentCondition(EquipmentCondition.Type.WEAPON))),
-        1,
-        2);
-    addSkillBonus(
-        "miner_speed_notable_1",
-        createAttributeBonus(ATTACK_SPEED, 0.04, MULTIPLY_BASE)
-            .setMultiplier(
-                new GemsAmountMultiplier(new EquipmentCondition(EquipmentCondition.Type.WEAPON))));
-    addSkillBranchBonuses(
-        "miner_lesser",
-        new BlockBreakSpeedBonus(
-            new HasItemInHandCondition(new EquipmentCondition(EquipmentCondition.Type.PICKAXE)),
-            0.05f),
-        1,
-        6);
-    addSkillBonus(
-        "miner_mastery",
-        new PlayerSocketsBonus(new EquipmentCondition(EquipmentCondition.Type.ANY), 1));
-    addSkillBranchBonuses(
-        "miner_crit",
-        new CritChanceBonus(0.01f)
-            .setPlayerMultiplier(
-                new GemsAmountMultiplier(new EquipmentCondition(EquipmentCondition.Type.WEAPON))),
-        1,
-        2);
-    addSkillBonus(
-        "miner_crit_notable_1",
-        new CritDamageBonus(0.1f)
-            .setPlayerMultiplier(
-                new GemsAmountMultiplier(new EquipmentCondition(EquipmentCondition.Type.WEAPON))));
-    addSkillBranchBonuses(
-        "miner_crafting",
-        new LootDuplicationBonus(0.05f, 1f, LootDuplicationBonus.LootType.GEMS),
-        1,
-        3);
-    addSkillBonus(
-        "miner_defensive_crafting_keystone_1",
-        new GemPowerBonus(new EquipmentCondition(EquipmentCondition.Type.ARMOR), 0.3f));
-    addSkillBonus(
-        "miner_defensive_crafting_keystone_1",
-        new PlayerSocketsBonus(new EquipmentCondition(EquipmentCondition.Type.CHESTPLATE), 1));
-    addSkillBonus(
-        "miner_offensive_crafting_keystone_1",
-        new GemPowerBonus(new EquipmentCondition(EquipmentCondition.Type.WEAPON), 0.3f));
-    addSkillBonus(
-        "miner_offensive_crafting_keystone_1",
-        new PlayerSocketsBonus(new EquipmentCondition(EquipmentCondition.Type.WEAPON), 1));
-    addSkillBranchBonuses("miner_healing", REGENERATION, 0.1, ADDITION, 1, 4);
-    addSkillBonus(
-        "miner_healing_notable_1",
-        createAttributeBonus(REGENERATION.get(), 0.1, ADDITION)
-            .setMultiplier(
-                new GemsAmountMultiplier(new EquipmentCondition(EquipmentCondition.Type.HELMET))));
-    addSkillBonus(
-        "miner_crafting_notable_1",
-        new LootDuplicationBonus(0.1f, 1f, LootDuplicationBonus.LootType.GEMS));
-    addSkillBonus(
-        "miner_defensive_keystone_1",
-        createAttributeBonus(ARMOR, 5, ADDITION)
-            .setMultiplier(
-                new GemsAmountMultiplier(
-                    new EquipmentCondition(EquipmentCondition.Type.CHESTPLATE))));
-    addSkillBonus(
-        "miner_offensive_keystone_1",
-        new DamageBonus(0.1f, MULTIPLY_BASE)
-            .setPlayerMultiplier(
-                new GemsAmountMultiplier(new EquipmentCondition(EquipmentCondition.Type.WEAPON))));
-    // traveler skills
+
     addSkillBranchBonuses("miner_subclass_1_defensive", ARMOR, 1, ADDITION, 1, 4);
     addSkillBonus("miner_subclass_1", ATTACK_SPEED, 0.1, MULTIPLY_BASE);
     addSkillBonus("miner_subclass_1", MOVEMENT_SPEED, 0.1, MULTIPLY_BASE);
@@ -667,11 +553,6 @@ public class PSTSkillsProvider implements DataProvider {
     addSkillBonus("miner_subclass_1_offensive_notable_1", ATTACK_SPEED, 0.05, MULTIPLY_BASE);
     addSkillBonus("miner_subclass_1_offensive_notable_1", MOVEMENT_SPEED, 0.05, MULTIPLY_BASE);
     addSkillBonus(
-        "miner_subclass_1_mastery",
-        new DamageBonus(0.1f, MULTIPLY_BASE)
-            .setPlayerMultiplier(
-                new GemsAmountMultiplier(new EquipmentCondition(EquipmentCondition.Type.BOOTS))));
-    addSkillBonus(
         "miner_subclass_special",
         new CraftedItemBonus(
             new EquipmentCondition(EquipmentCondition.Type.BOOTS), new ItemSocketsBonus(1)));
@@ -681,21 +562,6 @@ public class PSTSkillsProvider implements DataProvider {
     addSkillBonus(
         "miner_subclass_2",
         new PlayerSocketsBonus(new ItemTagCondition(PSTTags.RINGS.location()), 1));
-    addSkillBranchBonuses(
-        "miner_subclass_2_life",
-        createAttributeBonus(MAX_HEALTH, 1d, ADDITION)
-            .setMultiplier(
-                new GemsAmountMultiplier(new ItemTagCondition(PSTTags.JEWELRY.location()))),
-        1,
-        4);
-    addSkillBranchBonuses(
-        "miner_subclass_2_crafting",
-        new GemPowerBonus(new ItemTagCondition(PSTTags.JEWELRY.location()), 0.05f),
-        1,
-        5);
-    addSkillBonus(
-        "miner_subclass_2_crafting_notable_1",
-        new GemPowerBonus(new ItemTagCondition(PSTTags.JEWELRY.location()), 0.25f));
     addSkillBonus(
         "miner_subclass_2_life_notable_1",
         new CraftedItemBonus(

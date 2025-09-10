@@ -277,8 +277,6 @@ public class PSTRussianTranslationProvider extends PSTTranslationProvider {
     add(PSTSkillBonuses.CRIT_DAMAGE.get(), "Критический урон");
     add(PSTSkillBonuses.CRIT_CHANCE.get(), "Шанс критического удара");
     add(PSTSkillBonuses.CRAFTED_ITEM_BONUS.get(), "Создаваем%s: %s");
-    add(PSTSkillBonuses.GEM_POWER.get(), "Самоцветы вставляемые в %s: %s");
-    add(PSTSkillBonuses.GEM_POWER.get(), "bonus", "Сила Эффектов");
     add(PSTSkillBonuses.PLAYER_SOCKETS.get(), "Гнёзда Самоцветов в %s");
     add(PSTSkillBonuses.BLOCK_BREAK_SPEED.get(), "Скорость добычи Блоков");
     add(PSTSkillBonuses.REPAIR_EFFICIENCY.get(), "Ремонтируем%s: %s");
@@ -347,12 +345,6 @@ public class PSTRussianTranslationProvider extends PSTTranslationProvider {
     add(PSTLivingConditions.HAS_ITEM_EQUIPPED.get(), "target.you", "Вас");
     add(PSTLivingConditions.HAS_ITEM_EQUIPPED.get(), "target.target", "Цели");
     add(PSTLivingConditions.HAS_ITEM_EQUIPPED.get(), "%s если на %s %s");
-    add(PSTLivingConditions.HAS_GEMS.get(), "target.you", "если у Вас есть");
-    add(PSTLivingConditions.HAS_GEMS.get(), "target.target", "если у Цели есть");
-    add(PSTLivingConditions.HAS_GEMS.get(), "min.1", "%s %s Самоцветы в %s");
-    add(PSTLivingConditions.HAS_GEMS.get(), "min", "%s %s минимум %d Самоцветов в %s");
-    add(PSTLivingConditions.HAS_GEMS.get(), "max", "%s %s максимум %d Самоцветов в %s");
-    add(PSTLivingConditions.HAS_GEMS.get(), "range", "%s %s от %d до %d Самоцветов в %s");
     add(PSTLivingConditions.HAS_EFFECT.get(), "target.you", "Вас");
     add(PSTLivingConditions.HAS_EFFECT.get(), "target.target", "Цель");
     add(PSTLivingConditions.HAS_EFFECT.get(), "%s если на %s действует %s");
@@ -575,8 +567,6 @@ public class PSTRussianTranslationProvider extends PSTTranslationProvider {
         PSTLivingMultipliers.ENCHANTS_LEVELS.get(),
         "enemy",
         "%s за каждый уровень зачарований на %s врага");
-    add(PSTLivingMultipliers.GEMS_AMOUNT.get(), "player", "%s за каждый Самоцвет в %s");
-    add(PSTLivingMultipliers.GEMS_AMOUNT.get(), "enemy", "%s за каждый Самоцвет в %s врага");
     add(PSTLivingMultipliers.FOOD_LEVEL.get(), "player", "%s за каждую единицу Голода");
     add(PSTLivingMultipliers.FOOD_LEVEL.get(), "enemy", "%s за каждую единицу Голода врага");
     add(PSTLivingMultipliers.DISTANCE_TO_TARGET.get(), "player", "%s за каждый блок до врага");
@@ -644,37 +634,12 @@ public class PSTRussianTranslationProvider extends PSTTranslationProvider {
     add("quiver.contents", "• Внутри: %s");
     // items
     add("item.cant_use.info", "Вы не можете это использовать");
-    addGem("citrine", "цитрин");
-    addGem("ruby", "рубин");
-    addGem("sapphire", "сапфир");
-    addGem("jade", "нефрит");
-    addGem("iriscite", "ирисцит");
-    addGem("vacucite", "вакуцит");
-    add(PSTItems.WISDOM_SCROLL.get(), "Свиток мудрости");
-    add(PSTItems.AMNESIA_SCROLL.get(), "Свиток амнезии");
-    add(PSTItems.COPPER_RING.get(), "Медное кольцо");
-    add(PSTItems.IRON_RING.get(), "Железное кольцо");
-    add(PSTItems.GOLDEN_RING.get(), "Золотое кольцо");
+//    add(PSTItems.WISDOM_SCROLL.get(), "Свиток мудрости");
+//    add(PSTItems.AMNESIA_SCROLL.get(), "Свиток амнезии");
     add(PSTItems.COPPER_NUGGET.get(), "Кусочек меди");
-    add(PSTItems.ASSASSIN_NECKLACE.get(), "Ожерелье убийцы");
-    add(PSTItems.HEALER_NECKLACE.get(), "Ожерелье целителя");
-    add(PSTItems.TRAVELER_NECKLACE.get(), "Ожерелье путешественника");
-    add(PSTItems.SIMPLE_NECKLACE.get(), "Ожерелье простоты");
-    add(PSTItems.SCHOLAR_NECKLACE.get(), "Ожерелье учёного");
-    add(PSTItems.ARSONIST_NECKLACE.get(), "Ожерелье поджигателя");
-    add(PSTItems.FISHERMAN_NECKLACE.get(), "Ожерелье рыбака");
-    add(PSTItems.QUIVER.get(), "Колчан");
-    add(PSTItems.ARMORED_QUIVER.get(), "Бронированный колчан");
-    add(PSTItems.DIAMOND_QUIVER.get(), "Алмазный колчан");
-    add(PSTItems.FIERY_QUIVER.get(), "Огненный колчан");
-    add(PSTItems.GILDED_QUIVER.get(), "Позолоченный колчан");
-    add(PSTItems.HEALING_QUIVER.get(), "Исцеляющий колчан");
-    add(PSTItems.TOXIC_QUIVER.get(), "Токсичный колчан");
-    add(PSTItems.SILENT_QUIVER.get(), "Бесшумный колчан");
-    add(PSTItems.BONE_QUIVER.get(), "Костяной колчан");
-    addTooltip(PSTItems.WISDOM_SCROLL.get(), "Дарует одно очко пассивных умений");
-    addTooltip(PSTItems.AMNESIA_SCROLL.get(), "Сбрасывает ваше древо пассивных умений");
-    addWarning(PSTItems.AMNESIA_SCROLL.get(), "%d%% очков умений будут потеряны");
+//    addTooltip(PSTItems.WISDOM_SCROLL.get(), "Дарует одно очко пассивных умений");
+//    addTooltip(PSTItems.AMNESIA_SCROLL.get(), "Сбрасывает ваше древо пассивных умений");
+//    addWarning(PSTItems.AMNESIA_SCROLL.get(), "%d%% очков умений будут потеряны");
     // attributes
     add(PSTAttributes.REGENERATION.get(), "Регенерация здоровья");
     add(PSTAttributes.EVASION.get(), "Уклонение");

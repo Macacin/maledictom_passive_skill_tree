@@ -6,8 +6,6 @@ import daripher.skilltree.config.Config;
 import daripher.skilltree.entity.player.PlayerHelper;
 import daripher.skilltree.init.PSTRegistries;
 import daripher.skilltree.init.PSTTags;
-import daripher.skilltree.item.gem.GemItem;
-import daripher.skilltree.item.quiver.QuiverItem;
 import daripher.skilltree.skill.bonus.condition.item.EquipmentCondition;
 import daripher.skilltree.skill.bonus.item.ItemBonus;
 import daripher.skilltree.skill.bonus.item.ItemDurabilityBonus;
@@ -40,27 +38,6 @@ public class ItemHelper {
     String namespace = itemId.getNamespace();
     if (blacklist.contains(namespace + ":*")) return false;
     return EquipmentCondition.isEquipment(stack) || stack.is(PSTTags.JEWELRY);
-  }
-
-  public static int getFirstEmptySocket(ItemStack stack, Player player) {
-    int sockets = ItemHelper.getMaximumSockets(stack, player);
-    int socket = 0;
-    for (int i = 0; i < sockets; i++) {
-      socket = i;
-      if (!GemItem.hasGem(stack, socket)) break;
-    }
-    return socket;
-  }
-
-  public static int getGemsAmount(ItemStack stack) {
-    if (!stack.hasTag() || !stack.getOrCreateTag().contains("gems_count")) {
-      refreshGemsAmount(stack);
-    }
-    return stack.getOrCreateTag().getInt("gems_count");
-  }
-
-  public static void refreshGemsAmount(ItemStack stack) {
-    stack.getOrCreateTag().putInt("gems_count", GemItem.getGems(stack).size());
   }
 
   public static void setPoisons(ItemStack result, ItemStack poisonStack) {
@@ -116,10 +93,6 @@ public class ItemHelper {
     return sockets;
   }
 
-  public static boolean isQuiver(ItemStack stack) {
-    return !stack.isEmpty() && stack.getItem() instanceof QuiverItem;
-  }
-
   public static int getMaximumSockets(ItemStack stack, @Nullable Player player) {
     if (SkillTreeMod.apotheosisEnabled()) return 0;
     int sockets = ItemHelper.getDefaultSockets(stack) + ItemHelper.getAdditionalSockets(stack);
@@ -144,7 +117,6 @@ public class ItemHelper {
     if (!stack.hasTag()) return ImmutableList.of();
     List<ItemBonus<?>> bonuses = new ArrayList<>();
     bonuses.addAll(getItemBonusesExcludingGems(stack));
-    bonuses.addAll(GemItem.getGemBonuses(stack));
     return bonuses;
   }
 

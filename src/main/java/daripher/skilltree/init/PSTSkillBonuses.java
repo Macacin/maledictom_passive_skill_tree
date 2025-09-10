@@ -27,8 +27,6 @@ public class PSTSkillBonuses {
       REGISTRY.register("crit_chance", CritChanceBonus.Serializer::new);
   public static final RegistryObject<SkillBonus.Serializer> CRAFTED_ITEM_BONUS =
       REGISTRY.register("crafted_item_bonus", CraftedItemBonus.Serializer::new);
-  public static final RegistryObject<SkillBonus.Serializer> GEM_POWER =
-      REGISTRY.register("gem_power", GemPowerBonus.Serializer::new);
   public static final RegistryObject<SkillBonus.Serializer> PLAYER_SOCKETS =
       REGISTRY.register("player_sockets", PlayerSocketsBonus.Serializer::new);
   public static final RegistryObject<SkillBonus.Serializer> REPAIR_EFFICIENCY =

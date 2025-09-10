@@ -275,8 +275,6 @@ public class PSTEnglishTranslationProvider extends PSTTranslationProvider {
     add(PSTSkillBonuses.CRIT_DAMAGE.get(), "Critical Hit Damage");
     add(PSTSkillBonuses.CRIT_CHANCE.get(), "Critical Hit Chance");
     add(PSTSkillBonuses.CRAFTED_ITEM_BONUS.get(), "Crafted %s: %s");
-    add(PSTSkillBonuses.GEM_POWER.get(), "Gems inserted into %s: %s");
-    add(PSTSkillBonuses.GEM_POWER.get(), "bonus", "Effect Power");
     add(PSTSkillBonuses.PLAYER_SOCKETS.get(), "Gem Sockets in %s");
     add(PSTSkillBonuses.BLOCK_BREAK_SPEED.get(), "Block Break Speed");
     add(PSTSkillBonuses.REPAIR_EFFICIENCY.get(), "Repaired %s: %s");
@@ -345,12 +343,6 @@ public class PSTEnglishTranslationProvider extends PSTTranslationProvider {
     add(PSTLivingConditions.HAS_ITEM_EQUIPPED.get(), "target.you", "You have");
     add(PSTLivingConditions.HAS_ITEM_EQUIPPED.get(), "target.target", "Target has");
     add(PSTLivingConditions.HAS_ITEM_EQUIPPED.get(), "%s if %s %s equipped");
-    add(PSTLivingConditions.HAS_GEMS.get(), "target.you", "You have");
-    add(PSTLivingConditions.HAS_GEMS.get(), "target.target", "Target has");
-    add(PSTLivingConditions.HAS_GEMS.get(), "min.1", "%s if %s gems in %s");
-    add(PSTLivingConditions.HAS_GEMS.get(), "min", "%s %s at least %d gems in %s");
-    add(PSTLivingConditions.HAS_GEMS.get(), "max", "%s %s at most %d gems in %s");
-    add(PSTLivingConditions.HAS_GEMS.get(), "range", "%s %s %d to %d gems in %s");
     add(PSTLivingConditions.HAS_EFFECT.get(), "target.you", "You are");
     add(PSTLivingConditions.HAS_EFFECT.get(), "target.target", "Target is");
     add(PSTLivingConditions.HAS_EFFECT.get(), "%s if %s affected by %s");
@@ -496,8 +488,6 @@ public class PSTEnglishTranslationProvider extends PSTTranslationProvider {
         PSTLivingMultipliers.ENCHANTS_LEVELS.get(),
         "enemy",
         "%s per enchantment level on enemy's %s");
-    add(PSTLivingMultipliers.GEMS_AMOUNT.get(), "player", "%s per Gem in %s");
-    add(PSTLivingMultipliers.GEMS_AMOUNT.get(), "enemy", "%s per Gem in enemy's %s");
     add(PSTLivingMultipliers.FOOD_LEVEL.get(), "player", "%s per Hunger point");
     add(PSTLivingMultipliers.FOOD_LEVEL.get(), "enemy", "%s per enemy's Hunger point");
     add(PSTLivingMultipliers.DISTANCE_TO_TARGET.get(), "player", "%s per block to enemy");
@@ -559,37 +549,12 @@ public class PSTEnglishTranslationProvider extends PSTTranslationProvider {
     add("quiver.contents", "• Contents: %s");
     // items
     add("item.cant_use.info", "You can not use this");
-    addGem("citrine", "Citrine");
-    addGem("ruby", "Ruby");
-    addGem("sapphire", "Sapphire");
-    addGem("jade", "Jade");
-    addGem("iriscite", "Iriscite");
-    addGem("vacucite", "Vacucite");
-    add(PSTItems.WISDOM_SCROLL.get(), "Wisdom Scroll");
-    add(PSTItems.AMNESIA_SCROLL.get(), "Amnesia Scroll");
-    add(PSTItems.COPPER_RING.get(), "Copper Ring");
-    add(PSTItems.IRON_RING.get(), "Iron Ring");
-    add(PSTItems.GOLDEN_RING.get(), "Golden Ring");
+//    add(PSTItems.WISDOM_SCROLL.get(), "Wisdom Scroll");
+//    add(PSTItems.AMNESIA_SCROLL.get(), "Amnesia Scroll");
     add(PSTItems.COPPER_NUGGET.get(), "Copper Nugget");
-    add(PSTItems.ASSASSIN_NECKLACE.get(), "Assassin's Necklace");
-    add(PSTItems.HEALER_NECKLACE.get(), "Healer's Necklace");
-    add(PSTItems.TRAVELER_NECKLACE.get(), "Traveler's Necklace");
-    add(PSTItems.SIMPLE_NECKLACE.get(), "Simple Necklace");
-    add(PSTItems.SCHOLAR_NECKLACE.get(), "Scholar's Necklace");
-    add(PSTItems.ARSONIST_NECKLACE.get(), "Arsonist's Necklace");
-    add(PSTItems.FISHERMAN_NECKLACE.get(), "Fisherman's Necklace");
-    add(PSTItems.QUIVER.get(), "Quiver");
-    add(PSTItems.ARMORED_QUIVER.get(), "Armored Quiver");
-    add(PSTItems.DIAMOND_QUIVER.get(), "Diamond Quiver");
-    add(PSTItems.FIERY_QUIVER.get(), "Fiery Quiver");
-    add(PSTItems.GILDED_QUIVER.get(), "Gilded Quiver");
-    add(PSTItems.HEALING_QUIVER.get(), "Healing Quiver");
-    add(PSTItems.TOXIC_QUIVER.get(), "Toxic Quiver");
-    add(PSTItems.SILENT_QUIVER.get(), "Silent Quiver");
-    add(PSTItems.BONE_QUIVER.get(), "Bone Quiver");
-    addTooltip(PSTItems.WISDOM_SCROLL.get(), "Grants one passive skill point");
-    addTooltip(PSTItems.AMNESIA_SCROLL.get(), "Resets your passive skill tree");
-    addWarning(PSTItems.AMNESIA_SCROLL.get(), "%d%% of your skill points will be lost");
+//    addTooltip(PSTItems.WISDOM_SCROLL.get(), "Grants one passive skill point");
+//    addTooltip(PSTItems.AMNESIA_SCROLL.get(), "Resets your passive skill tree");
+//    addWarning(PSTItems.AMNESIA_SCROLL.get(), "%d%% of your skill points will be lost");
     // attributes
     add(PSTAttributes.REGENERATION.get(), "Life Regeneration");
     add(PSTAttributes.EVASION.get(), "Evasion");

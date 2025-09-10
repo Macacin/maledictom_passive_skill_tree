@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.init.PSTRegistries;
-import daripher.skilltree.item.gem.bonus.GemBonusProvider;
 import daripher.skilltree.skill.bonus.SkillBonus;
 import daripher.skilltree.skill.bonus.condition.damage.DamageCondition;
 import daripher.skilltree.skill.bonus.condition.damage.NoneDamageCondition;
@@ -298,23 +297,6 @@ public class SerializationHelper {
     json.add(elementName, objectsJson);
   }
 
-  public static GemBonusProvider deserializeGemBonusProvider(JsonObject json) {
-    JsonObject providerJson = json.getAsJsonObject("bonus_provider");
-    String type = providerJson.get("type").getAsString();
-    ResourceLocation serializerId = new ResourceLocation(type);
-    GemBonusProvider.Serializer serializer = PSTRegistries.GEM_BONUSES.get().getValue(serializerId);
-    return Objects.requireNonNull(serializer).deserialize(providerJson);
-  }
-
-  public static void serializeGemBonusProvider(JsonObject json, GemBonusProvider provider) {
-    ResourceLocation serializerId =
-        PSTRegistries.GEM_BONUSES.get().getKey(provider.getSerializer());
-    JsonObject bonusJson = new JsonObject();
-    provider.getSerializer().serialize(bonusJson, provider);
-    bonusJson.addProperty("type", Objects.requireNonNull(serializerId).toString());
-    json.add("bonus_provider", bonusJson);
-  }
-
   @Nullable
   public static Attribute deserializeAttribute(CompoundTag tag) {
     ResourceLocation attributeId = new ResourceLocation(tag.getString("attribute"));
@@ -551,22 +533,6 @@ public class SerializationHelper {
           objectsTag.add(objectTag);
         });
     tag.put(elementName, objectsTag);
-  }
-
-  public static GemBonusProvider deserializeGemBonusProvider(CompoundTag tag) {
-    CompoundTag bonusTag = tag.getCompound("bonus_provider");
-    String type = bonusTag.getString("type");
-    ResourceLocation serializerId = new ResourceLocation(type);
-    GemBonusProvider.Serializer serializer = PSTRegistries.GEM_BONUSES.get().getValue(serializerId);
-    return Objects.requireNonNull(serializer).deserialize(bonusTag);
-  }
-
-  public static void serializeGemBonusProvider(CompoundTag tag, GemBonusProvider provider) {
-    ResourceLocation serializerId =
-        PSTRegistries.GEM_BONUSES.get().getKey(provider.getSerializer());
-    CompoundTag bonusTag = provider.getSerializer().serialize(provider);
-    bonusTag.putString("type", Objects.requireNonNull(serializerId).toString());
-    tag.put("bonus_provider", bonusTag);
   }
 
   private static <T> T deserializeObject(

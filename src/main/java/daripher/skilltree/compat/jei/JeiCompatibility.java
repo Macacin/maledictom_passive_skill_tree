@@ -1,7 +1,7 @@
 package daripher.skilltree.compat.jei;
 
 import daripher.skilltree.SkillTreeMod;
-import daripher.skilltree.item.gem.GemItem;
+import dev.shadowsoffire.apotheosis.adventure.socket.gem.GemItem;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;

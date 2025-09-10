@@ -160,4 +160,9 @@ public class TextField extends EditBox implements TickingWidget {
     setFocused(clicked(mouseX, mouseY));
     return super.mouseClicked(mouseX, mouseY, button);
   }
+
+  @Override
+  public void onWidgetTick() {
+    this.tick();
+  }
 }

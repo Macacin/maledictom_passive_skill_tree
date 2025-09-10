@@ -32,4 +32,9 @@ public class TextArea extends MultiLineEditBox implements TickingWidget {
     super.setValueListener(responder);
     return this;
   }
+
+  @Override
+  public void onWidgetTick() {
+    this.tick();
+  }
 }

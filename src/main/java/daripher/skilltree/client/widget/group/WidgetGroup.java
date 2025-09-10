@@ -113,10 +113,10 @@ public class WidgetGroup<T extends AbstractWidget> extends AbstractWidget implem
     widgetsCopy().forEach(widget -> widget.mouseMoved(mouseX, mouseY));
   }
 
-  public void tick() {
+  public void onWidgetTick() {
     for (T t : widgetsCopy()) {
       if (t instanceof TickingWidget tickingWidget) {
-        tickingWidget.tick();
+        tickingWidget.onWidgetTick();
       }
     }
   }

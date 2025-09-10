@@ -1,7 +1,6 @@
 package daripher.skilltree.init;
 
 import daripher.skilltree.SkillTreeMod;
-import daripher.skilltree.item.gem.bonus.GemBonusProvider;
 import daripher.skilltree.skill.bonus.SkillBonus;
 import daripher.skilltree.skill.bonus.condition.damage.DamageCondition;
 import daripher.skilltree.skill.bonus.condition.enchantment.EnchantmentCondition;
@@ -34,8 +33,6 @@ public class PSTRegistries {
       PSTItemBonuses.REGISTRY.makeRegistry(RegistryBuilder::new);
   public static final Supplier<IForgeRegistry<EnchantmentCondition.Serializer>> ENCHANTMENT_CONDITIONS =
       PSTEnchantmentConditions.REGISTRY.makeRegistry(RegistryBuilder::new);
-  public static final Supplier<IForgeRegistry<GemBonusProvider.Serializer>> GEM_BONUSES =
-      PSTGemBonuses.REGISTRY.makeRegistry(RegistryBuilder::new);
   public static final Supplier<IForgeRegistry<SkillEventListener.Serializer>> EVENT_LISTENERS =
       PSTEventListeners.REGISTRY.makeRegistry(RegistryBuilder::new);
 
@@ -48,7 +45,6 @@ public class PSTRegistries {
     createRegistry(event, PSTItemConditions.REGISTRY_ID);
     createRegistry(event, PSTItemBonuses.REGISTRY_ID);
     createRegistry(event, PSTEnchantmentConditions.REGISTRY_ID);
-    createRegistry(event, PSTGemBonuses.REGISTRY_ID);
     createRegistry(event, PSTEventListeners.REGISTRY_ID);
   }
 

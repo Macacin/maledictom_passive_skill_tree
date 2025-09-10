@@ -3,7 +3,6 @@ package daripher.skilltree.entity.player;
 import com.google.common.collect.Streams;
 import daripher.skilltree.skill.bonus.SkillBonusHandler;
 import daripher.skilltree.skill.bonus.condition.item.EquipmentCondition;
-import daripher.skilltree.skill.bonus.player.GemPowerBonus;
 import daripher.skilltree.skill.bonus.player.PlayerSocketsBonus;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,17 +51,6 @@ public class PlayerHelper {
         .map(PlayerSocketsBonus::getSockets)
         .reduce(Integer::sum)
         .orElse(0);
-  }
-
-  public static float getGemPower(Player player, ItemStack stack) {
-    float power = 1f;
-    power +=
-        SkillBonusHandler.getSkillBonuses(player, GemPowerBonus.class).stream()
-            .filter(bonus -> bonus.getItemCondition().met(stack))
-            .map(GemPowerBonus::getMultiplier)
-            .reduce(Float::sum)
-            .orElse(0f);
-    return power;
   }
 
   public static Stream<ItemStack> getAllEquipment(LivingEntity living) {

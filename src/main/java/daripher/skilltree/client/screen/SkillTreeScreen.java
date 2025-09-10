@@ -378,10 +378,17 @@ public class SkillTreeScreen extends Screen {
   }
 
   private Stream<PassiveSkill> getTreeSkills() {
-    return skillTree.getSkillIds().stream().map(SkillsReloader::getSkillById);
+    return skillTree.getSkillIds().stream()
+            .map(SkillsReloader::getSkillById)
+            .filter(Objects::nonNull);  // Добавьте эту строку
   }
 
   private void addSkillConnections(PassiveSkill skill) {
+    if (skill == null) return;
+    skill.getDirectConnections().stream()
+            .filter(id -> skillButtons.containsKey(id))  // Добавьте: только если кнопка существует
+            .forEach(id -> connectSkills(SkillConnection.Type.DIRECT, skill.getId(), id));
+    // Аналогично для getLongConnections() и getOneWayConnections()
     skill
         .getDirectConnections()
         .forEach(id -> connectSkills(SkillConnection.Type.DIRECT, skill.getId(), id));
@@ -397,7 +404,9 @@ public class SkillTreeScreen extends Screen {
       SkillConnection.Type type, ResourceLocation skillId1, ResourceLocation skillId2) {
     SkillButton button1 = skillButtons.get(skillId1);
     SkillButton button2 = skillButtons.get(skillId2);
-    skillConnections.add(new SkillConnection(type, button1, button2));
+    if (button1 != null && button2 != null) {  // Добавьте эту проверку
+      skillConnections.add(new SkillConnection(type, button1, button2));
+    }
   }
 
   private void highlightSkillsThatCanBeLearned() {

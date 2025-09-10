@@ -23,8 +23,6 @@ public class PSTLivingConditions {
       REGISTRY.register("health_percentage", HealthPercentageCondition.Serializer::new);
   public static final RegistryObject<LivingCondition.Serializer> HAS_ITEM_EQUIPPED =
       REGISTRY.register("has_item_equipped", HasItemEquippedCondition.Serializer::new);
-  public static final RegistryObject<LivingCondition.Serializer> HAS_GEMS =
-      REGISTRY.register("has_gems", HasGemsCondition.Serializer::new);
   public static final RegistryObject<LivingCondition.Serializer> HAS_EFFECT =
       REGISTRY.register("has_effect", HasEffectCondition.Serializer::new);
   public static final RegistryObject<LivingCondition.Serializer> BURNING =
