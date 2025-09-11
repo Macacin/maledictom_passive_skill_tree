@@ -22,7 +22,6 @@ public class JeiCompatibility implements IModPlugin {
 
   @Override
   public void registerRecipes(@NotNull IRecipeRegistration registration) {
-    if (SkillTreeMod.apotheosisEnabled()) return;
     ForgeRegistries.ITEMS.getValues().stream()
         .filter(GemItem.class::isInstance)
         .map(ItemStack::new)

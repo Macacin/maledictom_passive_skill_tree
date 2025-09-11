@@ -25,9 +25,6 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemHelper {
-  public static boolean canInsertGem(ItemStack stack) {
-    return !SkillTreeMod.apotheosisEnabled() && hasSockets(stack);
-  }
 
   public static boolean hasSockets(ItemStack stack) {
     List<? extends String> blacklist = Config.socket_blacklist;
@@ -94,7 +91,6 @@ public class ItemHelper {
   }
 
   public static int getMaximumSockets(ItemStack stack, @Nullable Player player) {
-    if (SkillTreeMod.apotheosisEnabled()) return 0;
     int sockets = ItemHelper.getDefaultSockets(stack) + ItemHelper.getAdditionalSockets(stack);
     if (player != null) {
       sockets += PlayerHelper.getPlayerSockets(stack, player);

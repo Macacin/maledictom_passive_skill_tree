@@ -303,7 +303,6 @@ public class PSTSkillsProvider implements DataProvider {
     addSkillBonus(
         "alchemist_offensive_crafting_keystone_1",
         new RecipeUnlockBonus(new ResourceLocation("skilltree:weapon_poisoning")));
-    addSkillBranchBonuses("alchemist_healing", new HealingBonus(1f, 0.1f), 1, 4);
     addSkillBonus(
         "alchemist_healing_notable_1",
         new HealingBonus(
@@ -442,7 +441,6 @@ public class PSTSkillsProvider implements DataProvider {
         new CraftedItemBonus(
             new EquipmentCondition(EquipmentCondition.Type.RANGED_WEAPON),
             new ItemSocketsBonus(1)));
-    addSkillBranchBonuses("hunter_healing", new HealingBonus(1f, 0.1f), 1, 4);
     addSkillBonus(
         "hunter_healing_notable_1",
         new HealingBonus(

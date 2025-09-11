@@ -12,7 +12,6 @@ import daripher.skilltree.config.ClientConfig;
 import daripher.skilltree.data.reloader.SkillTreesReloader;
 import daripher.skilltree.data.reloader.SkillsReloader;
 import daripher.skilltree.network.NetworkDispatcher;
-import daripher.skilltree.network.message.GainSkillPointMessage;
 import daripher.skilltree.network.message.LearnSkillMessage;
 import daripher.skilltree.skill.PassiveSkill;
 import daripher.skilltree.skill.PassiveSkillTree;
@@ -55,9 +54,9 @@ public class SkillTreeScreen extends Screen {
   protected double scrollY;
   protected int maxScrollX;
   protected int maxScrollY;
-  private Button buyButton;
-  private Label pointsInfo;
-  private ProgressBar progressBar;
+  private Label pointsInfo;  // Расширим для Level + XP + Points
+  private ProgressBar progressBar;  // NEW: Всегда visible для модового XP
+  private Label levelInfo;  // NEW: Label для Level и XP
   private ScrollableComponentList statsInfo;
   private boolean firstInitDone;
   private boolean showStats;
@@ -75,21 +74,20 @@ public class SkillTreeScreen extends Screen {
   @Override
   public void init() {
     clearWidgets();
+    // NEW: ProgressBar всегда visible, обновим в update
     progressBar =
-        new ProgressBar(
-            width / 2 - 235 / 2,
-            height - 17,
-            b -> {
-              progressBar.showProgressInNumbers ^= true;
-              showProgressInNumbers ^= true;
-            });
+            new ProgressBar(
+                    width / 2 - 235 / 2,
+                    height - 17,
+                    b -> {
+                      progressBar.showProgressInNumbers ^= true;
+                      showProgressInNumbers ^= true;
+                    });
     progressBar.showProgressInNumbers = showProgressInNumbers;
+    progressBar.visible = true;  // NEW: Всегда показываем для модового XP
     addRenderableWidget(progressBar);
     addTopWidgets();
-    if (!SkillTreeClientData.enable_exp_exchange) {
-      progressBar.visible = false;
-      buyButton.visible = false;
-    }
+    // Удалить: if (!SkillTreeClientData.enable_exp_exchange) { ... }  // Нет зависимости от config
     if (!firstInitDone) firstInit();
     addSkillButtons();
     statsInfo = new ScrollableComponentList(48, height - 60);
@@ -105,38 +103,34 @@ public class SkillTreeScreen extends Screen {
   }
 
   private void addTopWidgets() {
-    Component buyButtonText = Component.translatable("widget.buy_skill_button");
-    Component pointsInfoText = Component.translatable("widget.skill_points_left", 100);
+    Component pointsInfoText = Component.translatable("widget.skill_points_left", 100);  // Адаптируем позже
     Component confirmButtonText = Component.translatable("widget.confirm_button");
     Component cancelButtonText = Component.translatable("widget.cancel_button");
     Component showStatsButtonText = Component.translatable("widget.show_stats");
-    int buttonWidth = Math.max(font.width(buyButtonText), font.width(pointsInfoText));
-    buttonWidth = Math.max(buttonWidth, font.width(confirmButtonText));
+    int buttonWidth = Math.max(font.width(pointsInfoText), font.width(confirmButtonText));
     buttonWidth = Math.max(buttonWidth, font.width(cancelButtonText));
     buttonWidth += 20;
     int buttonsY = 8;
     Button showStatsButton =
-        new Button(width - buttonWidth - 8, buttonsY, buttonWidth, 14, showStatsButtonText);
+            new Button(width - buttonWidth - 8, buttonsY, buttonWidth, 14, showStatsButtonText);
     showStatsButton.setPressFunc(b -> showStats ^= true);
     addRenderableWidget(showStatsButton);
     addRenderableWidget(new TextField(8, buttonsY, buttonWidth, 14, search))
-        .setHint("Search...")
-        .setResponder(
-            s -> {
-              search = s;
-              updateSearch();
-            });
-    buyButton = new Button(width / 2 - 8 - buttonWidth, buttonsY, buttonWidth, 14, buyButtonText);
-    buyButton.setPressFunc(b -> buySkillPoint());
-    addRenderableWidget(buyButton);
-    pointsInfo = new Label(width / 2 + 8, buttonsY, buttonWidth, 14, Component.empty());
-    if (!SkillTreeClientData.enable_exp_exchange) {
-      pointsInfo.setX(width / 2 - buttonWidth / 2);
-    }
+            .setHint("Search...")
+            .setResponder(
+                    s -> {
+                      search = s;
+                      updateSearch();
+                    });
+
+    int infoWidth = 210;
+    pointsInfo = new Label((width / 2) - (infoWidth / 2), buttonsY, infoWidth, 14, Component.empty());
     addRenderableWidget(pointsInfo);
+    pointsInfo.active = false;
+    pointsInfo.visible = true;
     buttonsY += 20;
     Button confirmButton =
-        new Button(width / 2 - 8 - buttonWidth, buttonsY, buttonWidth, 14, confirmButtonText);
+            new Button(width / 2 - 8 - buttonWidth, buttonsY, buttonWidth, 14, confirmButtonText);
     confirmButton.setPressFunc(b -> confirmLearnSkills());
     addRenderableWidget(confirmButton);
     Button cancelButton = new Button(width / 2 + 8, buttonsY, buttonWidth, 14, cancelButtonText);
@@ -179,9 +173,14 @@ public class SkillTreeScreen extends Screen {
   }
 
   private void renderWidgets(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-    MutableComponent pointsLeft =
-        Component.literal("" + skillPoints).withStyle(Style.EMPTY.withColor(0xFCE266));
-    pointsInfo.setMessage(Component.translatable("widget.skill_points_left", pointsLeft));
+    IPlayerSkills skills = PlayerSkillsProvider.get(getPlayer());
+    int points = skills.getSkillPoints();
+    int level = skills.getCurrentLevel();
+    int currentXP = skills.getSkillExperience();
+    int nextCost = skills.getNextLevelCost();
+    MutableComponent pointsLeft = Component.literal("Points: " + points).withStyle(Style.EMPTY.withColor(0xFCE266));
+    MutableComponent levelText = Component.literal("Level: " + level).withStyle(Style.EMPTY.withColor(0xFFFFFF));
+    pointsInfo.setMessage(levelText.append(" | ").append(pointsLeft));
     statsInfo.setX(width - statsInfo.getWidth() - 10);
     statsInfo.visible = showStats;
     for (Renderable widget : renderables) {
@@ -205,12 +204,12 @@ public class SkillTreeScreen extends Screen {
     for (SkillButton widget : skillButtons.values()) {
       graphics.pose().pushPose();
       graphics
-          .pose()
-          .translate(widget.x + widget.getWidth() / 2d, widget.y + widget.getHeight() / 2d, 0F);
+              .pose()
+              .translate(widget.x + widget.getWidth() / 2d, widget.y + widget.getHeight() / 2d, 0F);
       graphics.pose().scale(zoom, zoom, 1F);
       graphics
-          .pose()
-          .translate(-widget.x - widget.getWidth() / 2d, -widget.y - widget.getHeight() / 2d, 0F);
+              .pose()
+              .translate(-widget.x - widget.getWidth() / 2d, -widget.y - widget.getHeight() / 2d, 0F);
       widget.render(graphics, mouseX, mouseY, partialTick);
       graphics.pose().popPose();
     }
@@ -240,13 +239,14 @@ public class SkillTreeScreen extends Screen {
 
   private void playButtonSound() {
     getMinecraft()
-        .getSoundManager()
-        .play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1f));
+            .getSoundManager()
+            .play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1f));
   }
 
   @Override
   public void tick() {
     textFields().forEach(EditBox::tick);
+    IPlayerSkills skills = PlayerSkillsProvider.get(getPlayer());
   }
 
   @Override
@@ -260,7 +260,7 @@ public class SkillTreeScreen extends Screen {
   @Override
   public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
     textFields().toList().forEach(b -> b.keyReleased(keyCode, scanCode, modifiers));
-    return super.keyPressed(keyCode, scanCode, modifiers);
+    return super.keyReleased(keyCode, scanCode, modifiers);  // Фикс: keyReleased, не keyPressed
   }
 
   @Override
@@ -294,9 +294,9 @@ public class SkillTreeScreen extends Screen {
       double skillX = button.x + button.getWidth() / 2d - skillSize / 2;
       double skillY = button.y + button.getHeight() / 2d - skillSize / 2;
       if (mouseX >= skillX
-          && mouseY >= skillY
-          && mouseX < skillX + skillSize
-          && mouseY < skillY + skillSize) {
+              && mouseY >= skillY
+              && mouseX < skillX + skillSize
+              && mouseY < skillY + skillSize) {
         return button;
       }
     }
@@ -306,16 +306,16 @@ public class SkillTreeScreen extends Screen {
   private List<Component> getMergedSkillBonusesTooltips() {
     List<SkillBonus<?>> bonuses = new ArrayList<>();
     learnedSkills.stream()
-        .map(skillButtons::get)
-        .map(button -> button.skill)
-        .map(PassiveSkill::getBonuses)
-        .flatMap(List::stream)
-        .forEach(b -> addToMergeList(b, bonuses));
+            .map(skillButtons::get)
+            .map(button -> button.skill)
+            .map(PassiveSkill::getBonuses)
+            .flatMap(List::stream)
+            .forEach(b -> addToMergeList(b, bonuses));
     return bonuses.stream()
-        .sorted()
-        .map(SkillBonus::getTooltip)
-        .map(Component.class::cast)
-        .toList();
+            .sorted()
+            .map(SkillBonus::getTooltip)
+            .map(Component.class::cast)
+            .toList();
   }
 
   private static void addToMergeList(SkillBonus<?> b, List<SkillBonus<?>> bonuses) {
@@ -333,6 +333,7 @@ public class SkillTreeScreen extends Screen {
     List<PassiveSkill> skills = capability.getPlayerSkills();
     skills.stream().map(PassiveSkill::getId).forEach(learnedSkills::add);
     skillPoints = capability.getSkillPoints();
+    updateProgressDisplay();
     firstInitDone = true;
   }
 
@@ -380,31 +381,27 @@ public class SkillTreeScreen extends Screen {
   private Stream<PassiveSkill> getTreeSkills() {
     return skillTree.getSkillIds().stream()
             .map(SkillsReloader::getSkillById)
-            .filter(Objects::nonNull);  // Добавьте эту строку
+            .filter(Objects::nonNull);
   }
 
   private void addSkillConnections(PassiveSkill skill) {
     if (skill == null) return;
     skill.getDirectConnections().stream()
-            .filter(id -> skillButtons.containsKey(id))  // Добавьте: только если кнопка существует
+            .filter(id -> skillButtons.containsKey(id))
             .forEach(id -> connectSkills(SkillConnection.Type.DIRECT, skill.getId(), id));
-    // Аналогично для getLongConnections() и getOneWayConnections()
-    skill
-        .getDirectConnections()
-        .forEach(id -> connectSkills(SkillConnection.Type.DIRECT, skill.getId(), id));
-    skill
-        .getLongConnections()
-        .forEach(id -> connectSkills(SkillConnection.Type.LONG, skill.getId(), id));
-    skill
-        .getOneWayConnections()
-        .forEach(id -> connectSkills(SkillConnection.Type.ONE_WAY, skill.getId(), id));
+    skill.getLongConnections().stream()
+            .filter(id -> skillButtons.containsKey(id))
+            .forEach(id -> connectSkills(SkillConnection.Type.LONG, skill.getId(), id));
+    skill.getOneWayConnections().stream()
+            .filter(id -> skillButtons.containsKey(id))
+            .forEach(id -> connectSkills(SkillConnection.Type.ONE_WAY, skill.getId(), id));
   }
 
   protected void connectSkills(
-      SkillConnection.Type type, ResourceLocation skillId1, ResourceLocation skillId2) {
+          SkillConnection.Type type, ResourceLocation skillId1, ResourceLocation skillId2) {
     SkillButton button1 = skillButtons.get(skillId1);
     SkillButton button2 = skillButtons.get(skillId2);
-    if (button1 != null && button2 != null) {  // Добавьте эту проверку
+    if (button1 != null && button2 != null) {
       skillConnections.add(new SkillConnection(type, button1, button2));
     }
   }
@@ -418,21 +415,21 @@ public class SkillTreeScreen extends Screen {
     if (learnedSkills.size() + newlyLearnedSkills.size() >= SkillTreeClientData.max_skill_points)
       return;
     skillConnections.forEach(
-        connection -> {
-          SkillButton button1 = connection.getFirstButton();
-          SkillButton button2 = connection.getSecondButton();
-          if (button1.skillLearned == button2.skillLearned) return;
-          if (connection.getType() != SkillConnection.Type.ONE_WAY) {
-            if (!button1.skillLearned && canLearnSkill(button1.skill)) {
-              button1.setCanLearn();
-              button1.setActive();
-            }
-          }
-          if (!button2.skillLearned && canLearnSkill(button2.skill)) {
-            button2.setCanLearn();
-            button2.setActive();
-          }
-        });
+            connection -> {
+              SkillButton button1 = connection.getFirstButton();
+              SkillButton button2 = connection.getSecondButton();
+              if (button1.skillLearned == button2.skillLearned) return;
+              if (connection.getType() != SkillConnection.Type.ONE_WAY) {
+                if (!button1.skillLearned && canLearnSkill(button1.skill)) {
+                  button1.setCanLearn();
+                  button1.setActive();
+                }
+              }
+              if (!button2.skillLearned && canLearnSkill(button2.skill)) {
+                button2.setCanLearn();
+                button2.setActive();
+              }
+            });
   }
 
   private boolean canLearnSkill(PassiveSkill skill) {
@@ -444,12 +441,18 @@ public class SkillTreeScreen extends Screen {
     return true;
   }
 
+  private void updateProgressDisplay() {
+    IPlayerSkills skills = PlayerSkillsProvider.get(getPlayer());
+    skillPoints = skills.getSkillPoints();  // Синхронизируй field skillPoints с capability
+    // Labels и bar обновятся в renderWidgets() автоматически
+  }
+
   private long getLearnedSkillsWithTag(String tag) {
     return Streams.concat(learnedSkills.stream(), newlyLearnedSkills.stream())
-        .map(SkillsReloader::getSkillById)
-        .filter(Objects::nonNull)
-        .filter(skill -> skill.getTags().contains(tag))
-        .count();
+            .map(SkillsReloader::getSkillById)
+            .filter(Objects::nonNull)
+            .filter(skill -> skill.getTags().contains(tag))
+            .count();
   }
 
   private void confirmLearnSkills() {
@@ -463,30 +466,14 @@ public class SkillTreeScreen extends Screen {
     rebuildWidgets();
   }
 
-  private void buySkillPoint() {
-    int currentLevel = getCurrentLevel();
-    if (!canBuySkillPoint(currentLevel)) return;
-    int cost = SkillTreeClientData.getSkillPointCost(currentLevel);
-    NetworkDispatcher.network_channel.sendToServer(new GainSkillPointMessage());
-    getPlayer().giveExperiencePoints(-cost);
-  }
+  // Удалить: private void buySkillPoint() { ... }  // Нет покупки
+  // Удалить: private boolean canBuySkillPoint(int currentLevel) { ... }
+  // Удалить: private boolean isMaxLevel(int currentLevel) { ... }
 
-  private boolean canBuySkillPoint(int currentLevel) {
-    if (!SkillTreeClientData.enable_exp_exchange) return false;
-    if (isMaxLevel(currentLevel)) return false;
-    int cost = SkillTreeClientData.getSkillPointCost(currentLevel);
-    return getPlayer().totalExperience >= cost;
-  }
-
-  private boolean isMaxLevel(int currentLevel) {
-    return currentLevel >= SkillTreeClientData.max_skill_points;
-  }
-
+  // Фикс: Теперь используй из PlayerSkills
   private int getCurrentLevel() {
     IPlayerSkills capability = PlayerSkillsProvider.get(getPlayer());
-    int learnedSkills = capability.getPlayerSkills().size();
-    int skillPoints = capability.getSkillPoints();
-    return learnedSkills + skillPoints;
+    return capability.getCurrentLevel();  // NEW: Из capability, не learned + points
   }
 
   protected void skillButtonPressed(SkillButton button) {
@@ -502,7 +489,7 @@ public class SkillTreeScreen extends Screen {
       }
     }
     if (button.canLearn) {
-      skillPoints--;
+      skillPoints--;  // Трата point (без XP-check)
       newlyLearnedSkills.add(skill.getId());
       rebuildWidgets();
       return;
@@ -520,7 +507,7 @@ public class SkillTreeScreen extends Screen {
   }
 
   private void updateScreen(float partialTick) {
-    updateBuyPointButton();
+    // Удалить: updateBuyPointButton();  // Нет кнопки
     scrollX += scrollSpeedX * partialTick;
     scrollX = Math.max(-maxScrollX * zoom, Math.min(maxScrollX * zoom, scrollX));
     scrollSpeedX *= 0.8;
@@ -529,17 +516,11 @@ public class SkillTreeScreen extends Screen {
     scrollSpeedY *= 0.8;
   }
 
-  protected void updateBuyPointButton() {
-    int currentLevel = getCurrentLevel();
-    buyButton.active = false;
-    if (isMaxLevel(currentLevel)) return;
-    int pointCost = SkillTreeClientData.getSkillPointCost(currentLevel);
-    buyButton.active = getPlayer().totalExperience >= pointCost;
-  }
+  // Удалить: protected void updateBuyPointButton() { ... }
 
   private void renderOverlay(GuiGraphics graphics) {
     ResourceLocation texture =
-        new ResourceLocation("skilltree:textures/screen/skill_tree_overlay.png");
+            new ResourceLocation("skilltree:textures/screen/skill_tree_overlay.png");
     RenderSystem.enableBlend();
     graphics.blit(texture, 0, 0, 0, 0F, 0F, width, height, width, height);
     RenderSystem.disableBlend();
@@ -548,18 +529,18 @@ public class SkillTreeScreen extends Screen {
   @Override
   public void renderBackground(GuiGraphics graphics) {
     ResourceLocation texture =
-        new ResourceLocation("skilltree:textures/screen/skill_tree_background.png");
+            new ResourceLocation("skilltree:textures/screen/skill_tree_background.png");
     graphics.pose().pushPose();
     graphics.pose().translate(scrollX / 3F, scrollY / 3F, 0);
     int size = BACKGROUND_SIZE;
     graphics.blit(
-        texture, (width - size) / 2, (height - size) / 2, 0, 0F, 0F, size, size, size, size);
+            texture, (width - size) / 2, (height - size) / 2, 0, 0F, 0F, size, size, size, size);
     graphics.pose().popPose();
   }
 
   @Override
   public boolean mouseDragged(
-      double mouseX, double mouseY, int mouseButton, double dragAmountX, double dragAmountY) {
+          double mouseX, double mouseY, int mouseButton, double dragAmountX, double dragAmountY) {
     if (mouseButton != 0 && mouseButton != 2) return false;
     if (maxScrollX > 0) scrollSpeedX += dragAmountX * 0.25;
     if (maxScrollY > 0) scrollSpeedY += dragAmountY * 0.25;
@@ -578,14 +559,14 @@ public class SkillTreeScreen extends Screen {
 
   protected void renderConnections(GuiGraphics graphics, int mouseX, int mouseY) {
     skillConnections.stream()
-        .filter(c -> c.getType() == SkillConnection.Type.DIRECT)
-        .forEach(c -> renderDirectConnection(graphics, c));
+            .filter(c -> c.getType() == SkillConnection.Type.DIRECT)
+            .forEach(c -> renderDirectConnection(graphics, c));
     skillConnections.stream()
-        .filter(c -> c.getType() == SkillConnection.Type.LONG)
-        .forEach(c -> renderLongConnection(graphics, c, mouseX, mouseY));
+            .filter(c -> c.getType() == SkillConnection.Type.LONG)
+            .forEach(c -> renderLongConnection(graphics, c, mouseX, mouseY));
     skillConnections.stream()
-        .filter(c -> c.getType() == SkillConnection.Type.ONE_WAY)
-        .forEach(c -> renderOneWayConnection(graphics, c));
+            .filter(c -> c.getType() == SkillConnection.Type.ONE_WAY)
+            .forEach(c -> renderOneWayConnection(graphics, c));
   }
 
   private void renderDirectConnection(GuiGraphics graphics, SkillConnection c) {
@@ -593,7 +574,7 @@ public class SkillTreeScreen extends Screen {
   }
 
   private void renderLongConnection(
-      GuiGraphics graphics, SkillConnection connection, int mouseX, int mouseY) {
+          GuiGraphics graphics, SkillConnection connection, int mouseX, int mouseY) {
     SkillButton button1 = connection.getFirstButton();
     SkillButton button2 = connection.getSecondButton();
     SkillButton hoveredSkill = getSkillAt(mouseX, mouseY);
@@ -601,14 +582,14 @@ public class SkillTreeScreen extends Screen {
     boolean hovered = hoveredSkill == button1 || hoveredSkill == button2;
     if (learned || hovered) {
       ScreenHelper.renderGatewayConnection(
-          graphics, scrollX, scrollY, connection, learned, zoom, renderAnimation);
+              graphics, scrollX, scrollY, connection, learned, zoom, renderAnimation);
     }
   }
 
   private void renderOneWayConnection(GuiGraphics graphics, SkillConnection connection) {
     boolean highlighted = isSkillLearned(connection.getFirstButton().skill);
     ScreenHelper.renderOneWayConnection(
-        graphics, scrollX, scrollY, connection, highlighted, zoom, renderAnimation);
+            graphics, scrollX, scrollY, connection, highlighted, zoom, renderAnimation);
   }
 
   public float getAnimation() {

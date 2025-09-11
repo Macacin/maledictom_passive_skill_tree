@@ -20,9 +20,6 @@
     "minecraft/CraftingContainerMixin",
     "minecraft/ArmorSlotMixin",
     "easymagic/ModEnchantmentMenuMixin",
-    "apotheosis/ApothEnchantContainerMixin",
-    "apotheosis/AttributeBonusMixin",
-    "apotheosis/EnchantmentBonusMixin",
     "AbstractArrowAccessor",
     "LivingEntityAccessor",
     "CampfireBlockEntityAccessor",
@@ -31,7 +28,6 @@
   ],
   "client": [
     "minecraft/RecipeBookComponentMixin",
-    "apotheosis/AdventureModuleClientMixin",
     "EditBoxAccessor",
     "RecipeCollectionAccessor"
   ],
