@@ -17,15 +17,14 @@ import javax.annotation.Nonnull;
 public class PlayerSkills implements IPlayerSkills {
   private static final UUID TREE_VERSION = UUID.fromString("fd21c2a9-7ab5-4a1e-b06d-ddb87b56047f");
 
-  // Новые константы для level up (можно вынести в Config.java для настройки)
-  private static final int BASE_LEVEL_COST = 100;  // Базовая стоимость для level 1
-  private static final double GROWTH_FACTOR = 1.2;  // Коэффициент роста (экспоненциальный: level 1:100, 2:120, 3:144...)
-  private static final int MAX_LEVEL = 100;  // Макс. уровень (cap points ~100)
+  private static final int BASE_LEVEL_COST = 18;
+  private static final double GROWTH_FACTOR = 1.2;
+  private static final int MAX_LEVEL = 10000;
 
   private final NonNullList<PassiveSkill> skills = NonNullList.create();
-  private int skillPoints;  // Автоматически +1 при level up
-  private int skillExperience = 0;  // Модовый XP pool
-  private int currentLevel = 0;  // Текущий уровень (начинаем с 0)
+  private int skillPoints;
+  private int skillExperience = 0;
+  private int currentLevel = 0;
   private boolean treeReset;
 
   @Override
@@ -61,8 +60,14 @@ public class PlayerSkills implements IPlayerSkills {
       skillExperience -= nextCost;
       currentLevel++;
       skillPoints++;
-      grantSkillPoints(1);
     }
+  }
+
+  public void setSkillExperience(int exp) {
+    this.skillExperience = Math.max(0, exp);
+  }
+  public void setCurrentLevel(int lvl) {
+    this.currentLevel = Math.max(0, Math.min(MAX_LEVEL, lvl));
   }
 
   public int getCurrentLevel() {
@@ -139,8 +144,8 @@ public class PlayerSkills implements IPlayerSkills {
     skills.clear();
     UUID treeVersion = tag.hasUUID("TreeVersion") ? tag.getUUID("TreeVersion") : null;
     skillPoints = tag.getInt("Points");
-    skillExperience = tag.getInt("Experience");  // Новое: Загружаем XP
-    currentLevel = tag.getInt("Level");  // Новое: Загружаем уровень
+    skillExperience = tag.contains("Experience") ? tag.getInt("Experience") : 0;  // NEW: Fallback 0 if absent
+    currentLevel = tag.contains("Level") ? tag.getInt("Level") : 0;
     ListTag skillsTag = tag.getList("Skills", Tag.TAG_STRING);
     if (!TREE_VERSION.equals(treeVersion)) {
       skillPoints += skillsTag.size();

@@ -32,4 +32,7 @@ public interface IPlayerSkills extends INBTSerializable<CompoundTag> {
   int getCurrentLevel();
 
   int getNextLevelCost();
+
+  void setSkillExperience(int exp);
+  void setCurrentLevel(int lvl);
 }

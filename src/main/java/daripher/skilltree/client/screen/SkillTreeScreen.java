@@ -178,6 +178,7 @@ public class SkillTreeScreen extends Screen {
     int level = skills.getCurrentLevel();
     int currentXP = skills.getSkillExperience();
     int nextCost = skills.getNextLevelCost();
+    System.out.println("[DEBUG GUI] Render: Real level=" + skills.getCurrentLevel() + ", XP=" + currentXP + ", Points=" + points);
     MutableComponent pointsLeft = Component.literal("Points: " + points).withStyle(Style.EMPTY.withColor(0xFCE266));
     MutableComponent levelText = Component.literal("Level: " + level).withStyle(Style.EMPTY.withColor(0xFFFFFF));
     pointsInfo.setMessage(levelText.append(" | ").append(pointsLeft));
@@ -441,7 +442,7 @@ public class SkillTreeScreen extends Screen {
     return true;
   }
 
-  private void updateProgressDisplay() {
+  public void updateProgressDisplay() {
     IPlayerSkills skills = PlayerSkillsProvider.get(getPlayer());
     skillPoints = skills.getSkillPoints();  // Синхронизируй field skillPoints с capability
     // Labels и bar обновятся в renderWidgets() автоматически
@@ -466,16 +467,10 @@ public class SkillTreeScreen extends Screen {
     rebuildWidgets();
   }
 
-  // Удалить: private void buySkillPoint() { ... }  // Нет покупки
-  // Удалить: private boolean canBuySkillPoint(int currentLevel) { ... }
-  // Удалить: private boolean isMaxLevel(int currentLevel) { ... }
-
-  // Фикс: Теперь используй из PlayerSkills
   private int getCurrentLevel() {
     IPlayerSkills capability = PlayerSkillsProvider.get(getPlayer());
-    return capability.getCurrentLevel();  // NEW: Из capability, не learned + points
+    return capability.getCurrentLevel();  // Из PlayerSkills (реальный level от XP)
   }
-
   protected void skillButtonPressed(SkillButton button) {
     Objects.requireNonNull(minecraft);
     PassiveSkill skill = button.skill;

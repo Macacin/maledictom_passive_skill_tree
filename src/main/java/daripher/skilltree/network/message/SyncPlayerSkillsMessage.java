@@ -21,6 +21,8 @@ import net.minecraftforge.network.NetworkEvent;
 public class SyncPlayerSkillsMessage {
   private List<ResourceLocation> learnedSkills = new ArrayList<>();
   private int skillPoints;
+  private int skillExperience;  // NEW: Для sync XP
+  private int currentLevel;
 
   private SyncPlayerSkillsMessage() {}
 
@@ -28,6 +30,8 @@ public class SyncPlayerSkillsMessage {
     IPlayerSkills skillsCapability = PlayerSkillsProvider.get(player);
     learnedSkills = skillsCapability.getPlayerSkills().stream().map(PassiveSkill::getId).toList();
     skillPoints = skillsCapability.getSkillPoints();
+    skillExperience = skillsCapability.getSkillExperience();
+    currentLevel = skillsCapability.getCurrentLevel();
   }
 
   public static SyncPlayerSkillsMessage decode(FriendlyByteBuf buf) {
@@ -37,6 +41,8 @@ public class SyncPlayerSkillsMessage {
       result.learnedSkills.add(new ResourceLocation(buf.readUtf()));
     }
     result.skillPoints = buf.readInt();
+    result.skillExperience = buf.readInt();  // NEW
+    result.currentLevel = buf.readInt();
     return result;
   }
 
@@ -60,8 +66,11 @@ public class SyncPlayerSkillsMessage {
         .filter(Objects::nonNull)
         .forEach(capability.getPlayerSkills()::add);
     capability.setSkillPoints(message.skillPoints);
+    capability.setSkillExperience(message.skillExperience);  // NEW (предполагая setSkillExperience в PlayerSkills)
+    capability.setCurrentLevel(message.currentLevel);
     if (minecraft.screen instanceof SkillTreeScreen screen) {
       screen.skillPoints = capability.getSkillPoints() - screen.newlyLearnedSkills.size();
+      screen.updateProgressDisplay();
       screen.init();
     }
   }
@@ -70,5 +79,7 @@ public class SyncPlayerSkillsMessage {
     buf.writeInt(learnedSkills.size());
     learnedSkills.stream().map(ResourceLocation::toString).forEach(buf::writeUtf);
     buf.writeInt(skillPoints);
+    buf.writeInt(skillExperience);  // NEW
+    buf.writeInt(currentLevel);
   }
 }
