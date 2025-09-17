@@ -1,7 +1,6 @@
 package daripher.skilltree.compat.jei;
 
 import daripher.skilltree.SkillTreeMod;
-import dev.shadowsoffire.apotheosis.adventure.socket.gem.GemItem;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
@@ -21,20 +20,7 @@ public class JeiCompatibility implements IModPlugin {
   }
 
   @Override
-  public void registerRecipes(@NotNull IRecipeRegistration registration) {
-    ForgeRegistries.ITEMS.getValues().stream()
-        .filter(GemItem.class::isInstance)
-        .map(ItemStack::new)
-        .forEach(itemStack -> addGemInfo(registration, itemStack));
-  }
-
-  @Override
   public void registerGuiHandlers(@NotNull IGuiHandlerRegistration registration) {
     //		registration.
-  }
-
-  protected void addGemInfo(IRecipeRegistration registration, ItemStack itemStack) {
-    registration.addIngredientInfo(
-        itemStack, VanillaTypes.ITEM_STACK, Component.translatable("skilltree.jei.gem_info"));
   }
 }

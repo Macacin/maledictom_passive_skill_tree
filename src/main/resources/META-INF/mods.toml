@@ -50,3 +50,38 @@ license="${mod_license}"
     versionRange="[1.0.3,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="architectury"
+    mandatory=true
+    versionRange="[9.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="placebo"
+    mandatory=true
+    versionRange="[8.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="ftbteams"
+    mandatory=true
+    versionRange="[2001.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="ftblibrary"
+    mandatory=true
+    versionRange="[2001.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="ftbquests"
+    mandatory=true
+    versionRange="[2001.4.0,)"
+    ordering="NONE"
+    side="BOTH"

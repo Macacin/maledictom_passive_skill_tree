@@ -32,8 +32,8 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', mod_id
 
-			property 'mixin.env.remapRefMap', 'true'
-			property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
                 "${mod_id}" {
@@ -51,8 +51,8 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', mod_id
 
-			property 'mixin.env.remapRefMap', 'true'
-			property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
                 "${mod_id}" {
@@ -99,7 +99,7 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-	maven {
+    maven {
         url = "https://maven.theillusivec4.top/"
     }
     maven {
@@ -122,35 +122,32 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.3.1+1.20.1")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.3.1+1.20.1")
     // attribute fix
-	implementation fg.deobf("curse.maven:attributefix-280510:4648448")
+    implementation fg.deobf("curse.maven:attributefix-280510:4648448")
     // max health fix
-	implementation fg.deobf("curse.maven:max-health-fix-492246:4648479")
+    implementation fg.deobf("curse.maven:max-health-fix-492246:4648479")
     // dummy target
-	implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:4602101")
-	implementation fg.deobf("curse.maven:selene-499980:4656567")
+    implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:4602101")
+    implementation fg.deobf("curse.maven:selene-499980:4656567")
     // easy magic
-	implementation fg.deobf("curse.maven:easy-magic-456239:4658750")
-	implementation fg.deobf("curse.maven:puzzles-lib-495476:4673053")
+    implementation fg.deobf("curse.maven:easy-magic-456239:4658750")
+    implementation fg.deobf("curse.maven:puzzles-lib-495476:4673053")
     // farmer's delight
-	implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
+    implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
     // jei
-	implementation fg.deobf("curse.maven:jei-238222:4644453")
+    implementation fg.deobf("curse.maven:jei-238222:4644453")
     // apple skin
-	implementation fg.deobf("curse.maven:appleskin-248787:4605078")
-    // apotheosis
-    implementation fg.deobf("curse.maven:apotheosis-313970:5486368")
-    implementation fg.deobf("curse.maven:placebo-283644:5414631")
-    implementation fg.deobf("curse.maven:apothic-attributes-898963:5529789")
-    // tetra
-    implementation fg.deobf("curse.maven:tetra-289712:4857842")
-    implementation fg.deobf("curse.maven:mutil-351914:4824501")
+    implementation fg.deobf("curse.maven:appleskin-248787:4605078")
     // dave's potioneering
     implementation fg.deobf("curse.maven:daves-potioneering-639653:4770409")
     implementation fg.deobf("curse.maven:geckolib-388172:4933987")
     // item production lib
     implementation fg.deobf("curse.maven:item-production-lib-950401:5097458")
-    // apothic curios
-    implementation fg.deobf("curse.maven:apothic-curios-950712:5497444")
+    // ftb
+    implementation fg.deobf("curse.maven:placebo-283644:6274231")
+    implementation fg.deobf("curse.maven:architectury-api-419699:5137938")
+    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:5267190")
+    implementation fg.deobf("curse.maven:ftb-library-forge-404465:6807424")
+    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:6829212")
 }
 
 mixin {
@@ -159,11 +156,11 @@ mixin {
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
 def replaceProperties = [
-        minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
-        forge_version: forge_version, forge_version_range: forge_version_range,
+        minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
+        forge_version       : forge_version, forge_version_range: forge_version_range,
         loader_version_range: loader_version_range,
-        mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
-        mod_authors: mod_authors, mod_description: mod_description
+        mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+        mod_authors         : mod_authors, mod_description: mod_description
 ]
 processResources {
     inputs.properties replaceProperties

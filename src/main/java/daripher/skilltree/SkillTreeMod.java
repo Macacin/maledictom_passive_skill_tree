@@ -1,7 +1,5 @@
 package daripher.skilltree;
 
-import daripher.skilltree.compat.attributeslib.AttributesLibCompatibility;
-import daripher.skilltree.compat.tetra.TetraCompatibility;
 import daripher.skilltree.config.ClientConfig;
 import daripher.skilltree.config.Config;
 import daripher.skilltree.init.*;
@@ -36,11 +34,5 @@ public class SkillTreeMod {
     PSTEventListeners.REGISTRY.register(modEventBus);
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-    addCompatibilities();
-  }
-
-  protected void addCompatibilities() {
-    if (ModList.get().isLoaded("tetra")) TetraCompatibility.INSTANCE.register();
-    if (ModList.get().isLoaded("attributeslib")) AttributesLibCompatibility.INSTANCE.register();
   }
 }
