@@ -30,6 +30,11 @@ public class Config {
     public static final ForgeConfigSpec.IntValue GRIND_TIME_WINDOW;
     public static final ForgeConfigSpec.IntValue GRIND_INITIAL_PENALTY_PERCENT;
     public static final ForgeConfigSpec.IntValue GRIND_MAX_PENALTY_PERCENT;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> COMMON_STRUCTURES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> UNCOMMON_STRUCTURES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> RARE_STRUCTURES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> EPIC_STRUCTURES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> LEGENDARY_STRUCTURES;
     //  private static final ConfigValue<Boolean> DRAGON_DROPS_AMNESIA_SCROLL;
     public static final int DEFAULT_MAX_SKILLS = 85;
     public static int max_skill_points;
@@ -91,6 +96,14 @@ public class Config {
         GRIND_MIN_MULTIPLIER = BUILDER.defineInRange("grind_min_multiplier", 0.4, 0.1, 1.0);  // Min XP % (0.4 = 40%)
         BUILDER.pop();
 
+        BUILDER.push("Structure discovery tiers");
+        COMMON_STRUCTURES = BUILDER.defineList("common_structures", List.of("minecraft:village_plains", "minecraft:village_desert", "minecraft:village_savanna", "minecraft:village_snowy", "minecraft:village_taiga", "minecraft:ruined_portal", "minecraft:shipwreck", "minecraft:ocean_monument", "minecraft:ancient_city"), o -> o instanceof String);
+        UNCOMMON_STRUCTURES = BUILDER.defineList("uncommon_structures", List.of("minecraft:desert_pyramid", "minecraft:jungle_pyramid", "minecraft:igloo"), o -> o instanceof String);
+        RARE_STRUCTURES = BUILDER.defineList("rare_structures", List.of("minecraft:stronghold", "minecraft:end_city", "minecraft:woodland_mansion"), o -> o instanceof String);
+        EPIC_STRUCTURES = BUILDER.defineList("epic_structures", List.of("minecraft:bastion_remnant", "minecraft:ancient_city"), o -> o instanceof String);  // Example
+        LEGENDARY_STRUCTURES = BUILDER.defineList("legendary_structures", List.of("minecraft:nether_fortress"), o -> o instanceof String);  // Example
+        BUILDER.pop();
+
         SPEC = BUILDER.build();
     }
 
@@ -132,10 +145,64 @@ public class Config {
         return first_skill_cost + (last_skill_cost - first_skill_cost) * level / max_skill_points;
     }
 
-    public static int getGrindTimeWindow() { return GRIND_TIME_WINDOW.get(); }
-    public static int getGrindStreakThreshold() { return GRIND_STREAK_THRESHOLD.get(); }
-    public static double getGrindInitialPenalty() { return GRIND_INITIAL_PENALTY_PERCENT.get() / 100.0; }
-    public static double getGrindMaxPenalty() { return GRIND_MAX_PENALTY_PERCENT.get() / 100.0; }
-    public static int getGrindMaxStreakLength() { return GRIND_MAX_STREAK_LENGTH.get(); }
-    public static double getGrindMinMultiplier() { return GRIND_MIN_MULTIPLIER.get(); }
+    public static int getGrindTimeWindow() {
+        return GRIND_TIME_WINDOW.get();
+    }
+
+    public static int getGrindStreakThreshold() {
+        return GRIND_STREAK_THRESHOLD.get();
+    }
+
+    public static double getGrindInitialPenalty() {
+        return GRIND_INITIAL_PENALTY_PERCENT.get() / 100.0;
+    }
+
+    public static double getGrindMaxPenalty() {
+        return GRIND_MAX_PENALTY_PERCENT.get() / 100.0;
+    }
+
+    public static int getGrindMaxStreakLength() {
+        return GRIND_MAX_STREAK_LENGTH.get();
+    }
+
+    public static double getGrindMinMultiplier() {
+        return GRIND_MIN_MULTIPLIER.get();
+    }
+
+    public static List<? extends String> getCommonStructures() {
+        return COMMON_STRUCTURES.get();
+    }
+
+    public static List<? extends String> getUncommonStructures() {
+        return UNCOMMON_STRUCTURES.get();
+    }
+
+    public static List<? extends String> getRareStructures() {
+        return RARE_STRUCTURES.get();
+    }
+
+    public static List<? extends String> getEpicStructures() {
+        return EPIC_STRUCTURES.get();
+    }
+
+    public static List<? extends String> getLegendaryStructures() {
+        return LEGENDARY_STRUCTURES.get();
+    }
+
+    public static int getTierB(String tier) {
+        switch (tier) {
+            case "common":
+                return 25;
+            case "uncommon":
+                return 50;
+            case "rare":
+                return 100;
+            case "epic":
+                return 150;
+            case "legendary":
+                return 200;
+            default:
+                return 25;  // Default common
+        }
+    }
 }

@@ -178,7 +178,6 @@ public class SkillTreeScreen extends Screen {
     int level = skills.getCurrentLevel();
     int currentXP = skills.getSkillExperience();
     int nextCost = skills.getNextLevelCost();
-    System.out.println("[DEBUG GUI] Render: Real level=" + skills.getCurrentLevel() + ", XP=" + currentXP + ", Points=" + points);
     MutableComponent pointsLeft = Component.literal("Points: " + points).withStyle(Style.EMPTY.withColor(0xFCE266));
     MutableComponent levelText = Component.literal("Level: " + level).withStyle(Style.EMPTY.withColor(0xFFFFFF));
     pointsInfo.setMessage(levelText.append(" | ").append(pointsLeft));
