@@ -5,6 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 version = mod_version
@@ -190,4 +191,39 @@ jar.finalizedBy('reobfJar')
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+// Custom task для deobf dev JAR (аналогично FTB)
+jar {
+    enabled = false  // Отключаем стандартный jar (sources only)
+}
+
+shadowJar {
+    enabled = true
+    archiveClassifier = 'dev-shadow'  // Имя: skilltree-1.0.0-dev-shadow.jar
+    destinationDirectory = file("$buildDir/libs")
+
+    // Deobf: Используй Forge mappings
+    configurations = [project.configurations.shadow]
+
+    // Включай только mod код (исключай MC/Forge)
+    from sourceSets.main.output
+    exclude 'META-INF/**'  // Исключай манифесты
+
+    // Relocate, если нужно (для конфликтов, optional)
+    // relocate 'dev.ftb.mods.ftbquests', 'shadow.dev.ftb.mods.ftbquests'
+
+    // Manifest для Forge mod
+    manifest {
+        attributes 'Main-Class': 'net.minecraftforge.fml.loading.FMLClientLaunchHandler'  // Не нужно, Forge сам
+    }
+
+    // Minimize JAR (опционально, для размера)
+    minimize()
+}
+
+// Task для sources JAR (стандартный)
+task shadowSourcesJar(type: Jar, dependsOn: classes) {
+    enabled = true
+    archiveClassifier = 'sources'
+    from sourceSets.main.java
 }
