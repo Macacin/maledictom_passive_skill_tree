@@ -32,11 +32,9 @@ public class AssistXPHandler {
             if (source.getEntity() instanceof Player attacker) {
                 LivingEntity target = event.getEntity();
                 if (target instanceof Player) return;
-                DamageAssistProvider.get(target).markAssisted(attacker.getUUID());  // Now safe
-                System.out.println("[DEBUG Hurt] Marked assisted for " + attacker.getName() + " on " + target.getName());  // Debug
+                DamageAssistProvider.get(target).markAssisted(attacker.getUUID());
             }
         } catch (Exception e) {
-            System.out.println("[DEBUG Hurt ERROR] " + e.getMessage() + " — Damage continues");  // Log, no cancel
             e.printStackTrace();
         }
     }
@@ -49,12 +47,11 @@ public class AssistXPHandler {
         Player killer = source.getEntity() instanceof Player ? (Player) source.getEntity() : null;
         if (killer == null) return;
 
-        // Calculate B (base XP for kill)
         float maxHP = enemy.getMaxHealth();
         double mobType = getMobType(maxHP);
         double base = maxHP * 0.1;
         double B = Math.pow(base, 1.2) * mobType;
-        double r = 0.3 + 0.4 * (1 - Math.exp(-0.005 * maxHP));  // Weakener
+        double r = 0.3 + 0.4 * (1 - Math.exp(-0.005 * maxHP));
         int xpAssistBase = (int) (B * r);
 
         if (xpAssistBase <= 0) return;
@@ -64,7 +61,7 @@ public class AssistXPHandler {
 
         for (Map.Entry<UUID, Boolean> entry : assisted.entrySet()) {
             UUID uuid = entry.getKey();
-            if (uuid.equals(killer.getUUID())) continue;  // Exclude killer
+            if (uuid.equals(killer.getUUID())) continue;
 
             Player assister = enemy.level().getPlayerByUUID(uuid);
             if (assister == null) continue;
@@ -72,7 +69,6 @@ public class AssistXPHandler {
             double distance = assister.position().distanceTo(deathPos);
             if (distance > 50) continue;
 
-            // NEW: Grind penalty for assister
             String mobTypeStr = enemy.getType().toString();
             GrindTracker grind = GrindTrackerProvider.get(assister);
             double multiplier = grind.getPenaltyMultiplier(mobTypeStr);
@@ -86,7 +82,6 @@ public class AssistXPHandler {
             if (xpAssist > 0) {
                 IPlayerSkills skills = PlayerSkillsProvider.get(assister);
                 skills.addSkillExperience(xpAssist);
-                System.out.println("[DEBUG Assist] Gave " + xpAssist + " XP to " + assister.getName() + " (dist=" + distance + ", r=" + r + ", multiplier=" + multiplier + ")");
                 if (assister instanceof ServerPlayer serverPlayer) {
                     NetworkDispatcher.network_channel.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new SyncPlayerSkillsMessage(serverPlayer));
                 }

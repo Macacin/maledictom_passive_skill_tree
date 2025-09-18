@@ -29,28 +29,23 @@ public class XPEventHandler {
         if (player == null) return;
         if (enemy.deathTime > 0) return;
 
-        // Calculate B (base XP for kill)
         float maxHP = enemy.getMaxHealth();
         double mobType = getMobType(maxHP);
         double base = maxHP * 0.1;
         double B = Math.pow(base, 1.2) * mobType;
 
-        // NEW: Grind penalty
         String mobTypeStr = enemy.getType().toString();
         GrindTracker grind = GrindTrackerProvider.get(player);
         double multiplier = grind.getPenaltyMultiplier(mobTypeStr);
         grind.updateLastTime(player, mobTypeStr);
 
         double previousXP = grind.getLastXP(mobTypeStr);
-        if (previousXP <= 0) previousXP = B;  // First full
-        int amount = Math.max(1, (int) (previousXP * multiplier));  // Min 1
-        grind.setLastXP(mobTypeStr, amount);  // Update
-        System.out.println("[DEBUG Cumulative] B=" + B + ", previous=" + previousXP + ", multiplier=" + multiplier + ", amount=" + amount);
+        if (previousXP <= 0) previousXP = B;
+        int amount = Math.max(1, (int) (previousXP * multiplier));
+        grind.setLastXP(mobTypeStr, amount);
         if (amount > 0) {
             IPlayerSkills skills = PlayerSkillsProvider.get(player);
             skills.addSkillExperience(amount);
-            System.out.println("[DEBUG] XP added: " + amount + " from " + enemy.getName().getString() + " (HP=" + maxHP + ", type=" + mobType + ", multiplier=" + multiplier + ")");
-            // Sync to client
             if (player instanceof ServerPlayer serverPlayer) {
                 NetworkDispatcher.network_channel.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new SyncPlayerSkillsMessage(serverPlayer));
             }

@@ -22,7 +22,6 @@ public class CraftTierGenerator {
     public static void onServerStarting(ServerStartingEvent event) {
         CraftConfig config = CraftConfig.INSTANCE;
         if (!config.recipeTiers.isEmpty()) {
-            System.out.println("DEBUG: Craft tiers already loaded, skipping generation.");
             return;
         }
 
@@ -35,15 +34,13 @@ public class CraftTierGenerator {
         // Собираем в Map: ID -> tier 0
         Map<ResourceLocation, Integer> defaultTiers = recipeStream.stream()
                 .collect(Collectors.toMap(
-                        Recipe::getId,  // Ключ: ResourceLocation из рецепта
-                        recipe -> 0,    // Значение: 0 по умолчанию
-                        (existing, replacement) -> existing,  // Merger на случай дубликатов (редко)
-                        HashMap::new    // Collector в HashMap
+                        Recipe::getId,
+                        recipe -> 0,
+                        (existing, replacement) -> existing,
+                        HashMap::new
                 ));
 
         config.save(defaultTiers);
-        config.load();  // Перезагружаем, чтобы подхватить сгенерированный конфиг
-
-        System.out.println("INFO: Generated default craft tiers config with " + defaultTiers.size() + " recipes (all tier 0). Edit config/skilltree/craft_tiers.json to customize tiers.");
+        config.load();
     }
 }

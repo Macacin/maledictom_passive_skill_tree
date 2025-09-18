@@ -31,15 +31,12 @@ public class CraftEventListener {
         var inventory = (CraftingContainer) event.getInventory();
         var level = player.level();
 
-        // Получи RecipeManager
         var server = player.getServer();
         if (server == null) return;
         var recipeManager = server.getRecipeManager();
 
-        // Простой lookup recipe по matrix и world (стандарт для Forge 1.20.1)
         Optional<? extends Recipe<?>> optionalRecipe = recipeManager.getRecipeFor(RecipeType.CRAFTING, inventory, level);
         if (optionalRecipe.isEmpty()) {
-            System.out.println("DEBUG: No matching recipe for craft by " + player.getName().getString());
             return;
         }
 
@@ -50,12 +47,9 @@ public class CraftEventListener {
 
         PlayerSkillsProvider.get(player).addSkillExperience(xp);
 
-        // Sync
         if (player instanceof ServerPlayer serverPlayer) {
             SyncPlayerSkillsMessage msg = new SyncPlayerSkillsMessage(serverPlayer);
             NetworkDispatcher.network_channel.send(PacketDistributor.PLAYER.with(() -> serverPlayer), msg);
         }
-
-        System.out.println("INFO: Granted " + xp + " craft XP for recipe " + recipeId + " to " + player.getName().getString());
     }
 }

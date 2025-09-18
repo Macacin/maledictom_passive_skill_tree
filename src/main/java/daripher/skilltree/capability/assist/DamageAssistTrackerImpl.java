@@ -14,7 +14,7 @@ public class DamageAssistTrackerImpl implements DamageAssistTracker {
 
     @Override
     public Map<UUID, Boolean> getAssistedPlayers() {
-        return new HashMap<>(assistedPlayers);  // Copy for safety
+        return new HashMap<>(assistedPlayers);
     }
 
     @Override

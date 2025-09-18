@@ -27,8 +27,7 @@ public class CraftConfig {
         Path configDir = FMLPaths.CONFIGDIR.get().resolve("skilltree");
         try {
             Files.createDirectories(configDir);
-        } catch (IOException e) {
-            System.out.println("ERROR: Failed to create config directory for SkillTree: " + e.getMessage());
+        } catch (IOException ignored) {
         }
         this.configFile = configDir.resolve(FILE_NAME);
         this.load();
@@ -37,7 +36,6 @@ public class CraftConfig {
     public void load() {
         recipeTiers.clear();
         if (!Files.exists(configFile)) {
-            System.out.println("INFO: Craft tiers config not found, will generate default on server start.");
             return;
         }
         try {
@@ -55,9 +53,7 @@ public class CraftConfig {
                     }
                 });
             }
-            System.out.println("INFO: Loaded " + recipeTiers.size() + " craft tiers from config.");
-        } catch (IOException | IllegalStateException e) {
-            System.out.println("ERROR: Failed to load craft tiers config: " + e.getMessage());
+        } catch (IOException | IllegalStateException ignored) {
         }
     }
 
@@ -70,9 +66,7 @@ public class CraftConfig {
         newTiers.forEach((id, tier) -> obj.addProperty(id.toString(), tier));
         try {
             Files.writeString(configFile, GSON.toJson(obj));
-            System.out.println("INFO: Saved craft tiers config with " + newTiers.size() + " entries.");
-        } catch (IOException e) {
-            System.out.println("ERROR: Failed to save craft tiers config: " + e.getMessage());
+        } catch (IOException ignored) {
         }
     }
 
