@@ -42,7 +42,7 @@ public class CraftEventListener {
 
         Recipe<?> recipe = optionalRecipe.get();
         ResourceLocation recipeId = recipe.getId();
-        int xp = CraftHelper.calculateCraftXP(recipeId, player);
+        double xp = CraftHelper.calculateCraftXP(recipeId, player);
         if (xp <= 0) return;
 
         PlayerSkillsProvider.get(player).addSkillExperience(xp);

@@ -54,16 +54,14 @@ public class StructureDiscoveryHandler {
 
                         if (isNew) {
                             String tier = getTierForType(typeStr);
-                            int B = Config.getTierB(tier);
+                            double B = Config.getTierB(tier);
                             int L = PlayerSkillsProvider.get(player).getCurrentLevel();
                             double xp = B * (1 + Math.pow(2.5, L - 1) / 119);
-                            int amount = (int) xp;
 
-                            if (amount > 0) {
-                                PlayerSkillsProvider.get(player).addSkillExperience(amount);
+                            if (xp > 0) {
+                                PlayerSkillsProvider.get(player).addSkillExperience(xp);
                                 discovered.addDiscoveredChunk(instanceKey);
                                 NetworkDispatcher.network_channel.send(PacketDistributor.PLAYER.with(() -> player), new SyncPlayerSkillsMessage(player));
-                            } else {
                             }
                         }
                     } else {

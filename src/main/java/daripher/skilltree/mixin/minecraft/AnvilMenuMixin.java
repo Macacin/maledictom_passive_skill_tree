@@ -58,7 +58,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
 
         if (isCombine || isRepair) {
             int level = CraftingXPUtil.getPlayerLevel(serverPlayer);
-            int xp = CraftingXPUtil.calculateXP(level);
+            double xp = CraftingXPUtil.calculateXP(level);
             CraftingXPUtil.addXP(serverPlayer, xp);
         }
     }

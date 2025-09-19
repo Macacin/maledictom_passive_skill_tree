@@ -34,6 +34,24 @@ public class Config {
     public static final ForgeConfigSpec.IntValue CRAFTING_GRIND_TIME_WINDOW;
     public static final ForgeConfigSpec.IntValue CRAFTING_GRIND_PENALTY_STEP_PERCENT;
     public static final ForgeConfigSpec.DoubleValue CRAFTING_GRIND_MIN_MULTIPLIER;
+
+    public static final ForgeConfigSpec.DoubleValue TIER1_ORE_B;
+    public static final ForgeConfigSpec.DoubleValue TIER2_ORE_B;
+    public static final ForgeConfigSpec.DoubleValue TIER3_ORE_B;
+    public static final ForgeConfigSpec.DoubleValue TIER4_ORE_B;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> TIER1_ORES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> TIER2_ORES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> TIER3_ORES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> TIER4_ORES;
+    public static final ForgeConfigSpec.IntValue MINING_GRIND_TIME_WINDOW;
+    public static final ForgeConfigSpec.IntValue MINING_GRIND_PENALTY_STEP_PERCENT;
+    public static final ForgeConfigSpec.DoubleValue MINING_GRIND_MIN_MULTIPLIER;
+
+    public static final ForgeConfigSpec.DoubleValue TIER1_STRUCTURE_B;
+    public static final ForgeConfigSpec.DoubleValue TIER2_STRUCTURE_B;
+    public static final ForgeConfigSpec.DoubleValue TIER3_STRUCTURE_B;
+    public static final ForgeConfigSpec.DoubleValue TIER4_STRUCTURE_B;
+    public static final ForgeConfigSpec.DoubleValue TIER5_STRUCTURE_B;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> COMMON_STRUCTURES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> UNCOMMON_STRUCTURES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> RARE_STRUCTURES;
@@ -92,27 +110,46 @@ public class Config {
         BUILDER.pop();
 
         BUILDER.push("Penalties for grind for killing & assisting mobs");
-        GRIND_TIME_WINDOW = BUILDER.defineInRange("grind_time_window", 5, 1, 60);  // Seconds
-        GRIND_STREAK_THRESHOLD = BUILDER.defineInRange("grind_streak_threshold", 3, 1, 10);  // Actions to start penalty
-        GRIND_INITIAL_PENALTY_PERCENT = BUILDER.defineInRange("grind_initial_penalty_percent", 20, 0, 50);  // Start %
-        GRIND_MAX_PENALTY_PERCENT = BUILDER.defineInRange("grind_max_penalty_percent", 60, 20, 100);  // Max %
-        GRIND_MAX_STREAK_LENGTH = BUILDER.defineInRange("grind_max_streak_length", 20, 5, 50);  // Kills for full max
-        GRIND_MIN_MULTIPLIER = BUILDER.defineInRange("grind_min_multiplier", 0.4, 0.1, 1.0);  // Min XP % (0.4 = 40%)
+        GRIND_TIME_WINDOW = BUILDER.defineInRange("grind_time_window", 5, 1, 60);
+        GRIND_STREAK_THRESHOLD = BUILDER.defineInRange("grind_streak_threshold", 3, 1, 10);
+        GRIND_INITIAL_PENALTY_PERCENT = BUILDER.defineInRange("grind_initial_penalty_percent", 20, 0, 50);
+        GRIND_MAX_PENALTY_PERCENT = BUILDER.defineInRange("grind_max_penalty_percent", 60, 20, 100);
+        GRIND_MAX_STREAK_LENGTH = BUILDER.defineInRange("grind_max_streak_length", 20, 5, 50);
+        GRIND_MIN_MULTIPLIER = BUILDER.defineInRange("grind_min_multiplier", 0.4, 0.1, 1.0);
         BUILDER.pop();
 
         BUILDER.push("Structure discovery tiers");
         COMMON_STRUCTURES = BUILDER.defineList("common_structures", List.of("minecraft:village_plains", "minecraft:village_desert", "minecraft:village_savanna", "minecraft:village_snowy", "minecraft:village_taiga", "minecraft:ruined_portal", "minecraft:shipwreck", "minecraft:ocean_monument", "minecraft:ancient_city"), o -> o instanceof String);
         UNCOMMON_STRUCTURES = BUILDER.defineList("uncommon_structures", List.of("minecraft:desert_pyramid", "minecraft:jungle_pyramid", "minecraft:igloo"), o -> o instanceof String);
         RARE_STRUCTURES = BUILDER.defineList("rare_structures", List.of("minecraft:stronghold", "minecraft:end_city", "minecraft:woodland_mansion"), o -> o instanceof String);
-        EPIC_STRUCTURES = BUILDER.defineList("epic_structures", List.of("minecraft:bastion_remnant", "minecraft:ancient_city"), o -> o instanceof String);  // Example
-        LEGENDARY_STRUCTURES = BUILDER.defineList("legendary_structures", List.of("minecraft:nether_fortress"), o -> o instanceof String);  // Example
+        EPIC_STRUCTURES = BUILDER.defineList("epic_structures", List.of("minecraft:bastion_remnant", "minecraft:ancient_city"), o -> o instanceof String);
+        LEGENDARY_STRUCTURES = BUILDER.defineList("legendary_structures", List.of("minecraft:nether_fortress"), o -> o instanceof String);
+        TIER1_STRUCTURE_B = BUILDER.defineInRange("tier1_structure_b", 25.0, 0.1, 1000.0);
+        TIER2_STRUCTURE_B = BUILDER.defineInRange("tier2_structure_b", 50.0, 0.1, 1000.0);
+        TIER3_STRUCTURE_B = BUILDER.defineInRange("tier3_structure_b", 100.0, 0.1, 1000.0);
+        TIER4_STRUCTURE_B = BUILDER.defineInRange("tier4_structure_b", 150.0, 0.1, 1000.0);
+        TIER5_STRUCTURE_B = BUILDER.defineInRange("tier5_structure_b", 200.0, 0.1, 1000.0);
         BUILDER.pop();
 
         BUILDER.push("Enchantment, smithing, anvil exp tweaks");
         ENCHANTMENT_COEFFICIENT = BUILDER.defineInRange("formula_coef", 3.0, 1.0, 100.0);
-        CRAFTING_GRIND_TIME_WINDOW = BUILDER.defineInRange("crafting_grind_time_window", 60, 1, 300);  // Seconds
-        CRAFTING_GRIND_PENALTY_STEP_PERCENT = BUILDER.defineInRange("crafting_grind_penalty_step_percent", 20, 0, 50);  // % per streak
+        CRAFTING_GRIND_TIME_WINDOW = BUILDER.defineInRange("crafting_grind_time_window", 60, 1, 300);
+        CRAFTING_GRIND_PENALTY_STEP_PERCENT = BUILDER.defineInRange("crafting_grind_penalty_step_percent", 20, 0, 50);
         CRAFTING_GRIND_MIN_MULTIPLIER = BUILDER.defineInRange("crafting_grind_min_multiplier", 0.2, 0.1, 1.0);
+        BUILDER.pop();
+
+        BUILDER.push("Mining ores exp tweaks");
+        TIER1_ORE_B = BUILDER.defineInRange("tier1_ore_b", 0.25, 0.1, 100.0);
+        TIER2_ORE_B = BUILDER.defineInRange("tier2_ore_b", 2.0, 0.1, 100.0);
+        TIER3_ORE_B = BUILDER.defineInRange("tier3_ore_b", 8.0, 0.1, 100.0);
+        TIER4_ORE_B = BUILDER.defineInRange("tier4_ore_b", 25.0, 0.1, 100.0);
+        TIER1_ORES = BUILDER.defineList("tier1_ores", List.of("minecraft:iron_ore"), o -> o instanceof String);
+        TIER2_ORES = BUILDER.defineList("tier2_ores", List.of("minecraft:diamond_ore"), o -> o instanceof String);
+        TIER3_ORES = BUILDER.defineList("tier3_ores", List.of("example_mod:ruby_ore", "example_mod:nephrite_ore"), o -> o instanceof String);
+        TIER4_ORES = BUILDER.defineList("tier4_ores", List.of("minecraft:ancient_debris"), o -> o instanceof String);
+        MINING_GRIND_TIME_WINDOW = BUILDER.defineInRange("mining_grind_time_window", 15, 1, 300);
+        MINING_GRIND_PENALTY_STEP_PERCENT = BUILDER.defineInRange("mining_grind_penalty_step_percent", 4, 0, 50);
+        MINING_GRIND_MIN_MULTIPLIER = BUILDER.defineInRange("mining_grind_min_multiplier", 0.6, 0.1, 1.0);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
@@ -200,20 +237,20 @@ public class Config {
         return LEGENDARY_STRUCTURES.get();
     }
 
-    public static int getTierB(String tier) {
+    public static double getTierB(String tier) {
         switch (tier) {
             case "common":
-                return 25;
+                return TIER1_STRUCTURE_B.get();
             case "uncommon":
-                return 50;
+                return TIER2_STRUCTURE_B.get();
             case "rare":
-                return 100;
+                return TIER3_STRUCTURE_B.get();
             case "epic":
-                return 150;
+                return TIER4_STRUCTURE_B.get();
             case "legendary":
-                return 200;
+                return TIER5_STRUCTURE_B.get();
             default:
-                return 25;
+                return TIER1_STRUCTURE_B.get();
         }
     }
 
@@ -227,5 +264,49 @@ public class Config {
 
     public static double getCraftingGrindMinMultiplier() {
         return CRAFTING_GRIND_MIN_MULTIPLIER.get();
+    }
+
+    public static double getTier1OreB() {
+        return TIER1_ORE_B.get();
+    }
+
+    public static double getTier2OreB() {
+        return TIER2_ORE_B.get();
+    }
+
+    public static double getTier3OreB() {
+        return TIER3_ORE_B.get();
+    }
+
+    public static double getTier4OreB() {
+        return TIER4_ORE_B.get();
+    }
+
+    public static List<? extends String> getTier1Ores() {
+        return TIER1_ORES.get();
+    }
+
+    public static List<? extends String> getTier2Ores() {
+        return TIER2_ORES.get();
+    }
+
+    public static List<? extends String> getTier3Ores() {
+        return TIER3_ORES.get();
+    }
+
+    public static List<? extends String> getTier4Ores() {
+        return TIER4_ORES.get();
+    }
+
+    public static int getMiningGrindTimeWindow() {
+        return MINING_GRIND_TIME_WINDOW.get();
+    }
+
+    public static double getMiningGrindPenaltyStep() {
+        return MINING_GRIND_PENALTY_STEP_PERCENT.get() / 100.0;
+    }
+
+    public static double getMiningGrindMinMultiplier() {
+        return MINING_GRIND_MIN_MULTIPLIER.get();
     }
 }

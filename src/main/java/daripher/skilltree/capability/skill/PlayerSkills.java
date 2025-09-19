@@ -25,11 +25,15 @@ public class PlayerSkills implements IPlayerSkills {
     private long lastCraftingXPTime = 0;
     private int consecutiveCraftingActions = 0;
 
+    private long lastMiningXPTime = 0;
+    private int consecutiveMiningActions = 0;
+
     private final NonNullList<PassiveSkill> skills = NonNullList.create();
     private int skillPoints;
-    private int skillExperience = 0;
+    private double skillExperience = 0;
     private int currentLevel = 0;
     private boolean treeReset;
+
 
     @Override
     public NonNullList<PassiveSkill> getPlayerSkills() {
@@ -51,7 +55,7 @@ public class PlayerSkills implements IPlayerSkills {
         this.skillPoints = Math.max(0, Math.min(MAX_LEVEL, this.skillPoints + skillPoints));  // Cap
     }
 
-    public void addSkillExperience(int amount) {
+    public void addSkillExperience(double amount) {
         if (amount <= 0) return;
         this.skillExperience += amount;
         checkForLevelUp();
@@ -67,7 +71,7 @@ public class PlayerSkills implements IPlayerSkills {
         }
     }
 
-    public void setSkillExperience(int exp) {
+    public void setSkillExperience(double exp) {
         this.skillExperience = Math.max(0, exp);
     }
 
@@ -97,7 +101,7 @@ public class PlayerSkills implements IPlayerSkills {
         }
     }
 
-    public int getSkillExperience() {
+    public double getSkillExperience() {
         return skillExperience;
     }
 
@@ -132,11 +136,13 @@ public class PlayerSkills implements IPlayerSkills {
         CompoundTag tag = new CompoundTag();
         tag.putUUID("TreeVersion", TREE_VERSION);
         tag.putInt("Points", skillPoints);
-        tag.putInt("Experience", skillExperience);
+        tag.putDouble("Experience", skillExperience);
         tag.putInt("Level", currentLevel);
         tag.putBoolean("TreeReset", treeReset);
         tag.putLong("LastCraftingXPTime", lastCraftingXPTime);
         tag.putInt("ConsecutiveCraftingActions", consecutiveCraftingActions);
+        tag.putLong("LastMiningXPTime", lastMiningXPTime);
+        tag.putInt("ConsecutiveMiningActions", consecutiveMiningActions);
         ListTag skillsTag = new ListTag();
         skills.forEach(skill -> skillsTag.add(StringTag.valueOf(skill.getId().toString())));
         tag.put("Skills", skillsTag);
@@ -148,10 +154,12 @@ public class PlayerSkills implements IPlayerSkills {
         skills.clear();
         UUID treeVersion = tag.hasUUID("TreeVersion") ? tag.getUUID("TreeVersion") : null;
         skillPoints = tag.getInt("Points");
-        skillExperience = tag.contains("Experience") ? tag.getInt("Experience") : 0;
+        skillExperience = tag.contains("Experience") ? tag.getDouble("Experience") : 0;
         currentLevel = tag.contains("Level") ? tag.getInt("Level") : 0;
         lastCraftingXPTime = tag.getLong("LastCraftingXPTime");
         consecutiveCraftingActions = tag.getInt("ConsecutiveCraftingActions");
+        lastMiningXPTime = tag.getLong("LastMiningXPTime");
+        consecutiveMiningActions = tag.getInt("ConsecutiveMiningActions");
         ListTag skillsTag = tag.getList("Skills", Tag.TAG_STRING);
         if (!TREE_VERSION.equals(treeVersion)) {
             skillPoints += skillsTag.size();
@@ -192,5 +200,25 @@ public class PlayerSkills implements IPlayerSkills {
     @Override
     public void setConsecutiveCraftingActions(int count) {
         this.consecutiveCraftingActions = count;
+    }
+
+    @Override
+    public long getLastMiningXPTime() {
+        return lastMiningXPTime;
+    }
+
+    @Override
+    public void setLastMiningXPTime(long time) {
+        this.lastMiningXPTime = time;
+    }
+
+    @Override
+    public int getConsecutiveMiningActions() {
+        return consecutiveMiningActions;
+    }
+
+    @Override
+    public void setConsecutiveMiningActions(int count) {
+        this.consecutiveMiningActions = count;
     }
 }

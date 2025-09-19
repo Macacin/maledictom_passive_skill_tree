@@ -32,7 +32,7 @@ public class EnchantmentScreenMixin {
         if (buttonId >= 0 && buttonId < 3 && player instanceof ServerPlayer serverPlayer && cir.getReturnValue()) {
             if (this.capturedCost > 0) {
                 int level = CraftingXPUtil.getPlayerLevel(serverPlayer);
-                int xp = CraftingXPUtil.calculateXP(level);
+                double xp = CraftingXPUtil.calculateXP(level);
                 CraftingXPUtil.addXP(serverPlayer, xp);
             }
             this.capturedCost = -1;

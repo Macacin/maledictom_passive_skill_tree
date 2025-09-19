@@ -10,8 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkDirection;
 
 public class CraftingXPUtil {
-    public static int calculateXP(int playerLevel) {
-        return (int) (Config.ENCHANTMENT_COEFFICIENT.get() * Math.sqrt(playerLevel));
+    public static double calculateXP(int playerLevel) {
+        return (Config.ENCHANTMENT_COEFFICIENT.get() * Math.sqrt(playerLevel));
     }
 
     public static int getPlayerLevel(Player player) {
@@ -24,7 +24,7 @@ public class CraftingXPUtil {
         return 1;
     }
 
-    public static void addXP(ServerPlayer player, int amount) {
+    public static void addXP(ServerPlayer player, double amount) {
         player.getCapability(PlayerSkillsProvider.CAPABILITY)
                 .ifPresent(skills -> {
                     long currentTime = player.level().getGameTime(); // Время в тиках
@@ -32,7 +32,7 @@ public class CraftingXPUtil {
                     double multiplier = 1.0;
                     int consecutive = 1;
 
-                    if (currentTime - lastTime <= Config.getCraftingGrindTimeWindow() * 20L) { // 60 сек * 20 тиков/сек
+                    if (currentTime - lastTime <= Config.getCraftingGrindTimeWindow() * 20L) {
                         consecutive = skills.getConsecutiveCraftingActions() + 1;
                         multiplier = Math.max(Config.getCraftingGrindMinMultiplier(), 1.0 - (consecutive - 1) * Config.getCraftingGrindPenaltyStep());
                     }
@@ -40,7 +40,7 @@ public class CraftingXPUtil {
                     skills.setConsecutiveCraftingActions(consecutive);
                     skills.setLastCraftingXPTime(currentTime);
 
-                    int modifiedAmount = (int) (amount * multiplier);
+                    double modifiedAmount = (amount * multiplier);
 
                     skills.addSkillExperience(modifiedAmount);
                     NetworkDispatcher.network_channel.sendTo(

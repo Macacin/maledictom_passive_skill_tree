@@ -26,7 +26,7 @@ public class ProgressBar extends Button {
         LocalPlayer player = getLocalPlayer();
         if (player == null) return 0;
         IPlayerSkills capability = PlayerSkillsProvider.get(player);
-        return capability.getCurrentLevel();  // NEW: Из PlayerSkills, не skills.size() + points
+        return capability.getCurrentLevel();
     }
 
     private static boolean isMaxLevel(int currentLevel) {
@@ -89,11 +89,11 @@ public class ProgressBar extends Button {
         LocalPlayer player = getLocalPlayer();
         if (player == null) return 0F;
         IPlayerSkills capability = PlayerSkillsProvider.get(player);
-        int currentXP = capability.getSkillExperience();  // NEW: Модовый XP
-        int nextCost = capability.getNextLevelCost();  // NEW: Из PlayerSkills (формула)
+        double currentXP = capability.getSkillExperience();
+        int nextCost = capability.getNextLevelCost();
         int level = getCurrentLevel();
         float progress = 1F;
-        if (level < 100) {  // Или capability.getMaxLevel()
+        if (level < 100) {
             progress = (float) currentXP / nextCost;
             progress = Math.min(1F, progress);
         }

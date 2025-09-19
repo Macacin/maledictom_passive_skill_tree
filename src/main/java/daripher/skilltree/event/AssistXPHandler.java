@@ -52,7 +52,7 @@ public class AssistXPHandler {
         double base = maxHP * 0.1;
         double B = Math.pow(base, 1.2) * mobType;
         double r = 0.3 + 0.4 * (1 - Math.exp(-0.005 * maxHP));
-        int xpAssistBase = (int) (B * r);
+        double xpAssistBase = (B * r);
 
         if (xpAssistBase <= 0) return;
 
@@ -76,7 +76,7 @@ public class AssistXPHandler {
 
             double previousXP = grind.getLastXP(mobTypeStr);
             if (previousXP <= 0) previousXP = xpAssistBase;
-            int xpAssist = (int) (previousXP * multiplier);
+            double xpAssist = (previousXP * multiplier);
             xpAssist = Math.max(1, xpAssist);
             grind.setLastXP(mobTypeStr, xpAssist);
             if (xpAssist > 0) {

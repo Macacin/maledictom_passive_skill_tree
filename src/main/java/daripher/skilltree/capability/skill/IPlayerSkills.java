@@ -25,15 +25,15 @@ public interface IPlayerSkills extends INBTSerializable<CompoundTag> {
 
     void resetTree(ServerPlayer player);
 
-    int getSkillExperience();
+    double getSkillExperience();
 
-    void addSkillExperience(int amount);
+    void addSkillExperience(double amount);
 
     int getCurrentLevel();
 
     int getNextLevelCost();
 
-    void setSkillExperience(int exp);
+    void setSkillExperience(double exp);
 
     void setCurrentLevel(int lvl);
 
@@ -44,4 +44,12 @@ public interface IPlayerSkills extends INBTSerializable<CompoundTag> {
     int getConsecutiveCraftingActions();
 
     void setConsecutiveCraftingActions(int count);
+
+    long getLastMiningXPTime();
+
+    void setLastMiningXPTime(long time);
+
+    int getConsecutiveMiningActions();
+
+    void setConsecutiveMiningActions(int count);
 }

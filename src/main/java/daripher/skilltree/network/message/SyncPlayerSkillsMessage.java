@@ -24,10 +24,13 @@ import net.minecraftforge.network.NetworkEvent;
 public class SyncPlayerSkillsMessage {
     private List<ResourceLocation> learnedSkills = new ArrayList<>();
     private int skillPoints;
-    private int skillExperience;  // NEW: Для sync XP
+    private double skillExperience;
     private int currentLevel;
     private long lastCraftingXPTime;
     private int consecutiveCraftingActions;
+    private long lastMiningXPTime;
+    private int consecutiveMiningActions;
+
 
     private SyncPlayerSkillsMessage() {
     }
@@ -41,6 +44,8 @@ public class SyncPlayerSkillsMessage {
             currentLevel = skillsCapability.getCurrentLevel();
             lastCraftingXPTime = skillsCapability.getLastCraftingXPTime();
             consecutiveCraftingActions = skillsCapability.getConsecutiveCraftingActions();
+            lastMiningXPTime = skillsCapability.getLastMiningXPTime();
+            consecutiveMiningActions = skillsCapability.getConsecutiveMiningActions();
         }
     }
 
@@ -51,10 +56,12 @@ public class SyncPlayerSkillsMessage {
             result.learnedSkills.add(new ResourceLocation(buf.readUtf()));
         }
         result.skillPoints = buf.readInt();
-        result.skillExperience = buf.readInt();
+        result.skillExperience = buf.readDouble();
         result.currentLevel = buf.readInt();
         result.lastCraftingXPTime = buf.readLong();
         result.consecutiveCraftingActions = buf.readInt();
+        result.lastMiningXPTime = buf.readLong();
+        result.consecutiveMiningActions = buf.readInt();
         return result;
     }
 
@@ -92,6 +99,8 @@ public class SyncPlayerSkillsMessage {
 
         capability.setLastCraftingXPTime(message.lastCraftingXPTime);
         capability.setConsecutiveCraftingActions(message.consecutiveCraftingActions);
+        capability.setLastMiningXPTime(message.lastMiningXPTime);
+        capability.setConsecutiveMiningActions(message.consecutiveMiningActions);
 
 
         if (minecraft.screen instanceof SkillTreeScreen screen) {
@@ -105,9 +114,11 @@ public class SyncPlayerSkillsMessage {
         buf.writeInt(learnedSkills.size());
         learnedSkills.stream().map(ResourceLocation::toString).forEach(buf::writeUtf);
         buf.writeInt(skillPoints);
-        buf.writeInt(skillExperience);
+        buf.writeDouble(skillExperience);
         buf.writeInt(currentLevel);
         buf.writeLong(lastCraftingXPTime);
         buf.writeInt(consecutiveCraftingActions);
+        buf.writeLong(lastMiningXPTime);
+        buf.writeInt(consecutiveMiningActions);
     }
 }

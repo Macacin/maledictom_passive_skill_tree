@@ -44,7 +44,7 @@ public abstract class ItemCombinerMixin {
             ItemStack returned = cir.getReturnValue();
             if (returned.isEmpty()) return;
             int level = CraftingXPUtil.getPlayerLevel(serverPlayer);
-            int xp = CraftingXPUtil.calculateXP(level);
+            double xp = CraftingXPUtil.calculateXP(level);
             CraftingXPUtil.addXP(serverPlayer, xp);
         } else if (menu instanceof AnvilMenu) {
             if (!(pPlayer instanceof ServerPlayer serverPlayer)) return;
@@ -56,7 +56,7 @@ public abstract class ItemCombinerMixin {
             boolean isRepair = this.capturedAnvilInput1Damage > returned.getDamageValue();
             if (isCombine || isRepair) {
                 int level = CraftingXPUtil.getPlayerLevel(serverPlayer);
-                int xp = CraftingXPUtil.calculateXP(level);
+                double xp = CraftingXPUtil.calculateXP(level);
                 CraftingXPUtil.addXP(serverPlayer, xp);
             }
             this.capturedAnvilCost = -1;

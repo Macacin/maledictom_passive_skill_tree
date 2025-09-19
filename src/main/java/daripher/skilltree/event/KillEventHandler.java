@@ -1,11 +1,10 @@
-package daripher.skilltree.skill.bonus.event;
+package daripher.skilltree.event;
 
 import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.capability.skill.IPlayerSkills;
 import daripher.skilltree.capability.skill.PlayerSkillsProvider;
 import daripher.skilltree.capability.grind.GrindTracker;
 import daripher.skilltree.capability.grind.GrindTrackerProvider;
-import daripher.skilltree.config.Config;
 import daripher.skilltree.network.NetworkDispatcher;
 import daripher.skilltree.network.message.SyncPlayerSkillsMessage;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,7 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 
 @Mod.EventBusSubscriber(modid = SkillTreeMod.MOD_ID)
-public class XPEventHandler {
+public class KillEventHandler {
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
@@ -41,7 +40,7 @@ public class XPEventHandler {
 
         double previousXP = grind.getLastXP(mobTypeStr);
         if (previousXP <= 0) previousXP = B;
-        int amount = Math.max(1, (int) (previousXP * multiplier));
+        double amount = Math.max(1, (int) (previousXP * multiplier));
         grind.setLastXP(mobTypeStr, amount);
         if (amount > 0) {
             IPlayerSkills skills = PlayerSkillsProvider.get(player);
