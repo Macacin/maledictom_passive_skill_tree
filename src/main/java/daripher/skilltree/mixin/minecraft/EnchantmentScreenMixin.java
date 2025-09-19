@@ -29,24 +29,13 @@ public class EnchantmentScreenMixin {
 
     @Inject(method = "clickMenuButton(Lnet/minecraft/world/entity/player/Player;I)Z", at = @At("RETURN"))
     private void onEnchantApplied(Player player, int buttonId, CallbackInfoReturnable<Boolean> cir) {
-        System.out.println("Enchant clickMenuButton injected! Player: " + (player instanceof ServerPlayer ? player.getName().getString() : "client"));
-        System.out.println("Button ID: " + buttonId);
-        System.out.println("Return value: " + cir.getReturnValue());
-        if (player instanceof ServerPlayer) {
-            System.out.println("Is server player: yes");
-        } else {
-            System.out.println("Is server player: no");
-        }
         if (buttonId >= 0 && buttonId < 3 && player instanceof ServerPlayer serverPlayer && cir.getReturnValue()) {
-            System.out.println("Passed all checks");
-            System.out.println("Captured Cost: " + this.capturedCost);
             if (this.capturedCost > 0) {
                 int level = CraftingXPUtil.getPlayerLevel(serverPlayer);
                 int xp = CraftingXPUtil.calculateXP(level);
-                System.out.println("Enchanting XP trigger for " + serverPlayer.getName().getString() + ": level=" + level + ", xp=" + xp);
                 CraftingXPUtil.addXP(serverPlayer, xp);
             }
-            this.capturedCost = -1; // Reset after use
+            this.capturedCost = -1;
         }
     }
 }

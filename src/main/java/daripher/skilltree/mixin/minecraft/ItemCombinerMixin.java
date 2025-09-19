@@ -16,15 +16,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemCombinerMenu.class)
 public abstract class ItemCombinerMixin {
-    @Unique private int capturedAnvilCost = -1;
-    @Unique private int capturedAnvilInput1Damage = -1;
-    @Unique private boolean capturedAnvilInput2Empty = true;
+    @Unique
+    private int capturedAnvilCost = -1;
+    @Unique
+    private int capturedAnvilInput1Damage = -1;
+    @Unique
+    private boolean capturedAnvilInput2Empty = true;
 
     @Inject(method = "quickMoveStack(Lnet/minecraft/world/entity/player/Player;I)Lnet/minecraft/world/item/ItemStack;", at = @At("HEAD"))
     private void captureAnvilState(Player pPlayer, int pIndex, CallbackInfoReturnable<ItemStack> cir) {
         ItemCombinerMenu menu = (ItemCombinerMenu) (Object) this;
         if (!(menu instanceof AnvilMenu anvilMenu)) return;
-        if (pIndex != 2) return; // RESULT_SLOT for AnvilMenu = 2
+        if (pIndex != 2) return;
         this.capturedAnvilCost = anvilMenu.getCost();
         Slot input1Slot = anvilMenu.getSlot(0);
         Slot input2Slot = anvilMenu.getSlot(1);
@@ -37,7 +40,7 @@ public abstract class ItemCombinerMixin {
         ItemCombinerMenu menu = (ItemCombinerMenu) (Object) this;
         if (menu instanceof SmithingMenu) {
             if (!(pPlayer instanceof ServerPlayer serverPlayer)) return;
-            if (pIndex != 3) return; // RESULT_SLOT = 3 in SmithingMenu
+            if (pIndex != 3) return;
             ItemStack returned = cir.getReturnValue();
             if (returned.isEmpty()) return;
             int level = CraftingXPUtil.getPlayerLevel(serverPlayer);
@@ -45,7 +48,7 @@ public abstract class ItemCombinerMixin {
             CraftingXPUtil.addXP(serverPlayer, xp);
         } else if (menu instanceof AnvilMenu) {
             if (!(pPlayer instanceof ServerPlayer serverPlayer)) return;
-            if (pIndex != 2) return; // RESULT_SLOT = 2 in AnvilMenu
+            if (pIndex != 2) return;
             ItemStack returned = cir.getReturnValue();
             if (returned.isEmpty()) return;
             if (this.capturedAnvilCost <= 0) return;

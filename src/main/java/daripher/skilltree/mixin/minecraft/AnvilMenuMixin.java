@@ -40,7 +40,6 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
 
     @Inject(method = "onTake", at = @At("HEAD"))
     private void onAnvilTake(Player pPlayer, ItemStack pStack, CallbackInfo ci) {
-        System.out.println("Anvil onTake injected! Player: " + (pPlayer instanceof ServerPlayer ? pPlayer.getName().getString() : "client"));
         if (!(pPlayer instanceof ServerPlayer serverPlayer)) return;
 
         if (pStack.isEmpty()) return;
@@ -60,7 +59,6 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         if (isCombine || isRepair) {
             int level = CraftingXPUtil.getPlayerLevel(serverPlayer);
             int xp = CraftingXPUtil.calculateXP(level);
-            System.out.println("Anvil XP trigger for " + serverPlayer.getName().getString() + ": level=" + level + ", xp=" + xp + ", type=" + (isCombine ? "combine" : "repair"));
             CraftingXPUtil.addXP(serverPlayer, xp);
         }
     }

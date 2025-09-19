@@ -19,10 +19,8 @@ public class CraftingXPUtil {
             int level = serverPlayer.getCapability(PlayerSkillsProvider.CAPABILITY)
                     .map(IPlayerSkills::getCurrentLevel)
                     .orElse(1);
-            System.out.println("Getting player level for " + serverPlayer.getName().getString() + ": " + level);
             return level + 1;
         }
-        System.out.println("Fallback level for non-server player: 1");
         return 1;
     }
 
@@ -43,9 +41,6 @@ public class CraftingXPUtil {
                     skills.setLastCraftingXPTime(currentTime);
 
                     int modifiedAmount = (int) (amount * multiplier);
-                    System.out.println("Adding " + modifiedAmount + " XP to player " + player.getName().getString() +
-                            " (multiplier: " + multiplier + ", consecutive: " + consecutive +
-                            ", current exp: " + skills.getSkillExperience() + ")");
 
                     skills.addSkillExperience(modifiedAmount);
                     NetworkDispatcher.network_channel.sendTo(
