@@ -79,20 +79,19 @@ public class PlayerSkills implements IPlayerSkills {
     int L = currentLevel + 1;
     double x;
     if (L >= 1 && L <= 30) {
-      return (int) (15 * Math.pow(L, 1.05));  // Блок 1: 15 L^{1.05}
+      return (int) (15 * Math.pow(L, 1.05));
     } else if (L >= 31 && L <= 60) {
-      x = 50 + (1.0 / 3) * (L - 30);  // x = 50 + 1/3 (L - 30)
-      return (int) (8.78 * Math.pow(x, 1.20) * Math.exp(0.02 * (x - 50)));  // Блок 2
+      x = 50 + (1.0 / 3) * (L - 30);
+      return (int) (8.78 * Math.pow(x, 1.20) * Math.exp(0.02 * (x - 50)));
     } else if (L >= 61 && L <= 90) {
-      x = 100 + (1.0 / 3) * (L - 60);  // x = 100 + 1/3 (L - 60)
-      return (int) (3.786 * Math.pow(x, 1.60) * Math.exp(0.005 * (x - 100)));  // Блок 3
-    } else {  // L >= 91
-      x = 150 + (1.0 / 3) * (L - 90);  // x = 150 + 1/3 (L - 90)
-      return (int) (0.2404 * Math.pow(x, 2.20) * Math.exp(0.0185 * (x - 150)));  // Блок 4
+      x = 100 + (1.0 / 3) * (L - 60);
+      return (int) (3.786 * Math.pow(x, 1.60) * Math.exp(0.005 * (x - 100)));
+    } else {
+      x = 150 + (1.0 / 3) * (L - 90);
+      return (int) (0.2404 * Math.pow(x, 2.20) * Math.exp(0.0185 * (x - 150)));
     }
   }
 
-  // Новый: Текущий модовый XP (для progress bar в GUI)
   public int getSkillExperience() {
     return skillExperience;
   }
@@ -100,7 +99,7 @@ public class PlayerSkills implements IPlayerSkills {
   @Override
   public boolean learnSkill(@Nonnull PassiveSkill passiveSkill) {
     if (skillPoints <= 0 || skills.contains(passiveSkill)) return false;
-    skillPoints--;  // Трата point (1:1)
+    skillPoints--;
     return skills.add(passiveSkill);
   }
 
@@ -119,10 +118,8 @@ public class PlayerSkills implements IPlayerSkills {
     int refunded = getPlayerSkills().size();
     getPlayerSkills().forEach(skill -> skill.remove(player));
     getPlayerSkills().clear();
-    skillPoints += refunded;  // Refund points
-    skillPoints = Math.min(MAX_LEVEL, skillPoints);  // Cap
-    // Опционально: Refund XP? Пока нет, но если нужно — добавь skillExperience += totalSpentXP;
-    // Sync: Если на сервере, отправь network update
+    skillPoints += refunded;
+    skillPoints = Math.min(MAX_LEVEL, skillPoints);
   }
 
   @Override
@@ -130,8 +127,8 @@ public class PlayerSkills implements IPlayerSkills {
     CompoundTag tag = new CompoundTag();
     tag.putUUID("TreeVersion", TREE_VERSION);
     tag.putInt("Points", skillPoints);
-    tag.putInt("Experience", skillExperience);  // Новое: Сохраняем XP
-    tag.putInt("Level", currentLevel);  // Новое: Сохраняем уровень
+    tag.putInt("Experience", skillExperience);
+    tag.putInt("Level", currentLevel);
     tag.putBoolean("TreeReset", treeReset);
     ListTag skillsTag = new ListTag();
     skills.forEach(skill -> skillsTag.add(StringTag.valueOf(skill.getId().toString())));
@@ -150,7 +147,7 @@ public class PlayerSkills implements IPlayerSkills {
     if (!TREE_VERSION.equals(treeVersion)) {
       skillPoints += skillsTag.size();
       treeReset = true;
-      skillPoints = Math.min(MAX_LEVEL, skillPoints);  // Cap
+      skillPoints = Math.min(MAX_LEVEL, skillPoints);
       return;
     }
     for (Tag skillTag : skillsTag) {
@@ -160,11 +157,11 @@ public class PlayerSkills implements IPlayerSkills {
         skills.clear();
         treeReset = true;
         skillPoints += skillsTag.size();
-        skillPoints = Math.min(MAX_LEVEL, skillPoints);  // Cap
+        skillPoints = Math.min(MAX_LEVEL, skillPoints);
         return;
       }
       skills.add(passiveSkill);
     }
-    skillPoints = Math.min(MAX_LEVEL, skillPoints);  // Финальный cap
+    skillPoints = Math.min(MAX_LEVEL, skillPoints);
   }
 }

@@ -19,6 +19,8 @@
     "minecraft/AbstractContainerMenuMixin",
     "minecraft/CraftingContainerMixin",
     "minecraft/ArmorSlotMixin",
+    "minecraft/ItemCombinerMixin",
+    "minecraft/EnchantmentScreenMixin",
     "easymagic/ModEnchantmentMenuMixin",
     "AbstractArrowAccessor",
     "LivingEntityAccessor",

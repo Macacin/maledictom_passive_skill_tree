@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 public class PlayerSkillsProvider implements ICapabilitySerializable<CompoundTag> {
     private static final ResourceLocation CAPABILITY_ID =
             new ResourceLocation(SkillTreeMod.MOD_ID, "player_skills");
-    private static final Capability<IPlayerSkills> CAPABILITY =
+    public static final Capability<IPlayerSkills> CAPABILITY =
             CapabilityManager.get(new CapabilityToken<>() {
             });
     private final LazyOptional<IPlayerSkills> optionalCapability = LazyOptional.of(PlayerSkills::new);

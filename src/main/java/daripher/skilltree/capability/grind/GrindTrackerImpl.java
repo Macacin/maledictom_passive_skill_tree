@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GrindTrackerImpl implements GrindTracker {
-    private final Map<String, Long> lastTicks = new HashMap<>();  // Game ticks
+    private final Map<String, Long> lastTicks = new HashMap<>();
     private final Map<String, Integer> streakCounts = new HashMap<>();
-    private final Map<String, Double> lastXP = new HashMap<>();  // For cumulative
+    private final Map<String, Double> lastXP = new HashMap<>();
 
     @Override
     public Map<String, Long> getLastActionTimes() {
@@ -28,14 +28,14 @@ public class GrindTrackerImpl implements GrindTracker {
         long nowTicks = player.level().getGameTime();
         long lastTicksValue = lastTicks.getOrDefault(mobType, 0L);
         long diffTicks = nowTicks - lastTicksValue;
-        int windowTicks = Config.getGrindTimeWindow() * 20;  // Seconds * 20 ticks/s
+        int windowTicks = Config.getGrindTimeWindow() * 20;
         boolean inWindow = diffTicks < windowTicks;
 
         if (!inWindow) {
             int newStreak = 1;
             streakCounts.put(mobType, newStreak);
             lastTicks.put(mobType, nowTicks);
-            lastXP.put(mobType, 0.0);  // Reset lastXP
+            lastXP.put(mobType, 0.0);
             return;
         }
 
@@ -62,16 +62,16 @@ public class GrindTrackerImpl implements GrindTracker {
     @Override
     public double getPenaltyMultiplier(String type) {
         int streak = getStreakCount(type);
-        int threshold = Config.getGrindStreakThreshold();  // 3
+        int threshold = Config.getGrindStreakThreshold();
         if (streak < threshold) return 1.0;
 
-        double initialPenalty = Config.getGrindInitialPenalty();  // 0.2
-        double maxPenalty = Config.getGrindMaxPenalty();  // 0.6
-        int maxStreakLength = Config.getGrindMaxStreakLength();  // 10
+        double initialPenalty = Config.getGrindInitialPenalty();
+        double maxPenalty = Config.getGrindMaxPenalty();
+        int maxStreakLength = Config.getGrindMaxStreakLength();
         double progress = Math.min((streak - threshold) / (double) maxStreakLength, 1.0);
-        double penalty = initialPenalty + (maxPenalty - initialPenalty) * progress;  // Grow 0.2 → 0.6
+        double penalty = initialPenalty + (maxPenalty - initialPenalty) * progress;
         double multiplier = 1.0 - penalty;
-        return Math.max(multiplier, Config.getGrindMinMultiplier());  // Min 0.4
+        return Math.max(multiplier, Config.getGrindMinMultiplier());
     }
 
     @Override

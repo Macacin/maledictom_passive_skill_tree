@@ -3,6 +3,9 @@ package daripher.skilltree;
 import daripher.skilltree.config.ClientConfig;
 import daripher.skilltree.config.Config;
 import daripher.skilltree.init.*;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -34,5 +37,6 @@ public class SkillTreeMod {
     PSTEventListeners.REGISTRY.register(modEventBus);
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+
   }
 }

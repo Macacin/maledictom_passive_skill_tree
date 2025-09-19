@@ -25,6 +25,7 @@ public class Config {
     private static final ConfigValue<Boolean> SHOW_CHAT_MESSAGES;
     private static final ConfigValue<Boolean> ENABLE_EXP_EXCHANGE;
     public static final ForgeConfigSpec.DoubleValue GRIND_MIN_MULTIPLIER;
+    public static final ForgeConfigSpec.DoubleValue ENCHANTMENT_COEFFICIENT;
     public static final ForgeConfigSpec.IntValue GRIND_STREAK_THRESHOLD;
     public static final ForgeConfigSpec.IntValue GRIND_MAX_STREAK_LENGTH;
     public static final ForgeConfigSpec.IntValue GRIND_TIME_WINDOW;
@@ -87,7 +88,7 @@ public class Config {
         MIXTURE_EFFECTS_STRENGTH = BUILDER.defineInRange("Effects strength multiplier", 1D, 0D, 2D);
         BUILDER.pop();
 
-        BUILDER.push("Penalties for grind");
+        BUILDER.push("Penalties for grind for killing & assisting mobs");
         GRIND_TIME_WINDOW = BUILDER.defineInRange("grind_time_window", 5, 1, 60);  // Seconds
         GRIND_STREAK_THRESHOLD = BUILDER.defineInRange("grind_streak_threshold", 3, 1, 10);  // Actions to start penalty
         GRIND_INITIAL_PENALTY_PERCENT = BUILDER.defineInRange("grind_initial_penalty_percent", 20, 0, 50);  // Start %
@@ -102,6 +103,10 @@ public class Config {
         RARE_STRUCTURES = BUILDER.defineList("rare_structures", List.of("minecraft:stronghold", "minecraft:end_city", "minecraft:woodland_mansion"), o -> o instanceof String);
         EPIC_STRUCTURES = BUILDER.defineList("epic_structures", List.of("minecraft:bastion_remnant", "minecraft:ancient_city"), o -> o instanceof String);  // Example
         LEGENDARY_STRUCTURES = BUILDER.defineList("legendary_structures", List.of("minecraft:nether_fortress"), o -> o instanceof String);  // Example
+        BUILDER.pop();
+
+        BUILDER.push("Enchantment, smithing, anvil exp tweaks");
+        ENCHANTMENT_COEFFICIENT = BUILDER.defineInRange("formula_coef", 4.0, 1.0, 100.0);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
