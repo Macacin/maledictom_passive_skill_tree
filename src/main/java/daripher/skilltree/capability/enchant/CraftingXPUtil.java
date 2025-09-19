@@ -29,8 +29,25 @@ public class CraftingXPUtil {
     public static void addXP(ServerPlayer player, int amount) {
         player.getCapability(PlayerSkillsProvider.CAPABILITY)
                 .ifPresent(skills -> {
-                    System.out.println("Adding " + amount + " XP to player " + player.getName().getString() + " (current exp: " + skills.getSkillExperience() + ")");
-                    skills.addSkillExperience(amount);
+                    long currentTime = player.level().getGameTime(); // Время в тиках
+                    long lastTime = skills.getLastCraftingXPTime();
+                    double multiplier = 1.0;
+                    int consecutive = 1;
+
+                    if (currentTime - lastTime <= Config.getCraftingGrindTimeWindow() * 20L) { // 60 сек * 20 тиков/сек
+                        consecutive = skills.getConsecutiveCraftingActions() + 1;
+                        multiplier = Math.max(Config.getCraftingGrindMinMultiplier(), 1.0 - (consecutive - 1) * Config.getCraftingGrindPenaltyStep());
+                    }
+
+                    skills.setConsecutiveCraftingActions(consecutive);
+                    skills.setLastCraftingXPTime(currentTime);
+
+                    int modifiedAmount = (int) (amount * multiplier);
+                    System.out.println("Adding " + modifiedAmount + " XP to player " + player.getName().getString() +
+                            " (multiplier: " + multiplier + ", consecutive: " + consecutive +
+                            ", current exp: " + skills.getSkillExperience() + ")");
+
+                    skills.addSkillExperience(modifiedAmount);
                     NetworkDispatcher.network_channel.sendTo(
                             new SyncPlayerSkillsMessage(player),
                             player.connection.connection,

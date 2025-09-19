@@ -9,30 +9,39 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 @AutoRegisterCapability
 public interface IPlayerSkills extends INBTSerializable<CompoundTag> {
-  NonNullList<PassiveSkill> getPlayerSkills();
+    NonNullList<PassiveSkill> getPlayerSkills();
 
-  boolean learnSkill(PassiveSkill passiveSkill);
+    boolean learnSkill(PassiveSkill passiveSkill);
 
-  int getSkillPoints();
+    int getSkillPoints();
 
-  void setSkillPoints(int skillPoints);
+    void setSkillPoints(int skillPoints);
 
-  void grantSkillPoints(int skillPoints);
+    void grantSkillPoints(int skillPoints);
 
-  boolean isTreeReset();
+    boolean isTreeReset();
 
-  void setTreeReset(boolean reset);
+    void setTreeReset(boolean reset);
 
-  void resetTree(ServerPlayer player);
+    void resetTree(ServerPlayer player);
 
-  int getSkillExperience();
+    int getSkillExperience();
 
-  void addSkillExperience(int amount);
+    void addSkillExperience(int amount);
 
-  int getCurrentLevel();
+    int getCurrentLevel();
 
-  int getNextLevelCost();
+    int getNextLevelCost();
 
-  void setSkillExperience(int exp);
-  void setCurrentLevel(int lvl);
+    void setSkillExperience(int exp);
+
+    void setCurrentLevel(int lvl);
+
+    long getLastCraftingXPTime();
+
+    void setLastCraftingXPTime(long time);
+
+    int getConsecutiveCraftingActions();
+
+    void setConsecutiveCraftingActions(int count);
 }

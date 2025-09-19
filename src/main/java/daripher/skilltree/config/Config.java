@@ -31,6 +31,9 @@ public class Config {
     public static final ForgeConfigSpec.IntValue GRIND_TIME_WINDOW;
     public static final ForgeConfigSpec.IntValue GRIND_INITIAL_PENALTY_PERCENT;
     public static final ForgeConfigSpec.IntValue GRIND_MAX_PENALTY_PERCENT;
+    public static final ForgeConfigSpec.IntValue CRAFTING_GRIND_TIME_WINDOW;
+    public static final ForgeConfigSpec.IntValue CRAFTING_GRIND_PENALTY_STEP_PERCENT;
+    public static final ForgeConfigSpec.DoubleValue CRAFTING_GRIND_MIN_MULTIPLIER;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> COMMON_STRUCTURES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> UNCOMMON_STRUCTURES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> RARE_STRUCTURES;
@@ -106,7 +109,10 @@ public class Config {
         BUILDER.pop();
 
         BUILDER.push("Enchantment, smithing, anvil exp tweaks");
-        ENCHANTMENT_COEFFICIENT = BUILDER.defineInRange("formula_coef", 4.0, 1.0, 100.0);
+        ENCHANTMENT_COEFFICIENT = BUILDER.defineInRange("formula_coef", 3.0, 1.0, 100.0);
+        CRAFTING_GRIND_TIME_WINDOW = BUILDER.defineInRange("crafting_grind_time_window", 60, 1, 300);  // Seconds
+        CRAFTING_GRIND_PENALTY_STEP_PERCENT = BUILDER.defineInRange("crafting_grind_penalty_step_percent", 20, 0, 50);  // % per streak
+        CRAFTING_GRIND_MIN_MULTIPLIER = BUILDER.defineInRange("crafting_grind_min_multiplier", 0.2, 0.1, 1.0);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
@@ -207,7 +213,19 @@ public class Config {
             case "legendary":
                 return 200;
             default:
-                return 25;  // Default common
+                return 25;
         }
+    }
+
+    public static int getCraftingGrindTimeWindow() {
+        return CRAFTING_GRIND_TIME_WINDOW.get();
+    }
+
+    public static double getCraftingGrindPenaltyStep() {
+        return CRAFTING_GRIND_PENALTY_STEP_PERCENT.get() / 100.0;
+    }
+
+    public static double getCraftingGrindMinMultiplier() {
+        return CRAFTING_GRIND_MIN_MULTIPLIER.get();
     }
 }

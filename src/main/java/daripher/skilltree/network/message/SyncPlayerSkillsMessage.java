@@ -26,6 +26,8 @@ public class SyncPlayerSkillsMessage {
     private int skillPoints;
     private int skillExperience;  // NEW: Для sync XP
     private int currentLevel;
+    private long lastCraftingXPTime;
+    private int consecutiveCraftingActions;
 
     private SyncPlayerSkillsMessage() {
     }
@@ -37,6 +39,8 @@ public class SyncPlayerSkillsMessage {
             skillPoints = skillsCapability.getSkillPoints();
             skillExperience = skillsCapability.getSkillExperience();
             currentLevel = skillsCapability.getCurrentLevel();
+            lastCraftingXPTime = skillsCapability.getLastCraftingXPTime();
+            consecutiveCraftingActions = skillsCapability.getConsecutiveCraftingActions();
         }
     }
 
@@ -49,6 +53,8 @@ public class SyncPlayerSkillsMessage {
         result.skillPoints = buf.readInt();
         result.skillExperience = buf.readInt();
         result.currentLevel = buf.readInt();
+        result.lastCraftingXPTime = buf.readLong();
+        result.consecutiveCraftingActions = buf.readInt();
         return result;
     }
 
@@ -84,6 +90,9 @@ public class SyncPlayerSkillsMessage {
         capability.setSkillExperience(message.skillExperience);
         capability.setCurrentLevel(message.currentLevel);
 
+        capability.setLastCraftingXPTime(message.lastCraftingXPTime);
+        capability.setConsecutiveCraftingActions(message.consecutiveCraftingActions);
+
 
         if (minecraft.screen instanceof SkillTreeScreen screen) {
             screen.skillPoints = capability.getSkillPoints() - screen.newlyLearnedSkills.size();
@@ -98,5 +107,7 @@ public class SyncPlayerSkillsMessage {
         buf.writeInt(skillPoints);
         buf.writeInt(skillExperience);
         buf.writeInt(currentLevel);
+        buf.writeLong(lastCraftingXPTime);
+        buf.writeInt(consecutiveCraftingActions);
     }
 }
