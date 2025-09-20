@@ -6,6 +6,7 @@ import daripher.skilltree.capability.grind.GrindTracker;
 import daripher.skilltree.capability.grind.GrindTrackerProvider;
 import daripher.skilltree.capability.skill.IPlayerSkills;
 import daripher.skilltree.capability.skill.PlayerSkillsProvider;
+import daripher.skilltree.config.Config;
 import daripher.skilltree.network.NetworkDispatcher;
 import daripher.skilltree.network.message.SyncPlayerSkillsMessage;
 import net.minecraft.server.level.ServerPlayer;
@@ -92,9 +93,9 @@ public class AssistXPHandler {
     }
 
     private static double getMobType(float maxHP) {
-        if (maxHP <= 12) return 0.0;
-        else if (maxHP <= 300) return 1.2;
-        else if (maxHP <= 1500) return 1.8;
-        else return 3.0;
+        if (maxHP <= Config.TIER0_MOB_HP.get()) return 0.0;
+        else if (maxHP <= Config.TIER1_MOB_HP.get()) return Config.TIER1_MOB_B.get();
+        else if (maxHP <= Config.TIER2_MOB_HP.get()) return Config.TIER2_MOB_B.get();
+        else return Config.TIER3_MOB_B.get();
     }
 }

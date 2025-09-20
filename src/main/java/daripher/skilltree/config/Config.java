@@ -151,10 +151,10 @@ public class Config {
         RARE_STRUCTURES = BUILDER.defineList("rare_structures", List.of("minecraft:stronghold", "minecraft:end_city", "minecraft:woodland_mansion"), o -> o instanceof String);
         EPIC_STRUCTURES = BUILDER.defineList("epic_structures", List.of("minecraft:bastion_remnant", "minecraft:ancient_city"), o -> o instanceof String);
         LEGENDARY_STRUCTURES = BUILDER.defineList("legendary_structures", List.of("minecraft:nether_fortress"), o -> o instanceof String);
-        TIER1_STRUCTURE_B = BUILDER.defineInRange("tier1_structure_b", 25.0, 0.1, 1000.0);
-        TIER2_STRUCTURE_B = BUILDER.defineInRange("tier2_structure_b", 50.0, 0.1, 1000.0);
-        TIER3_STRUCTURE_B = BUILDER.defineInRange("tier3_structure_b", 100.0, 0.1, 1000.0);
-        TIER4_STRUCTURE_B = BUILDER.defineInRange("tier4_structure_b", 150.0, 0.1, 1000.0);
+        TIER1_STRUCTURE_B = BUILDER.defineInRange("tier1_structure_b", 15.0, 0.1, 1000.0);
+        TIER2_STRUCTURE_B = BUILDER.defineInRange("tier2_structure_b", 30.0, 0.1, 1000.0);
+        TIER3_STRUCTURE_B = BUILDER.defineInRange("tier3_structure_b", 80.0, 0.1, 1000.0);
+        TIER4_STRUCTURE_B = BUILDER.defineInRange("tier4_structure_b", 130.0, 0.1, 1000.0);
         TIER5_STRUCTURE_B = BUILDER.defineInRange("tier5_structure_b", 200.0, 0.1, 1000.0);
         BUILDER.pop();
 

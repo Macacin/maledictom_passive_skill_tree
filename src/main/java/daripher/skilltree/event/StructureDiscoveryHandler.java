@@ -56,7 +56,7 @@ public class StructureDiscoveryHandler {
                             String tier = getTierForType(typeStr);
                             double B = Config.getTierB(tier);
                             int L = PlayerSkillsProvider.get(player).getCurrentLevel();
-                            double xp = B * (1 + Math.pow(2.5, L - 1) / 119);
+                            double xp = B * (1 + (2.5 * L - 1) / 119);
 
                             if (xp > 0) {
                                 PlayerSkillsProvider.get(player).addSkillExperience(xp);
