@@ -33,6 +33,8 @@ public class Config {
     public static final ForgeConfigSpec.DoubleValue LEVEL_SCALE_FACTOR;
     public static final Set<Enchantment> FORBIDDEN_ENCHANTMENTS = new HashSet<>();
     public static final Map<Enchantment, Integer> FORBIDDEN_LEVELS = new HashMap<>();
+    public static final ForgeConfigSpec.DoubleValue SHIELD_DAMAGE_REDUCTION;
+    public static final ForgeConfigSpec.DoubleValue SHIELD_SLOWDOWN;
 
     public static final ForgeConfigSpec.DoubleValue GRIND_MIN_MULTIPLIER;
     public static final ForgeConfigSpec.DoubleValue ENCHANTMENT_COEFFICIENT;
@@ -131,6 +133,8 @@ public class Config {
         RANGED_VELOCITY_MULTIPLIER = BUILDER.defineInRange("rangedVelocityMultiplier", 0.5, 0.0, 1.0);
         CURSE_CHANCE = BUILDER.defineInRange("curseChance", 0.7, 0.0, 1.0);
         LEVEL_SCALE_FACTOR = BUILDER.defineInRange("levelScaleFactor", 2.0 / 3.0, 0.0, 1.0);
+        SHIELD_DAMAGE_REDUCTION = BUILDER.defineInRange("shieldDamageReduction", 0.4, 0.0, 1.0);
+        SHIELD_SLOWDOWN = BUILDER.defineInRange("shieldSlowdown", 0.3, 0.0, 1.0);
         BUILDER.pop();
 
         BUILDER.push("Penalties for grind for killing & assisting mobs");
@@ -377,5 +381,9 @@ public class Config {
 
     public static double getScaleFactor() {
         return LEVEL_SCALE_FACTOR.get();
+    }
+
+    public static double getShieldReduction() {
+        return SHIELD_DAMAGE_REDUCTION.get();
     }
 }
