@@ -35,6 +35,13 @@ public class Config {
     public static final ForgeConfigSpec.IntValue CRAFTING_GRIND_PENALTY_STEP_PERCENT;
     public static final ForgeConfigSpec.DoubleValue CRAFTING_GRIND_MIN_MULTIPLIER;
 
+    public static final ForgeConfigSpec.DoubleValue TIER1_MOB_B;
+    public static final ForgeConfigSpec.DoubleValue TIER2_MOB_B;
+    public static final ForgeConfigSpec.DoubleValue TIER3_MOB_B;
+    public static final ForgeConfigSpec.DoubleValue TIER0_MOB_HP;
+    public static final ForgeConfigSpec.DoubleValue TIER1_MOB_HP;
+    public static final ForgeConfigSpec.DoubleValue TIER2_MOB_HP;
+
     public static final ForgeConfigSpec.DoubleValue TIER1_ORE_B;
     public static final ForgeConfigSpec.DoubleValue TIER2_ORE_B;
     public static final ForgeConfigSpec.DoubleValue TIER3_ORE_B;
@@ -116,6 +123,15 @@ public class Config {
         GRIND_MAX_PENALTY_PERCENT = BUILDER.defineInRange("grind_max_penalty_percent", 60, 20, 100);
         GRIND_MAX_STREAK_LENGTH = BUILDER.defineInRange("grind_max_streak_length", 20, 5, 50);
         GRIND_MIN_MULTIPLIER = BUILDER.defineInRange("grind_min_multiplier", 0.4, 0.1, 1.0);
+        BUILDER.pop();
+
+        BUILDER.push("Killing mobs tweaks");
+        TIER1_MOB_B = BUILDER.defineInRange("tier_1_mob_b", 1.2, 0.0, 100.0);
+        TIER2_MOB_B = BUILDER.defineInRange("tier_2_mob_b", 1.8, 0.0, 100.0);
+        TIER3_MOB_B = BUILDER.defineInRange("tier_3_mob_b", 3.0, 0.0, 100.0);
+        TIER0_MOB_HP = BUILDER.defineInRange("tier_1_mob_hp", 12.0, 0.0, 100000.0);
+        TIER1_MOB_HP = BUILDER.defineInRange("tier_2_mob_hp", 300.0, 0.0, 100000.0);
+        TIER2_MOB_HP = BUILDER.defineInRange("tier_3_mob_hp", 1500.0, 0.0, 100000.0);
         BUILDER.pop();
 
         BUILDER.push("Structure discovery tiers");
