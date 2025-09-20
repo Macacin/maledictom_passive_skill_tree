@@ -146,11 +146,11 @@ public class Config {
         BUILDER.pop();
 
         BUILDER.push("Structure discovery tiers");
-        COMMON_STRUCTURES = BUILDER.defineList("common_structures", List.of("minecraft:village_plains", "minecraft:village_desert", "minecraft:village_savanna", "minecraft:village_snowy", "minecraft:village_taiga", "minecraft:ruined_portal", "minecraft:shipwreck", "minecraft:ocean_monument", "minecraft:ancient_city"), o -> o instanceof String);
-        UNCOMMON_STRUCTURES = BUILDER.defineList("uncommon_structures", List.of("minecraft:desert_pyramid", "minecraft:jungle_pyramid", "minecraft:igloo"), o -> o instanceof String);
-        RARE_STRUCTURES = BUILDER.defineList("rare_structures", List.of("minecraft:stronghold", "minecraft:end_city", "minecraft:woodland_mansion"), o -> o instanceof String);
-        EPIC_STRUCTURES = BUILDER.defineList("epic_structures", List.of("minecraft:bastion_remnant", "minecraft:ancient_city"), o -> o instanceof String);
-        LEGENDARY_STRUCTURES = BUILDER.defineList("legendary_structures", List.of("minecraft:nether_fortress"), o -> o instanceof String);
+        COMMON_STRUCTURES = BUILDER.defineList("common_structures", List.of(), o -> o instanceof String);
+        UNCOMMON_STRUCTURES = BUILDER.defineList("uncommon_structures", List.of(), o -> o instanceof String);
+        RARE_STRUCTURES = BUILDER.defineList("rare_structures", List.of(), o -> o instanceof String);
+        EPIC_STRUCTURES = BUILDER.defineList("epic_structures", List.of(), o -> o instanceof String);
+        LEGENDARY_STRUCTURES = BUILDER.defineList("legendary_structures", List.of(), o -> o instanceof String);
         TIER1_STRUCTURE_B = BUILDER.defineInRange("tier1_structure_b", 15.0, 0.1, 1000.0);
         TIER2_STRUCTURE_B = BUILDER.defineInRange("tier2_structure_b", 30.0, 0.1, 1000.0);
         TIER3_STRUCTURE_B = BUILDER.defineInRange("tier3_structure_b", 80.0, 0.1, 1000.0);
