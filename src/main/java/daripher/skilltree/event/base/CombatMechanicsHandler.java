@@ -1,4 +1,4 @@
-package daripher.skilltree.event;
+package daripher.skilltree.event.base;
 
 import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.capability.skill.IPlayerSkills;

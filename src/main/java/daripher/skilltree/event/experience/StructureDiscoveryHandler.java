@@ -1,9 +1,8 @@
-package daripher.skilltree.event;
+package daripher.skilltree.event.experience;
 
 import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.capability.discovery.DiscoveredStructures;
 import daripher.skilltree.capability.discovery.DiscoveredStructuresProvider;
-import daripher.skilltree.capability.skill.IPlayerSkills;
 import daripher.skilltree.capability.skill.PlayerSkillsProvider;
 import daripher.skilltree.config.Config;
 import daripher.skilltree.network.NetworkDispatcher;

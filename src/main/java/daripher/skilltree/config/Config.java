@@ -2,10 +2,11 @@ package daripher.skilltree.config;
 
 import daripher.skilltree.SkillTreeMod;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,6 +29,10 @@ public class Config {
     public static final ForgeConfigSpec.DoubleValue BASE_ACCURACY;
     public static final ForgeConfigSpec.DoubleValue RANGED_DAMAGE_MULTIPLIER;
     public static final ForgeConfigSpec.DoubleValue RANGED_VELOCITY_MULTIPLIER;
+    public static final ForgeConfigSpec.DoubleValue CURSE_CHANCE;
+    public static final ForgeConfigSpec.DoubleValue LEVEL_SCALE_FACTOR;
+    public static final Set<Enchantment> FORBIDDEN_ENCHANTMENTS = new HashSet<>();
+    public static final Map<Enchantment, Integer> FORBIDDEN_LEVELS = new HashMap<>();
 
     public static final ForgeConfigSpec.DoubleValue GRIND_MIN_MULTIPLIER;
     public static final ForgeConfigSpec.DoubleValue ENCHANTMENT_COEFFICIENT;
@@ -82,7 +87,6 @@ public class Config {
     public static int default_shield_sockets;
     public static int default_necklace_sockets;
     public static int default_ring_sockets;
-    public static double gem_drop_chance;
     public static double amnesia_scroll_penalty;
     public static double grindstone_exp_multiplier;
     public static double mixture_effects_duration;
@@ -125,6 +129,8 @@ public class Config {
         BASE_ACCURACY = BUILDER.defineInRange("base_accuracy", 70.0, 0.0, 100.0);
         RANGED_DAMAGE_MULTIPLIER = BUILDER.defineInRange("rangedDamageMultiplier", 0.6, 0.0, 1.0);
         RANGED_VELOCITY_MULTIPLIER = BUILDER.defineInRange("rangedVelocityMultiplier", 0.5, 0.0, 1.0);
+        CURSE_CHANCE = BUILDER.defineInRange("curseChance", 0.7, 0.0, 1.0);
+        LEVEL_SCALE_FACTOR = BUILDER.defineInRange("levelScaleFactor", 2.0 / 3.0, 0.0, 1.0);
         BUILDER.pop();
 
         BUILDER.push("Penalties for grind for killing & assisting mobs");
@@ -180,6 +186,30 @@ public class Config {
         BUILDER.pop();
 
         SPEC = BUILDER.build();
+    }
+
+    static {
+        FORBIDDEN_ENCHANTMENTS.add(Enchantments.MENDING);
+        FORBIDDEN_ENCHANTMENTS.add(Enchantments.FLAMING_ARROWS);
+        FORBIDDEN_ENCHANTMENTS.add(Enchantments.INFINITY_ARROWS);
+        FORBIDDEN_ENCHANTMENTS.add(Enchantments.FIRE_ASPECT);
+        FORBIDDEN_ENCHANTMENTS.add(Enchantments.KNOCKBACK);
+
+        FORBIDDEN_LEVELS.put(Enchantments.ALL_DAMAGE_PROTECTION, 2);
+        FORBIDDEN_LEVELS.put(Enchantments.FIRE_PROTECTION, 3);
+        FORBIDDEN_LEVELS.put(Enchantments.FALL_PROTECTION, 2);
+        FORBIDDEN_LEVELS.put(Enchantments.BLAST_PROTECTION, 3);
+        FORBIDDEN_LEVELS.put(Enchantments.PROJECTILE_PROTECTION, 3);
+        FORBIDDEN_LEVELS.put(Enchantments.THORNS, 2);
+        FORBIDDEN_LEVELS.put(Enchantments.SHARPNESS, 2);
+        FORBIDDEN_LEVELS.put(Enchantments.SMITE, 4);
+        FORBIDDEN_LEVELS.put(Enchantments.MOB_LOOTING, 1);
+        FORBIDDEN_LEVELS.put(Enchantments.SWEEPING_EDGE, 1);
+        FORBIDDEN_LEVELS.put(Enchantments.BLOCK_EFFICIENCY, 3);
+        FORBIDDEN_LEVELS.put(Enchantments.UNBREAKING, 1);
+        FORBIDDEN_LEVELS.put(Enchantments.BLOCK_FORTUNE, 1);
+        FORBIDDEN_LEVELS.put(Enchantments.POWER_ARROWS, 2);
+        FORBIDDEN_LEVELS.put(Enchantments.PUNCH_ARROWS, 1);
     }
 
     static List<Integer> generateDefaultPointsCosts() {
@@ -339,5 +369,13 @@ public class Config {
 
     public static double getBaseAccuracy() {
         return BASE_ACCURACY.get();
+    }
+
+    public static double getCurseChance() {
+        return CURSE_CHANCE.get();
+    }
+
+    public static double getScaleFactor() {
+        return LEVEL_SCALE_FACTOR.get();
     }
 }

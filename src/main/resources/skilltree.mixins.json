@@ -21,6 +21,8 @@
     "minecraft/ArmorSlotMixin",
     "minecraft/ItemCombinerMixin",
     "minecraft/EnchantmentScreenMixin",
+    "minecraft/EnchantmentHelperMixin",
+    "minecraft/EnchantBookForEmeraldsMixin",
     "easymagic/ModEnchantmentMenuMixin",
     "AbstractArrowAccessor",
     "LivingEntityAccessor",
