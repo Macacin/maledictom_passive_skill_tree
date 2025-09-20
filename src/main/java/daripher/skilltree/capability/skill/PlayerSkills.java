@@ -1,5 +1,6 @@
 package daripher.skilltree.capability.skill;
 
+import daripher.skilltree.config.Config;
 import daripher.skilltree.data.reloader.SkillsReloader;
 import daripher.skilltree.skill.PassiveSkill;
 
@@ -34,26 +35,7 @@ public class PlayerSkills implements IPlayerSkills {
     private int currentLevel = 0;
     private boolean treeReset;
 
-
-    @Override
-    public NonNullList<PassiveSkill> getPlayerSkills() {
-        return skills;
-    }
-
-    @Override
-    public int getSkillPoints() {
-        return skillPoints;
-    }
-
-    @Override
-    public void setSkillPoints(int skillPoints) {
-        this.skillPoints = Math.max(0, Math.min(MAX_LEVEL, skillPoints));  // Cap
-    }
-
-    @Override
-    public void grantSkillPoints(int skillPoints) {
-        this.skillPoints = Math.max(0, Math.min(MAX_LEVEL, this.skillPoints + skillPoints));  // Cap
-    }
+    private double accuracy = Config.getBaseAccuracy();
 
     public void addSkillExperience(double amount) {
         if (amount <= 0) return;
@@ -143,6 +125,7 @@ public class PlayerSkills implements IPlayerSkills {
         tag.putInt("ConsecutiveCraftingActions", consecutiveCraftingActions);
         tag.putLong("LastMiningXPTime", lastMiningXPTime);
         tag.putInt("ConsecutiveMiningActions", consecutiveMiningActions);
+        tag.putDouble("Accuracy", accuracy);
         ListTag skillsTag = new ListTag();
         skills.forEach(skill -> skillsTag.add(StringTag.valueOf(skill.getId().toString())));
         tag.put("Skills", skillsTag);
@@ -160,6 +143,11 @@ public class PlayerSkills implements IPlayerSkills {
         consecutiveCraftingActions = tag.getInt("ConsecutiveCraftingActions");
         lastMiningXPTime = tag.getLong("LastMiningXPTime");
         consecutiveMiningActions = tag.getInt("ConsecutiveMiningActions");
+        if (tag.contains("Accuracy")) {
+            accuracy = tag.getDouble("Accuracy");
+        } else {
+            accuracy = Config.getBaseAccuracy();
+        }
         ListTag skillsTag = tag.getList("Skills", Tag.TAG_STRING);
         if (!TREE_VERSION.equals(treeVersion)) {
             skillPoints += skillsTag.size();
@@ -220,5 +208,35 @@ public class PlayerSkills implements IPlayerSkills {
     @Override
     public void setConsecutiveMiningActions(int count) {
         this.consecutiveMiningActions = count;
+    }
+
+    @Override
+    public double getAccuracy() {
+        return accuracy;
+    }
+
+    @Override
+    public void setAccuracy(double accuracy) {
+        this.accuracy = accuracy;
+    }
+
+    @Override
+    public NonNullList<PassiveSkill> getPlayerSkills() {
+        return skills;
+    }
+
+    @Override
+    public int getSkillPoints() {
+        return skillPoints;
+    }
+
+    @Override
+    public void setSkillPoints(int skillPoints) {
+        this.skillPoints = Math.max(0, Math.min(MAX_LEVEL, skillPoints));  // Cap
+    }
+
+    @Override
+    public void grantSkillPoints(int skillPoints) {
+        this.skillPoints = Math.max(0, Math.min(MAX_LEVEL, this.skillPoints + skillPoints));  // Cap
     }
 }

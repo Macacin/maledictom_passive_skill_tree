@@ -24,6 +24,11 @@ public class Config {
     private static final ConfigValue<Double> MIXTURE_EFFECTS_STRENGTH;
     private static final ConfigValue<Boolean> SHOW_CHAT_MESSAGES;
     private static final ConfigValue<Boolean> ENABLE_EXP_EXCHANGE;
+
+    public static final ForgeConfigSpec.DoubleValue BASE_ACCURACY;
+    public static final ForgeConfigSpec.DoubleValue RANGED_DAMAGE_MULTIPLIER;
+    public static final ForgeConfigSpec.DoubleValue RANGED_VELOCITY_MULTIPLIER;
+
     public static final ForgeConfigSpec.DoubleValue GRIND_MIN_MULTIPLIER;
     public static final ForgeConfigSpec.DoubleValue ENCHANTMENT_COEFFICIENT;
     public static final ForgeConfigSpec.IntValue GRIND_STREAK_THRESHOLD;
@@ -114,6 +119,12 @@ public class Config {
         BUILDER.push("Mixtures");
         MIXTURE_EFFECTS_DURATION = BUILDER.defineInRange("Effects duration multiplier", 1D, 0D, 2D);
         MIXTURE_EFFECTS_STRENGTH = BUILDER.defineInRange("Effects strength multiplier", 1D, 0D, 2D);
+        BUILDER.pop();
+
+        BUILDER.push("Base mechanics");
+        BASE_ACCURACY = BUILDER.defineInRange("base_accuracy", 70.0, 0.0, 100.0);
+        RANGED_DAMAGE_MULTIPLIER = BUILDER.defineInRange("rangedDamageMultiplier", 0.6, 0.0, 1.0);
+        RANGED_VELOCITY_MULTIPLIER = BUILDER.defineInRange("rangedVelocityMultiplier", 0.5, 0.0, 1.0);
         BUILDER.pop();
 
         BUILDER.push("Penalties for grind for killing & assisting mobs");
@@ -324,5 +335,9 @@ public class Config {
 
     public static double getMiningGrindMinMultiplier() {
         return MINING_GRIND_MIN_MULTIPLIER.get();
+    }
+
+    public static double getBaseAccuracy() {
+        return BASE_ACCURACY.get();
     }
 }

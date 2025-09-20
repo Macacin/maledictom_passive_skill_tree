@@ -30,23 +30,22 @@ public class SyncPlayerSkillsMessage {
     private int consecutiveCraftingActions;
     private long lastMiningXPTime;
     private int consecutiveMiningActions;
-
+    private double accuracy;
 
     private SyncPlayerSkillsMessage() {
     }
 
     public SyncPlayerSkillsMessage(Player player) {
         IPlayerSkills skillsCapability = PlayerSkillsProvider.get(player);
-        if (skillsCapability != null) {  // Guard на capability attach
-            learnedSkills = skillsCapability.getPlayerSkills().stream().map(PassiveSkill::getId).toList();
-            skillPoints = skillsCapability.getSkillPoints();
-            skillExperience = skillsCapability.getSkillExperience();
-            currentLevel = skillsCapability.getCurrentLevel();
-            lastCraftingXPTime = skillsCapability.getLastCraftingXPTime();
-            consecutiveCraftingActions = skillsCapability.getConsecutiveCraftingActions();
-            lastMiningXPTime = skillsCapability.getLastMiningXPTime();
-            consecutiveMiningActions = skillsCapability.getConsecutiveMiningActions();
-        }
+        learnedSkills = skillsCapability.getPlayerSkills().stream().map(PassiveSkill::getId).toList();
+        skillPoints = skillsCapability.getSkillPoints();
+        skillExperience = skillsCapability.getSkillExperience();
+        currentLevel = skillsCapability.getCurrentLevel();
+        lastCraftingXPTime = skillsCapability.getLastCraftingXPTime();
+        consecutiveCraftingActions = skillsCapability.getConsecutiveCraftingActions();
+        lastMiningXPTime = skillsCapability.getLastMiningXPTime();
+        consecutiveMiningActions = skillsCapability.getConsecutiveMiningActions();
+        accuracy = skillsCapability.getAccuracy();
     }
 
     public static SyncPlayerSkillsMessage decode(FriendlyByteBuf buf) {
@@ -62,6 +61,7 @@ public class SyncPlayerSkillsMessage {
         result.consecutiveCraftingActions = buf.readInt();
         result.lastMiningXPTime = buf.readLong();
         result.consecutiveMiningActions = buf.readInt();
+        result.accuracy = buf.readDouble();
         return result;
     }
 
@@ -101,6 +101,7 @@ public class SyncPlayerSkillsMessage {
         capability.setConsecutiveCraftingActions(message.consecutiveCraftingActions);
         capability.setLastMiningXPTime(message.lastMiningXPTime);
         capability.setConsecutiveMiningActions(message.consecutiveMiningActions);
+        capability.setAccuracy(message.accuracy);
 
 
         if (minecraft.screen instanceof SkillTreeScreen screen) {
@@ -120,5 +121,6 @@ public class SyncPlayerSkillsMessage {
         buf.writeInt(consecutiveCraftingActions);
         buf.writeLong(lastMiningXPTime);
         buf.writeInt(consecutiveMiningActions);
+        buf.writeDouble(accuracy);
     }
 }

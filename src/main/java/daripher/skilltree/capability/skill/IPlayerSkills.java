@@ -52,4 +52,8 @@ public interface IPlayerSkills extends INBTSerializable<CompoundTag> {
     int getConsecutiveMiningActions();
 
     void setConsecutiveMiningActions(int count);
+
+    void setAccuracy(double accuracy);
+
+    double getAccuracy();
 }
