@@ -85,6 +85,7 @@ public class PlayerSkillsProvider implements ICapabilitySerializable<CompoundTag
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
         NetworkDispatcher.network_channel.send(
                 PacketDistributor.PLAYER.with(() -> player), new SyncPlayerSkillsMessage(player));
+        System.out.println("Syncing skills to player " + player.getName() + ": " + get(player).getPlayerSkills().size() + " learned skills");
     }
 
     public static @NotNull IPlayerSkills get(Player player) {

@@ -414,8 +414,8 @@ public class SkillTreeScreen extends Screen {
             startingPoints.forEach(SkillButton::setCanLearn);
             return;
         }
-        if (learnedSkills.size() + newlyLearnedSkills.size() >= SkillTreeClientData.max_skill_points)
-            return;
+//        if (learnedSkills.size() + newlyLearnedSkills.size() >= SkillTreeClientData.max_skill_points)
+//            return;
         skillConnections.forEach(
                 connection -> {
                     SkillButton button1 = connection.getFirstButton();

@@ -38,7 +38,7 @@ public class LearnSkillMessage {
     IPlayerSkills capability = PlayerSkillsProvider.get(player);
     PassiveSkill skill = SkillsReloader.getSkillById(message.skillId);
     Objects.requireNonNull(skill);
-    if (capability.learnSkill(skill)) {
+    if (capability.learnSkill(player, skill)) {
       skill.learn(player, true);
     }
     NetworkDispatcher.network_channel.send(

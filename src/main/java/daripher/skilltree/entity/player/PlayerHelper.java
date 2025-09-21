@@ -4,11 +4,13 @@ import com.google.common.collect.Streams;
 import daripher.skilltree.skill.bonus.SkillBonusHandler;
 import daripher.skilltree.skill.bonus.condition.item.EquipmentCondition;
 import daripher.skilltree.skill.bonus.player.PlayerSocketsBonus;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
+
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
@@ -24,68 +26,68 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 public class PlayerHelper {
-  public static void hurtShield(Player player, final ItemStack shield, float amount) {
-    if (!shield.canPerformAction(ToolActions.SHIELD_BLOCK)) return;
-    if (!player.level().isClientSide) {
-      player.awardStat(Stats.ITEM_USED.get(shield.getItem()));
+    public static void hurtShield(Player player, final ItemStack shield, float amount) {
+        if (!shield.canPerformAction(ToolActions.SHIELD_BLOCK)) return;
+        if (!player.level().isClientSide) {
+            player.awardStat(Stats.ITEM_USED.get(shield.getItem()));
+        }
+        if (amount < 3) return;
+        amount = 1 + Mth.floor(amount);
+        shield.hurtAndBreak(
+                (int) amount,
+                player,
+                p -> {
+                    p.broadcastBreakEvent(InteractionHand.OFF_HAND);
+                    ForgeEventFactory.onPlayerDestroyItem(player, shield, InteractionHand.OFF_HAND);
+                });
+        if (shield.isEmpty()) {
+            player.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+            player.playSound(
+                    SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + player.level().random.nextFloat() * 0.4F);
+        }
     }
-    if (amount < 3) return;
-    amount = 1 + Mth.floor(amount);
-    shield.hurtAndBreak(
-        (int) amount,
-        player,
-        p -> {
-          p.broadcastBreakEvent(InteractionHand.OFF_HAND);
-          ForgeEventFactory.onPlayerDestroyItem(player, shield, InteractionHand.OFF_HAND);
-        });
-    if (shield.isEmpty()) {
-      player.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
-      player.playSound(
-          SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + player.level().random.nextFloat() * 0.4F);
+
+    public static int getPlayerSockets(ItemStack stack, @Nonnull Player player) {
+        return SkillBonusHandler.getSkillBonuses(player, PlayerSocketsBonus.class).stream()
+                .filter(bonus -> bonus.getItemCondition().met(stack))
+                .map(PlayerSocketsBonus::getSockets)
+                .reduce(Integer::sum)
+                .orElse(0);
     }
-  }
 
-  public static int getPlayerSockets(ItemStack stack, @Nonnull Player player) {
-    return SkillBonusHandler.getSkillBonuses(player, PlayerSocketsBonus.class).stream()
-        .filter(bonus -> bonus.getItemCondition().met(stack))
-        .map(PlayerSocketsBonus::getSockets)
-        .reduce(Integer::sum)
-        .orElse(0);
-  }
-
-  public static Stream<ItemStack> getAllEquipment(LivingEntity living) {
-    return Streams.concat(getEquipment(living), getCurios(living));
-  }
-
-  public static Stream<ItemStack> getItemsInHands(LivingEntity living) {
-    return Stream.of(living.getMainHandItem(), living.getOffhandItem());
-  }
-
-  public static Stream<ItemStack> getEquipment(LivingEntity living) {
-    return Arrays.stream(EquipmentSlot.values()).map(slot -> getEquipment(living, slot));
-  }
-
-  @NotNull
-  private static ItemStack getEquipment(LivingEntity living, EquipmentSlot slot) {
-    ItemStack stack = living.getItemBySlot(slot);
-    if (slot == EquipmentSlot.MAINHAND
-        && !EquipmentCondition.isWeapon(stack)
-        && !EquipmentCondition.isTool(stack)) {
-      return ItemStack.EMPTY;
+    public static Stream<ItemStack> getAllEquipment(LivingEntity living) {
+        return Streams.concat(getEquipment(living), getCurios(living));
     }
-    return stack;
-  }
 
-  public static Stream<ItemStack> getCurios(LivingEntity living) {
-    List<ItemStack> curios = new ArrayList<>();
-    CuriosApi.getCuriosInventory(living)
-        .map(ICuriosItemHandler::getEquippedCurios)
-        .ifPresent(
-            inv -> {
-              for (int i = 0; i < inv.getSlots(); i++) {
-                curios.add(inv.getStackInSlot(i));
-              }
-            });
-    return curios.stream();
-  }
+    public static Stream<ItemStack> getItemsInHands(LivingEntity living) {
+        return Stream.of(living.getMainHandItem(), living.getOffhandItem());
+    }
+
+    public static Stream<ItemStack> getEquipment(LivingEntity living) {
+        return Arrays.stream(EquipmentSlot.values()).map(slot -> getEquipment(living, slot));
+    }
+
+    @NotNull
+    private static ItemStack getEquipment(LivingEntity living, EquipmentSlot slot) {
+        ItemStack stack = living.getItemBySlot(slot);
+        if (slot == EquipmentSlot.MAINHAND
+                && !EquipmentCondition.isWeapon(stack)
+                && !EquipmentCondition.isTool(stack)) {
+            return ItemStack.EMPTY;
+        }
+        return stack;
+    }
+
+    public static Stream<ItemStack> getCurios(LivingEntity living) {
+        List<ItemStack> curios = new ArrayList<>();
+        CuriosApi.getCuriosInventory(living)
+                .map(ICuriosItemHandler::getEquippedCurios)
+                .ifPresent(
+                        inv -> {
+                            for (int i = 0; i < inv.getSlots(); i++) {
+                                curios.add(inv.getStackInSlot(i));
+                            }
+                        });
+        return curios.stream();
+    }
 }

@@ -21,7 +21,7 @@ public class PlayerSkills implements IPlayerSkills {
 
     private static final int BASE_LEVEL_COST = 18;
     private static final double GROWTH_FACTOR = 1.2;
-    private static final int MAX_LEVEL = 10000;
+//    private static final int MAX_LEVEL = 10000;
 
     private long lastCraftingXPTime = 0;
     private int consecutiveCraftingActions = 0;
@@ -44,21 +44,23 @@ public class PlayerSkills implements IPlayerSkills {
     }
 
     private void checkForLevelUp() {
-        while (currentLevel < MAX_LEVEL) {
+        while (true) {
             int nextCost = getNextLevelCost();
             if (skillExperience < nextCost) break;
             skillExperience -= nextCost;
             currentLevel++;
             skillPoints++;
+            if (currentLevel >= Integer.MAX_VALUE / 2) break;
         }
     }
+
 
     public void setSkillExperience(double exp) {
         this.skillExperience = Math.max(0, exp);
     }
 
     public void setCurrentLevel(int lvl) {
-        this.currentLevel = Math.max(0, Math.min(MAX_LEVEL, lvl));
+        this.currentLevel = Math.max(0, lvl);
     }
 
     public int getCurrentLevel() {
@@ -66,7 +68,6 @@ public class PlayerSkills implements IPlayerSkills {
     }
 
     public int getNextLevelCost() {
-        if (currentLevel >= MAX_LEVEL - 1) return Integer.MAX_VALUE;
         int L = currentLevel + 1;
         double x;
         if (L >= 1 && L <= 30) {
@@ -88,10 +89,14 @@ public class PlayerSkills implements IPlayerSkills {
     }
 
     @Override
-    public boolean learnSkill(@Nonnull PassiveSkill passiveSkill) {
+    public boolean learnSkill(ServerPlayer player, @Nonnull PassiveSkill passiveSkill) {
         if (skillPoints <= 0 || skills.contains(passiveSkill)) return false;
         skillPoints--;
-        return skills.add(passiveSkill);
+        boolean added = skills.add(passiveSkill);
+        if (added) {
+            passiveSkill.learn(player, true);  // true for firstTime, to apply onSkillLearned and bonuses
+        }
+        return added;
     }
 
     @Override
@@ -110,7 +115,6 @@ public class PlayerSkills implements IPlayerSkills {
         getPlayerSkills().forEach(skill -> skill.remove(player));
         getPlayerSkills().clear();
         skillPoints += refunded;
-        skillPoints = Math.min(MAX_LEVEL, skillPoints);
     }
 
     @Override
@@ -135,7 +139,6 @@ public class PlayerSkills implements IPlayerSkills {
     @Override
     public void deserializeNBT(CompoundTag tag) {
         skills.clear();
-        UUID treeVersion = tag.hasUUID("TreeVersion") ? tag.getUUID("TreeVersion") : null;
         skillPoints = tag.getInt("Points");
         skillExperience = tag.contains("Experience") ? tag.getDouble("Experience") : 0;
         currentLevel = tag.contains("Level") ? tag.getInt("Level") : 0;
@@ -149,12 +152,8 @@ public class PlayerSkills implements IPlayerSkills {
             accuracy = Config.getBaseAccuracy();
         }
         ListTag skillsTag = tag.getList("Skills", Tag.TAG_STRING);
-        if (!TREE_VERSION.equals(treeVersion)) {
-            skillPoints += skillsTag.size();
-            treeReset = true;
-            skillPoints = Math.min(MAX_LEVEL, skillPoints);
-            return;
-        }
+        System.out.println("Deserializing skills: points=" + skillPoints + ", exp=" + skillExperience + ", level=" + currentLevel);
+        UUID treeVersion = tag.hasUUID("TreeVersion") ? tag.getUUID("TreeVersion") : null;
         for (Tag skillTag : skillsTag) {
             ResourceLocation skillId = new ResourceLocation(skillTag.getAsString());
             PassiveSkill passiveSkill = SkillsReloader.getSkillById(skillId);
@@ -162,12 +161,13 @@ public class PlayerSkills implements IPlayerSkills {
                 skills.clear();
                 treeReset = true;
                 skillPoints += skillsTag.size();
-                skillPoints = Math.min(MAX_LEVEL, skillPoints);
                 return;
             }
             skills.add(passiveSkill);
         }
-        skillPoints = Math.min(MAX_LEVEL, skillPoints);
+        if (!tag.hasUUID("TreeVersion")) {
+            tag.putUUID("TreeVersion", TREE_VERSION);
+        }
     }
 
     @Override
@@ -232,11 +232,11 @@ public class PlayerSkills implements IPlayerSkills {
 
     @Override
     public void setSkillPoints(int skillPoints) {
-        this.skillPoints = Math.max(0, Math.min(MAX_LEVEL, skillPoints));  // Cap
+        this.skillPoints = Math.max(0, skillPoints);  // Cap
     }
 
     @Override
     public void grantSkillPoints(int skillPoints) {
-        this.skillPoints = Math.max(0, Math.min(MAX_LEVEL, this.skillPoints + skillPoints));  // Cap
+        this.skillPoints = Math.max(0, this.skillPoints + skillPoints);  // Cap
     }
 }
