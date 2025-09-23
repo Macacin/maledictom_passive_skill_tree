@@ -37,6 +37,8 @@ public class PlayerSkills implements IPlayerSkills {
 
     private double accuracy = Config.getBaseAccuracy();
 
+    private int agility = 0;
+
     public void addSkillExperience(double amount) {
         if (amount <= 0) return;
         this.skillExperience += amount;
@@ -94,7 +96,10 @@ public class PlayerSkills implements IPlayerSkills {
         skillPoints--;
         boolean added = skills.add(passiveSkill);
         if (added) {
-            passiveSkill.learn(player, true);  // true for firstTime, to apply onSkillLearned and bonuses
+            passiveSkill.learn(player, true);
+            if (passiveSkill.getTags().contains("Agility")) {
+                agility++;
+            }
         }
         return added;
     }
@@ -115,6 +120,7 @@ public class PlayerSkills implements IPlayerSkills {
         getPlayerSkills().forEach(skill -> skill.remove(player));
         getPlayerSkills().clear();
         skillPoints += refunded;
+        agility = 0;
     }
 
     @Override
@@ -130,6 +136,7 @@ public class PlayerSkills implements IPlayerSkills {
         tag.putLong("LastMiningXPTime", lastMiningXPTime);
         tag.putInt("ConsecutiveMiningActions", consecutiveMiningActions);
         tag.putDouble("Accuracy", accuracy);
+        tag.putInt("Agility", agility);
         ListTag skillsTag = new ListTag();
         skills.forEach(skill -> skillsTag.add(StringTag.valueOf(skill.getId().toString())));
         tag.put("Skills", skillsTag);
@@ -146,6 +153,7 @@ public class PlayerSkills implements IPlayerSkills {
         consecutiveCraftingActions = tag.getInt("ConsecutiveCraftingActions");
         lastMiningXPTime = tag.getLong("LastMiningXPTime");
         consecutiveMiningActions = tag.getInt("ConsecutiveMiningActions");
+        agility = tag.getInt("Agility");
         if (tag.contains("Accuracy")) {
             accuracy = tag.getDouble("Accuracy");
         } else {
@@ -238,5 +246,10 @@ public class PlayerSkills implements IPlayerSkills {
     @Override
     public void grantSkillPoints(int skillPoints) {
         this.skillPoints = Math.max(0, this.skillPoints + skillPoints);  // Cap
+    }
+
+    @Override
+    public int getAgility() {
+        return agility;
     }
 }

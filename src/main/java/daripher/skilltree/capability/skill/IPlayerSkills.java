@@ -58,4 +58,6 @@ public interface IPlayerSkills extends INBTSerializable<CompoundTag> {
     void setAccuracy(double accuracy);
 
     double getAccuracy();
+
+    int getAgility();
 }

@@ -460,6 +460,7 @@ public class SkillTreeScreen extends Screen {
     private void confirmLearnSkills() {
         newlyLearnedSkills.forEach(id -> learnSkill(skillButtons.get(id).skill));
         newlyLearnedSkills.clear();
+        rebuildWidgets();
     }
 
     private void cancelLearnSkills() {
