@@ -1,7 +1,6 @@
 package daripher.skilltree.entity.player;
 
 import com.google.common.collect.Streams;
-import daripher.skilltree.skill.bonus.SkillBonusHandler;
 import daripher.skilltree.skill.bonus.condition.item.EquipmentCondition;
 import daripher.skilltree.skill.bonus.player.PlayerSocketsBonus;
 
@@ -47,13 +46,13 @@ public class PlayerHelper {
         }
     }
 
-    public static int getPlayerSockets(ItemStack stack, @Nonnull Player player) {
-        return SkillBonusHandler.getSkillBonuses(player, PlayerSocketsBonus.class).stream()
-                .filter(bonus -> bonus.getItemCondition().met(stack))
-                .map(PlayerSocketsBonus::getSockets)
-                .reduce(Integer::sum)
-                .orElse(0);
-    }
+//    public static int getPlayerSockets(ItemStack stack, @Nonnull Player player) {
+//        return SkillBonusHandler.getSkillBonuses(player, PlayerSocketsBonus.class).stream()
+//                .filter(bonus -> bonus.getItemCondition().met(stack))
+//                .map(PlayerSocketsBonus::getSockets)
+//                .reduce(Integer::sum)
+//                .orElse(0);
+//    }
 
     public static Stream<ItemStack> getAllEquipment(LivingEntity living) {
         return Streams.concat(getEquipment(living), getCurios(living));

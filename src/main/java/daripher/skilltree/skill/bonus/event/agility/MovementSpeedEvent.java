@@ -1,11 +1,10 @@
-package daripher.skilltree.skill.bonus.event;
+package daripher.skilltree.skill.bonus.event.agility;
 
 import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.capability.skill.PlayerSkillsProvider;
 import daripher.skilltree.skill.bonus.player.agility.MovementSpeedBonus;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

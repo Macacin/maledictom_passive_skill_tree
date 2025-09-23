@@ -3,7 +3,7 @@ package daripher.skilltree.mixin.easymagic;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import daripher.skilltree.container.ContainerHelper;
 import daripher.skilltree.container.menu.EnchantmentMenuExtension;
-import daripher.skilltree.skill.bonus.SkillBonusHandler;
+//import daripher.skilltree.skill.bonus.SkillBonusHandler;
 import fuzs.easymagic.mixin.accessor.EnchantmentMenuAccessor;
 import fuzs.easymagic.world.inventory.ModEnchantmentMenu;
 import java.util.List;
@@ -23,37 +23,37 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class ModEnchantmentMenuMixin {
   private @Shadow @Final DataSlot enchantmentSeed;
 
-  @Redirect(
-      method = "updateLevels",
-      at =
-          @At(
-              value = "INVOKE",
-              target =
-                  "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getEnchantmentCost(Lnet/minecraft/util/RandomSource;IILnet/minecraft/world/item/ItemStack;)I"))
-  private int reduceLevelRequirements(RandomSource random, int slot, int power, ItemStack stack) {
-    int cost = EnchantmentHelper.getEnchantmentCost(random, slot, power, stack);
-    EnchantmentMenuExtension extension = (EnchantmentMenuExtension) this;
-    extension.getCostsBeforeReduction()[slot] = cost;
-    @SuppressWarnings("DataFlowIssue")
-    ModEnchantmentMenu menu = (ModEnchantmentMenu) (Object) this;
-    Player player = ContainerHelper.getViewingPlayer(menu);
-    if (player == null) return cost;
-    return SkillBonusHandler.adjustEnchantmentCost(cost, player);
-  }
+//  @Redirect(
+//      method = "updateLevels",
+//      at =
+//          @At(
+//              value = "INVOKE",
+//              target =
+//                  "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getEnchantmentCost(Lnet/minecraft/util/RandomSource;IILnet/minecraft/world/item/ItemStack;)I"))
+//  private int reduceLevelRequirements(RandomSource random, int slot, int power, ItemStack stack) {
+//    int cost = EnchantmentHelper.getEnchantmentCost(random, slot, power, stack);
+//    EnchantmentMenuExtension extension = (EnchantmentMenuExtension) this;
+//    extension.getCostsBeforeReduction()[slot] = cost;
+//    @SuppressWarnings("DataFlowIssue")
+//    ModEnchantmentMenu menu = (ModEnchantmentMenu) (Object) this;
+//    Player player = ContainerHelper.getViewingPlayer(menu);
+//    if (player == null) return cost;
+//    return SkillBonusHandler.adjustEnchantmentCost(cost, player);
+//  }
 
-  @ModifyReturnValue(method = "createEnchantmentInstance", at = @At("RETURN"), remap = false)
-  private List<EnchantmentInstance> amplifyEnchantments(
-      List<EnchantmentInstance> original, ItemStack itemStack, int slot) {
-    @SuppressWarnings("DataFlowIssue")
-    ModEnchantmentMenu menu = (ModEnchantmentMenu) (Object) this;
-    Player player = ContainerHelper.getViewingPlayer(menu);
-    if (player == null) return original;
-    EnchantmentMenuExtension extension = (EnchantmentMenuExtension) this;
-    EnchantmentMenuAccessor accessor = (EnchantmentMenuAccessor) this;
-    int cost = extension.getCostsBeforeReduction()[slot];
-    List<EnchantmentInstance> enchantments = accessor.callGetEnchantmentList(itemStack, slot, cost);
-    RandomSource random = RandomSource.create(enchantmentSeed.get());
-    SkillBonusHandler.amplifyEnchantments(enchantments, random, player);
-    return enchantments;
-  }
+//  @ModifyReturnValue(method = "createEnchantmentInstance", at = @At("RETURN"), remap = false)
+//  private List<EnchantmentInstance> amplifyEnchantments(
+//      List<EnchantmentInstance> original, ItemStack itemStack, int slot) {
+//    @SuppressWarnings("DataFlowIssue")
+//    ModEnchantmentMenu menu = (ModEnchantmentMenu) (Object) this;
+//    Player player = ContainerHelper.getViewingPlayer(menu);
+//    if (player == null) return original;
+//    EnchantmentMenuExtension extension = (EnchantmentMenuExtension) this;
+//    EnchantmentMenuAccessor accessor = (EnchantmentMenuAccessor) this;
+//    int cost = extension.getCostsBeforeReduction()[slot];
+//    List<EnchantmentInstance> enchantments = accessor.callGetEnchantmentList(itemStack, slot, cost);
+//    RandomSource random = RandomSource.create(enchantmentSeed.get());
+//    SkillBonusHandler.amplifyEnchantments(enchantments, random, player);
+//    return enchantments;
+//  }
 }

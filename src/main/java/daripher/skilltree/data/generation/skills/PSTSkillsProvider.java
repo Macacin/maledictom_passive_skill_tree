@@ -6,6 +6,8 @@ import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.data.reloader.SkillsReloader;
 import daripher.skilltree.skill.PassiveSkill;
 import daripher.skilltree.skill.bonus.SkillBonus;
+import daripher.skilltree.skill.bonus.player.agility.AttackSpeedBonus;
+import daripher.skilltree.skill.bonus.player.agility.JumpHeightBonus;
 import daripher.skilltree.skill.bonus.player.agility.MovementSpeedBonus;
 
 import java.nio.file.Path;
@@ -32,18 +34,36 @@ public class PSTSkillsProvider implements DataProvider {
     }
 
     private void addSkills() {
-        addSkill("agility_starting", "starting_1", 24);  // Starting point, class size, icon whatever
-        addSkillBranch("agility", "agility_1", 16, 1, 4);
+        addSkill("agility_starting", "starting_1", 24); // Starting skill
+        addSkillBranch("agility_movement_speed", "agility_1", 16, 1, 5); // Movement speed line
+        addSkillBranch("agility_attack_speed", "agility_1", 16, 1, 5); // Attack speed line
+        addSkillBranch("agility_jump_height", "agility_1", 16, 1, 5); // Новая линия: 5 нод для jump height
     }
 
     private void shapeSkillTree() {
-        setSkillPosition(null, 0, 0, "agility_starting");  // Center, no previous
-        setSkillBranchPosition("agility_starting", 10, "agility", 0, 90, 1, 4);  // From starting, down
+        setSkillPosition(null, 0, 0, "agility_starting"); // Center, no previous
+
+        // Movement speed branch: downward (rotation starting at 90 degrees)
+        setSkillBranchPosition("agility_starting", 10, "agility_movement_speed", 90, 30, 1, 5);
+
+        // Attack speed branch: upward (rotation starting at -90 degrees)
+        setSkillBranchPosition("agility_starting", 10, "agility_attack_speed", -90, 30, 1, 5);
+        // Jump height branch: leftward (rotation starting at 180 degrees)
+        setSkillBranchPosition("agility_starting", 10, "agility_jump_height", 180, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
-        addSkillBonus("agility_starting", new MovementSpeedBonus(0.1f, Operation.MULTIPLY_BASE));  // +10% для теста
-        addSkillBranchBonuses("agility", new MovementSpeedBonus(0.3f, Operation.MULTIPLY_BASE), 1, 4);
+        // Optional small bonuses on starting skill for testing
+        addSkillBonus("agility_starting", new MovementSpeedBonus(0.05f, Operation.MULTIPLY_BASE));
+        addSkillBonus("agility_starting", new AttackSpeedBonus(0.05f, Operation.MULTIPLY_BASE));
+
+        // Bonuses for movement speed branch
+        addSkillBranchBonuses("agility_movement_speed", new MovementSpeedBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+
+        // Bonuses for attack speed branch
+        addSkillBranchBonuses("agility_attack_speed", new AttackSpeedBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+
+        addSkillBranchBonuses("agility_jump_height", new JumpHeightBonus(0.08f, Operation.ADDITION), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

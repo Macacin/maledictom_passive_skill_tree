@@ -3,7 +3,7 @@ package daripher.skilltree.mixin.minecraft;
 import daripher.skilltree.capability.enchant.CraftingXPUtil;
 import daripher.skilltree.container.ContainerHelper;
 import daripher.skilltree.container.menu.EnchantmentMenuExtension;
-import daripher.skilltree.skill.bonus.SkillBonusHandler;
+//import daripher.skilltree.skill.bonus.SkillBonusHandler;
 
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -35,60 +35,60 @@ public abstract class EnchantmentMenuMixin implements EnchantmentMenuExtension {
     private @Shadow
     @Final DataSlot enchantmentSeed;
 
-    @Redirect(
-            method = {"lambda$slotsChanged$0", "m_39483_"},
-            at =
-            @At(
-                    value = "INVOKE",
-                    target =
-                            "Lnet/minecraftforge/event/ForgeEventFactory;onEnchantmentLevelSet(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;IILnet/minecraft/world/item/ItemStack;I)I"))
-    private int reduceEnchantmentCost(
-            Level level, BlockPos pos, int slot, int power, ItemStack itemStack, int enchantmentLevel) {
-        int cost =
-                ForgeEventFactory.onEnchantmentLevelSet(level, pos, slot, power, itemStack, costs[slot]);
-        costsBeforeReduction[slot] = cost;
-        @SuppressWarnings("DataFlowIssue")
-        EnchantmentMenu menu = (EnchantmentMenu) (Object) this;
-        Player player = ContainerHelper.getViewingPlayer(menu);
-        if (player == null) return cost;
-        return SkillBonusHandler.adjustEnchantmentCost(cost, player);
-    }
+//    @Redirect(
+//            method = {"lambda$slotsChanged$0", "m_39483_"},
+//            at =
+//            @At(
+//                    value = "INVOKE",
+//                    target =
+//                            "Lnet/minecraftforge/event/ForgeEventFactory;onEnchantmentLevelSet(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;IILnet/minecraft/world/item/ItemStack;I)I"))
+//    private int reduceEnchantmentCost(
+//            Level level, BlockPos pos, int slot, int power, ItemStack itemStack, int enchantmentLevel) {
+//        int cost =
+//                ForgeEventFactory.onEnchantmentLevelSet(level, pos, slot, power, itemStack, costs[slot]);
+//        costsBeforeReduction[slot] = cost;
+//        @SuppressWarnings("DataFlowIssue")
+//        EnchantmentMenu menu = (EnchantmentMenu) (Object) this;
+//        Player player = ContainerHelper.getViewingPlayer(menu);
+//        if (player == null) return cost;
+//        return SkillBonusHandler.adjustEnchantmentCost(cost, player);
+//    }
 
-    @Redirect(
-            method = {"lambda$slotsChanged$0", "m_39483_"},
-            at =
-            @At(
-                    value = "INVOKE",
-                    target =
-                            "Lnet/minecraft/world/inventory/EnchantmentMenu;getEnchantmentList(Lnet/minecraft/world/item/ItemStack;II)Ljava/util/List;"))
-    private List<EnchantmentInstance> amplifyEnchantmentsVisually(
-            EnchantmentMenu menu, ItemStack itemStack, int slot, int cost) {
-        return amplifyEnchantments(itemStack, slot);
-    }
+//    @Redirect(
+//            method = {"lambda$slotsChanged$0", "m_39483_"},
+//            at =
+//            @At(
+//                    value = "INVOKE",
+//                    target =
+//                            "Lnet/minecraft/world/inventory/EnchantmentMenu;getEnchantmentList(Lnet/minecraft/world/item/ItemStack;II)Ljava/util/List;"))
+//    private List<EnchantmentInstance> amplifyEnchantmentsVisually(
+//            EnchantmentMenu menu, ItemStack itemStack, int slot, int cost) {
+//        return amplifyEnchantments(itemStack, slot);
+//    }
 
-    @Redirect(
-            method = {"lambda$clickMenuButton$1", "m_39475_"},
-            at =
-            @At(
-                    value = "INVOKE",
-                    target =
-                            "Lnet/minecraft/world/inventory/EnchantmentMenu;getEnchantmentList(Lnet/minecraft/world/item/ItemStack;II)Ljava/util/List;"))
-    private List<EnchantmentInstance> amplifyEnchantmentsOnButtonClick(
-            EnchantmentMenu menu, ItemStack itemStack, int slot, int cost) {
-        return amplifyEnchantments(itemStack, slot);
-    }
-
-    private List<EnchantmentInstance> amplifyEnchantments(ItemStack itemStack, int slot) {
-        List<EnchantmentInstance> enchantments =
-                getEnchantmentList(itemStack, slot, costsBeforeReduction[slot]);
-        RandomSource random = RandomSource.create(enchantmentSeed.get());
-        @SuppressWarnings("DataFlowIssue")
-        EnchantmentMenu menu = (EnchantmentMenu) (Object) this;
-        Player player = ContainerHelper.getViewingPlayer(menu);
-        if (player == null) return enchantments;
-        SkillBonusHandler.amplifyEnchantments(enchantments, random, player);
-        return enchantments;
-    }
+//    @Redirect(
+//            method = {"lambda$clickMenuButton$1", "m_39475_"},
+//            at =
+//            @At(
+//                    value = "INVOKE",
+//                    target =
+//                            "Lnet/minecraft/world/inventory/EnchantmentMenu;getEnchantmentList(Lnet/minecraft/world/item/ItemStack;II)Ljava/util/List;"))
+//    private List<EnchantmentInstance> amplifyEnchantmentsOnButtonClick(
+//            EnchantmentMenu menu, ItemStack itemStack, int slot, int cost) {
+//        return amplifyEnchantments(itemStack, slot);
+//    }
+//
+//    private List<EnchantmentInstance> amplifyEnchantments(ItemStack itemStack, int slot) {
+//        List<EnchantmentInstance> enchantments =
+//                getEnchantmentList(itemStack, slot, costsBeforeReduction[slot]);
+//        RandomSource random = RandomSource.create(enchantmentSeed.get());
+//        @SuppressWarnings("DataFlowIssue")
+//        EnchantmentMenu menu = (EnchantmentMenu) (Object) this;
+//        Player player = ContainerHelper.getViewingPlayer(menu);
+//        if (player == null) return enchantments;
+//        SkillBonusHandler.amplifyEnchantments(enchantments, random, player);
+//        return enchantments;
+//    }
 
     @SuppressWarnings({"unused", "DataFlowIssue"})
     @Shadow

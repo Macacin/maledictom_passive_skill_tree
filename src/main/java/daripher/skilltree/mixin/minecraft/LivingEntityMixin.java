@@ -3,11 +3,11 @@ package daripher.skilltree.mixin.minecraft;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import daripher.skilltree.config.Config;
 import daripher.skilltree.entity.EquippedEntity;
-import daripher.skilltree.skill.bonus.SkillBonusHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import daripher.skilltree.skill.bonus.event.agility.JumpHeightEvent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -41,7 +41,7 @@ public abstract class LivingEntityMixin implements EquippedEntity {
     @ModifyReturnValue(method = "getJumpPower", at = @At("RETURN"))
     private float applyJumpHeightBonus(float original) {
         if (!((Object) this instanceof Player player)) return original;
-        return original * SkillBonusHandler.getJumpHeightMultiplier(player);
+        return original * JumpHeightEvent.getJumpHeightMultiplier(player);
     }
 
     @Override
