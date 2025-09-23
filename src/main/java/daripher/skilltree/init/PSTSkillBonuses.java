@@ -7,10 +7,7 @@ import daripher.skilltree.skill.bonus.player.*;
 import java.util.List;
 import java.util.Objects;
 
-import daripher.skilltree.skill.bonus.player.agility.AttackSpeedBonus;
-import daripher.skilltree.skill.bonus.player.agility.JumpHeightBonus;
-import daripher.skilltree.skill.bonus.player.agility.MovementSpeedBonus;
-import daripher.skilltree.skill.bonus.player.agility.ProjectileVelocityBonus;
+import daripher.skilltree.skill.bonus.player.agility.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.*;
 
@@ -76,6 +73,8 @@ public class PSTSkillBonuses {
           REGISTRY.register("attack_speed", AttackSpeedBonus.Serializer::new);
   public static final RegistryObject<SkillBonus.Serializer> PROJECTILE_VELOCITY =
           REGISTRY.register("projectile_velocity", ProjectileVelocityBonus.Serializer::new);
+  public static final RegistryObject<SkillBonus.Serializer> ATTACK_REACH =
+          REGISTRY.register("attack_reach", AttackReachBonus.Serializer::new);
 
   @SuppressWarnings("rawtypes")
   public static List<SkillBonus> bonusList() {

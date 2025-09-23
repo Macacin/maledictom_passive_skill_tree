@@ -3,7 +3,6 @@ package daripher.skilltree.skill.bonus.event.agility;
 import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.capability.skill.PlayerSkillsProvider;
 import daripher.skilltree.skill.bonus.SkillBonus;
-import daripher.skilltree.skill.bonus.SkillBonusHandler;
 import daripher.skilltree.skill.bonus.player.agility.JumpHeightBonus;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -44,7 +43,7 @@ public class JumpHeightEvent {
     public static void onLivingFall(LivingFallEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
-        float totalMultiplier = SkillBonusHandler.getJumpHeightMultiplier(player);
+        float totalMultiplier = getJumpHeightMultiplier(player);
         double extraHeight = approximateDeltaHeight(totalMultiplier - 1);
 
         double reduction = extraHeight * BLOCKS_PER_REDUCTION;

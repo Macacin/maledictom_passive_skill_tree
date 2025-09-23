@@ -1,4 +1,9 @@
-// 1.20.1	2025-09-23T20:09:00.7783003	Skills Provider
+// 1.20.1	2025-09-23T20:41:36.6194394	Skills Provider
+6f3fc03db1f057cc9eb96814de476ce020b06b66 data/skilltree/skills/agility_attack_reach_1.json
+7a1ae2789876909202313d242bde7fe7a791adcd data/skilltree/skills/agility_attack_reach_2.json
+03941f4ed9e5465e82e038e60873c58a0b5bb54e data/skilltree/skills/agility_attack_reach_3.json
+7c8344e0cf305570c00acc0bb6e2ab54dfa7db67 data/skilltree/skills/agility_attack_reach_4.json
+5910fe26fab3038d4dd9393317105c2e89b81570 data/skilltree/skills/agility_attack_reach_5.json
 80d60f7a7e2a432241758d8361ef8f9322cb0935 data/skilltree/skills/agility_attack_speed_1.json
 f01e72bf854a9ce3e1973713ee1d947b2db6b74f data/skilltree/skills/agility_attack_speed_2.json
 89d472cdb9ab35efd4786507a9f0ff625268dc3f data/skilltree/skills/agility_attack_speed_3.json
@@ -19,4 +24,4 @@ b94aa1870a2dced18c523f7b293699dbb9140e93 data/skilltree/skills/agility_movement_
 4c02d13fa3f7d2464d9616493647158189cebaed data/skilltree/skills/agility_projectile_velocity_3.json
 8195a1aa1f13f1e2d153a759be20e783e67cb7a1 data/skilltree/skills/agility_projectile_velocity_4.json
 4e8ea5d82884a4f99d1f0f973d8078de9451e5b9 data/skilltree/skills/agility_projectile_velocity_5.json
-458e20c2869cd74dad20992c25334f556e7cc2b0 data/skilltree/skills/agility_starting.json
+3fd414d3dfb9bc40c2fe002cdb16518bbec3571d data/skilltree/skills/agility_starting.json

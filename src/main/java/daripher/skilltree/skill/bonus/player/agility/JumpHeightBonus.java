@@ -19,12 +19,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 
 public final class JumpHeightBonus implements SkillBonus<JumpHeightBonus> {
-    private float amount; // Amount as fraction added to multiplier (e.g., 0.1 for +10% velocity)
+    private float amount;
     private AttributeModifier.Operation operation;
 
-    private static final double BASE_VELOCITY = 0.42;
-    private static final double GRAVITY = 0.08;
-    private static final double FRICTION = 0.98;
 
     public JumpHeightBonus(float amount, AttributeModifier.Operation operation) {
         this.amount = amount;
@@ -87,12 +84,11 @@ public final class JumpHeightBonus implements SkillBonus<JumpHeightBonus> {
     }
 
     public float getJumpHeightMultiplier(Player player) {
-        // Optional condition: e.g., if (player.isInWater()) return 0;
         return amount;
     }
 
     public float getFallResistance(Player player) {
-        return (float) (approximateDeltaBlocks(amount) * 0.1f); // +0.2 blocks -> 0.02 = 2% fraction
+        return (float) (approximateDeltaBlocks(amount) * 0.1f);
     }
 
     private void setAmount(Consumer<JumpHeightBonus> consumer, float value) {
@@ -105,12 +101,10 @@ public final class JumpHeightBonus implements SkillBonus<JumpHeightBonus> {
         consumer.accept(this.copy());
     }
 
-    // Approximate delta blocks for tooltip (linear approx: delta ≈ 2.4 * amount)
     private double approximateDeltaBlocks(float amount) {
-        return Math.round(2.4 * amount * 10) / 10.0; // Round to 1 decimal
+        return Math.round(2.4 * amount * 10) / 10.0;
     }
 
-    // Reverse: amount from desired blocks (amount ≈ blocks / 2.4)
     private float blocksToAmount(float blocks) {
         return blocks / 2.4f;
     }
@@ -168,7 +162,7 @@ public final class JumpHeightBonus implements SkillBonus<JumpHeightBonus> {
 
         @Override
         public SkillBonus<?> createDefaultInstance() {
-            return new JumpHeightBonus(0.1f, AttributeModifier.Operation.ADDITION); // +10% velocity by default, approx +0.2 blocks +2%
+            return new JumpHeightBonus(0.1f, AttributeModifier.Operation.ADDITION);
         }
     }
 }

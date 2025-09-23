@@ -83,12 +83,11 @@ public final class AttackSpeedBonus implements SkillBonus<AttackSpeedBonus> {
     }
 
     public float getAttackSpeedBonus(Player player) {
-        // Пример условия: бонус применяется только для melee-оружия
         ItemStack heldItem = player.getMainHandItem();
         if (heldItem.canPerformAction(net.minecraftforge.common.ToolActions.SWORD_SWEEP) || heldItem.getItem() instanceof net.minecraft.world.item.SwordItem) {
             return amount;
         }
-        return 0; // Нет бонуса для ranged или других
+        return 0;
     }
 
     private void setAmount(Consumer<AttackSpeedBonus> consumer, float value) {

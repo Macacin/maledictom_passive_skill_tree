@@ -6,16 +6,13 @@ import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.data.reloader.SkillsReloader;
 import daripher.skilltree.skill.PassiveSkill;
 import daripher.skilltree.skill.bonus.SkillBonus;
-import daripher.skilltree.skill.bonus.player.agility.AttackSpeedBonus;
-import daripher.skilltree.skill.bonus.player.agility.JumpHeightBonus;
-import daripher.skilltree.skill.bonus.player.agility.MovementSpeedBonus;
+import daripher.skilltree.skill.bonus.player.agility.*;
 
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nullable;
 
-import daripher.skilltree.skill.bonus.player.agility.ProjectileVelocityBonus;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -40,6 +37,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("agility_attack_speed", "agility_1", 16, 1, 5); // Attack speed line
         addSkillBranch("agility_jump_height", "agility_1", 16, 1, 5); // Новая линия: 5 нод для jump height
         addSkillBranch("agility_projectile_velocity", "agility_1", 16, 1, 5); // Новая линия: 5 нод для projectile velocity
+        addSkillBranch("agility_attack_reach", "agility_1", 16, 1, 5); // 5 нод, как другие
     }
 
     private void shapeSkillTree() {
@@ -54,6 +52,8 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("agility_starting", 10, "agility_jump_height", 180, 30, 1, 5);
         // Projectile velocity branch: rightward (rotation starting at 0 degrees)
         setSkillBranchPosition("agility_starting", 10, "agility_projectile_velocity", 0, 30, 1, 5);
+
+        setSkillBranchPosition("agility_starting", 10, "agility_attack_reach", 45, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -70,6 +70,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("agility_jump_height", new JumpHeightBonus(0.08f, Operation.ADDITION), 1, 5);
         // Bonuses for projectile velocity branch
         addSkillBranchBonuses("agility_projectile_velocity", new ProjectileVelocityBonus(1.0f, Operation.MULTIPLY_BASE), 1, 5); // +10% velocity per node
+        addSkillBranchBonuses("agility_attack_reach", new AttackReachBonus(0.5f, Operation.ADDITION), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
