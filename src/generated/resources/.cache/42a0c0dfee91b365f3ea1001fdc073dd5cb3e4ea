@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-24T18:13:21.0986277	Skills Provider
+// 1.20.1	2025-09-24T19:22:42.6803489	Skills Provider
 6f3fc03db1f057cc9eb96814de476ce020b06b66 data/skilltree/skills/agility_attack_reach_1.json
 7a1ae2789876909202313d242bde7fe7a791adcd data/skilltree/skills/agility_attack_reach_2.json
 03941f4ed9e5465e82e038e60873c58a0b5bb54e data/skilltree/skills/agility_attack_reach_3.json
@@ -29,7 +29,12 @@ eb6e40b0227f05895f9f4a2b907204c1d4db2d7b data/skilltree/skills/agility_projectil
 4c02d13fa3f7d2464d9616493647158189cebaed data/skilltree/skills/agility_projectile_velocity_3.json
 8195a1aa1f13f1e2d153a759be20e783e67cb7a1 data/skilltree/skills/agility_projectile_velocity_4.json
 4e8ea5d82884a4f99d1f0f973d8078de9451e5b9 data/skilltree/skills/agility_projectile_velocity_5.json
-be50b7f0b6c5b862c6ade1f2166428931f3fb315 data/skilltree/skills/agility_starting.json
+e65a88072ab235500cd96692d12f968f283d8d2e data/skilltree/skills/agility_sprint_damage_1.json
+ff13c34fcf8ed8d57c6d6f87c2379e924292161c data/skilltree/skills/agility_sprint_damage_2.json
+28b823bea9da33c162b3250243fdb4554ec2bf7c data/skilltree/skills/agility_sprint_damage_3.json
+82ae4c592f9846678c9b63c27039d3041fb4acf8 data/skilltree/skills/agility_sprint_damage_4.json
+a03fa5e7da6f1e042a24e37f307052058eaf39c0 data/skilltree/skills/agility_sprint_damage_5.json
+7018ce3e1954dc73d377923c2f382739713d27ab data/skilltree/skills/agility_starting.json
 b1c279e54719a493cde770a52aa53ae16eb19e0d data/skilltree/skills/agility_swim_speed_1.json
 5bc6acd48788f6b8b8f6411a93021db2d1ed934c data/skilltree/skills/agility_swim_speed_2.json
 ca742d5b084b49775fd3a030ddcdfc3b728fc60e data/skilltree/skills/agility_swim_speed_3.json

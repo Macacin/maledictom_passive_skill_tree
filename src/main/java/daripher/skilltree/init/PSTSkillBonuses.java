@@ -80,6 +80,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("swim_speed", SwimSpeedBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> PROJECTILE_RESISTANCE =
             REGISTRY.register("projectile_resistance", ProjectileResistanceBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> SPRINT_DAMAGE =
+            REGISTRY.register("sprint_damage", SprintDamageBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

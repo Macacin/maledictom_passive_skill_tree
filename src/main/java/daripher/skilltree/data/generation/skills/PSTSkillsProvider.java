@@ -40,6 +40,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("agility_attack_reach", "agility_1", 16, 1, 5); // 5 нод, как другие
         addSkillBranch("agility_swim_speed", "agility_1", 16, 1, 5);
         addSkillBranch("agility_projectile_resistance", "agility_1", 16, 1, 5);
+        addSkillBranch("agility_sprint_damage", "agility_1", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -50,14 +51,24 @@ public class PSTSkillsProvider implements DataProvider {
 
         // Attack speed branch: upward (rotation starting at -90 degrees)
         setSkillBranchPosition("agility_starting", 10, "agility_attack_speed", -90, 30, 1, 5);
+
         // Jump height branch: leftward (rotation starting at 180 degrees)
         setSkillBranchPosition("agility_starting", 10, "agility_jump_height", 180, 30, 1, 5);
+
         // Projectile velocity branch: rightward (rotation starting at 0 degrees)
         setSkillBranchPosition("agility_starting", 10, "agility_projectile_velocity", 0, 30, 1, 5);
 
+        // Attack reach branch: northeast (45 degrees)
         setSkillBranchPosition("agility_starting", 10, "agility_attack_reach", 45, 30, 1, 5);
+
+        // Swim speed branch: southeast (135 degrees)
         setSkillBranchPosition("agility_starting", 10, "agility_swim_speed", 135, 30, 1, 5);
+
+        // Projectile resistance branch: southwest (-135 degrees)
         setSkillBranchPosition("agility_starting", 10, "agility_projectile_resistance", -135, 30, 1, 5);
+
+        // Sprint damage branch: westward (270 degrees)
+        setSkillBranchPosition("agility_starting", 10, "agility_sprint_damage", 15, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -78,6 +89,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBonus("agility_starting", new SwimSpeedBonus(0.1f, AttributeModifier.Operation.MULTIPLY_BASE)); // +10%
         addSkillBranchBonuses("agility_swim_speed", new SwimSpeedBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +20% per node
         addSkillBranchBonuses("agility_projectile_resistance", new ProjectileResistanceBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +10% per node
+        addSkillBranchBonuses("agility_sprint_damage", new SprintDamageBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +10% per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
