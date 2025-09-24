@@ -39,6 +39,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("agility_projectile_velocity", "agility_1", 16, 1, 5); // Новая линия: 5 нод для projectile velocity
         addSkillBranch("agility_attack_reach", "agility_1", 16, 1, 5); // 5 нод, как другие
         addSkillBranch("agility_swim_speed", "agility_1", 16, 1, 5);
+        addSkillBranch("agility_projectile_resistance", "agility_1", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -56,6 +57,7 @@ public class PSTSkillsProvider implements DataProvider {
 
         setSkillBranchPosition("agility_starting", 10, "agility_attack_reach", 45, 30, 1, 5);
         setSkillBranchPosition("agility_starting", 10, "agility_swim_speed", 135, 30, 1, 5);
+        setSkillBranchPosition("agility_starting", 10, "agility_projectile_resistance", -135, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -75,6 +77,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("agility_attack_reach", new AttackReachBonus(0.5f, Operation.ADDITION), 1, 5);
         addSkillBonus("agility_starting", new SwimSpeedBonus(0.1f, AttributeModifier.Operation.MULTIPLY_BASE)); // +10%
         addSkillBranchBonuses("agility_swim_speed", new SwimSpeedBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +20% per node
+        addSkillBranchBonuses("agility_projectile_resistance", new ProjectileResistanceBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +10% per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
