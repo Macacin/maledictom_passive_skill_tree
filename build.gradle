@@ -149,6 +149,8 @@ dependencies {
     implementation fg.deobf("curse.maven:ftb-teams-forge-404468:5267190")
     implementation fg.deobf("curse.maven:ftb-library-forge-404465:6807424")
     implementation fg.deobf("curse.maven:ftb-quests-forge-289412:6829212")
+
+    implementation fg.deobf(files('run/libs/weightmod-1.0.0-deobf.jar'))
 }
 
 mixin {

@@ -85,3 +85,10 @@ license="${mod_license}"
     versionRange="[2001.4.0,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId = "weightmod"
+    mandatory = true
+    versionRange = "[1.0,)"
+    ordering = "AFTER"
+    side = "BOTH"

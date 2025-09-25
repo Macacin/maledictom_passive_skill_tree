@@ -2,6 +2,7 @@ package daripher.skilltree.skill.bonus.event.agility;
 
 import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.capability.skill.PlayerSkillsProvider;
+import daripher.skilltree.skill.bonus.player.agility.LightLoadMovementBonus;
 import daripher.skilltree.skill.bonus.player.agility.MovementSpeedBonus;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -22,6 +23,22 @@ public class MovementSpeedEvent {
                 .sum();
         double originalBase = 0.1D;
         double newValue = originalBase * (1 + totalBonus);
+        player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newValue);
+
+        totalBonus = PlayerSkillsProvider.get(player).getPlayerSkills().stream()
+                .flatMap(skill -> skill.getBonuses().stream())
+                .filter(bonus -> bonus instanceof MovementSpeedBonus || bonus instanceof LightLoadMovementBonus)
+                .mapToDouble(bonus -> {
+                    if (bonus instanceof MovementSpeedBonus speedBonus) {
+                        return speedBonus.getSpeedBonus(player);
+                    } else if (bonus instanceof LightLoadMovementBonus loadBonus) {
+                        return loadBonus.getSpeedBonus(player);
+                    }
+                    return 0;
+                })
+                .sum();
+        originalBase = 0.1D;
+        newValue = originalBase * (1 + totalBonus);
         player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newValue);
     }
 }
