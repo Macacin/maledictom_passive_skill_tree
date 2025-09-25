@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import java.util.function.Consumer;
 
 public final class AirborneDamageBonus implements SkillBonus<AirborneDamageBonus> {
-    private float amount;
+    public float amount;
     public AttributeModifier.Operation operation;
 
     public AirborneDamageBonus(float amount, AttributeModifier.Operation operation) {
@@ -76,6 +76,7 @@ public final class AirborneDamageBonus implements SkillBonus<AirborneDamageBonus
     }
 
     public float getDamageBonus(Player player) {
+        if (player == null) return amount;
         return !player.onGround() ? amount : 0f;
     }
 

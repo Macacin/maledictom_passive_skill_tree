@@ -18,21 +18,12 @@ public class ProjectileResistanceEvent {
     public static void onLivingHurt(LivingHurtEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             if (event.getSource().getDirectEntity() instanceof AbstractArrow) {
-                float totalResistance = 0;
-                for (PassiveSkill skill : PlayerSkillsProvider.get(player).getPlayerSkills()) {
-                    for (SkillBonus<?> bonus : skill.getBonuses()) {
-                        if (bonus instanceof ProjectileResistanceBonus resistanceBonus) {
-                            float amount = resistanceBonus.getResistanceBonus(player);
-                            if (resistanceBonus.operation == AttributeModifier.Operation.MULTIPLY_BASE) {
-                                totalResistance += amount;
-                            }
-                        }
-                    }
-                }
+                double totalResistance = PlayerSkillsProvider.get(player).getCachedBonus(ProjectileResistanceBonus.class);
+                if (totalResistance == 0) return;
 
-                totalResistance = Math.min(totalResistance, 0.7f);
+                totalResistance = Math.min(totalResistance, 0.7);
 
-                float damageReduction = totalResistance;
+                float damageReduction = (float) totalResistance;
                 float newDamage = event.getAmount() * (1 - damageReduction);
 
                 event.setAmount(newDamage);

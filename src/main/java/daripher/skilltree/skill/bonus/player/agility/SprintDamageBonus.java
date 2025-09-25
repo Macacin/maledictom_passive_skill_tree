@@ -81,7 +81,7 @@ public final class SprintDamageBonus implements SkillBonus<SprintDamageBonus> {
     }
 
     public float getDamageBonus(Player player) {
-        // Бонус активен только при спринте
+        if (player == null) return amount;
         return player.isSprinting() ? amount : 0f;
     }
 

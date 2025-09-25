@@ -22,7 +22,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 
 public final class MovementSpeedBonus implements SkillBonus<MovementSpeedBonus> {
-    private float amount;
+    public float amount;
     private AttributeModifier.Operation operation;
 
     public MovementSpeedBonus(float amount, AttributeModifier.Operation operation) {
@@ -82,6 +82,7 @@ public final class MovementSpeedBonus implements SkillBonus<MovementSpeedBonus> 
     }
 
     public float getSpeedBonus(Player player) {
+        if (player == null) return amount;
         return amount;
     }
 

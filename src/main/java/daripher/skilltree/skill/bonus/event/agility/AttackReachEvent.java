@@ -22,20 +22,8 @@ public class AttackReachEvent {
         double vanillaBase = player.isCreative() ? 4.5D : 3.0D;
 
         double totalAddition = 0;
-        double totalMultiplier = 0;
-        for (PassiveSkill skill : PlayerSkillsProvider.get(player).getPlayerSkills()) {
-            for (SkillBonus<?> bonus : skill.getBonuses()) {
-                if (bonus instanceof AttackReachBonus reachBonus) {
-                    float amount = reachBonus.getReachBonus(player);
-                    AttributeModifier.Operation operation = reachBonus.operation;
-                    if (operation == AttributeModifier.Operation.ADDITION) {
-                        totalAddition += amount;
-                    } else if (operation == AttributeModifier.Operation.MULTIPLY_BASE) {
-                        totalMultiplier += amount;
-                    }
-                }
-            }
-        }
+        double totalMultiplier = PlayerSkillsProvider.get(player).getCachedBonus(AttackReachBonus.class);
+        if (totalMultiplier == 0 && totalAddition == 0) return;
 
         double newValue = vanillaBase * (1 + totalMultiplier) + totalAddition;
 

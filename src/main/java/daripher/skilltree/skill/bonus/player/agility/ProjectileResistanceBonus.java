@@ -81,7 +81,8 @@ public final class ProjectileResistanceBonus implements SkillBonus<ProjectileRes
     }
 
     public float getResistanceBonus(Player player) {
-        return amount; // Процент снижения урона (0.1 = 10%)
+        if (player == null) return amount;
+        return amount;
     }
 
     private void setAmount(Consumer<ProjectileResistanceBonus> consumer, float value) {

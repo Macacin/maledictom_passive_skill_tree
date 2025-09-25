@@ -1,25 +1,29 @@
 package daripher.skilltree.mixin.minecraft;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import daripher.skilltree.capability.skill.PlayerSkillsProvider;
 import daripher.skilltree.config.Config;
 import daripher.skilltree.entity.EquippedEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import daripher.skilltree.init.PSTAttributes;
+import daripher.skilltree.skill.PassiveSkill;
+import daripher.skilltree.skill.bonus.SkillBonus;
 import daripher.skilltree.skill.bonus.event.agility.JumpHeightEvent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
@@ -40,7 +44,7 @@ public abstract class LivingEntityMixin implements EquippedEntity {
     @SuppressWarnings("ConstantValue")
     @ModifyReturnValue(method = "getJumpPower", at = @At("RETURN"))
     private float applyJumpHeightBonus(float original) {
-        if (!((Object) this instanceof Player player)) return original;
+        if (!((Object) this instanceof ServerPlayer player)) return original;
         return original * JumpHeightEvent.getJumpHeightMultiplier(player);
     }
 

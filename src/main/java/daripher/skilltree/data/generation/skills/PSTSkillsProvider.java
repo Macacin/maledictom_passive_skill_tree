@@ -93,9 +93,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBonus("agility_starting", new SwimSpeedBonus(0.1f, AttributeModifier.Operation.MULTIPLY_BASE)); // +10%
         addSkillBranchBonuses("agility_swim_speed", new SwimSpeedBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +20% per node
         addSkillBranchBonuses("agility_projectile_resistance", new ProjectileResistanceBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +10% per node
-        addSkillBranchBonuses("agility_sprint_damage", new SprintDamageBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +10% per node
-        addSkillBranchBonuses("agility_airborne_damage", new AirborneDamageBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +10% per node
-        addSkillBranchBonuses("agility_light_load_movement", new LightLoadMovementBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5); // +10% per node
+        addSkillBranchBonuses("agility_sprint_damage", new SprintDamageBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +20% per node
+        addSkillBranchBonuses("agility_airborne_damage", new AirborneDamageBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +20% per node
+        addSkillBranchBonuses("agility_light_load_movement", new LightLoadMovementBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

@@ -16,29 +16,25 @@ public class MovementSpeedEvent {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || event.side.isClient()) return;
         ServerPlayer player = (ServerPlayer) event.player;
-        double totalBonus = PlayerSkillsProvider.get(player).getPlayerSkills().stream()
+
+        double cachedMovementBonus = PlayerSkillsProvider.get(player).getCachedBonus(MovementSpeedBonus.class);
+
+        double lightLoadBonus = 0;
+        if (PlayerSkillsProvider.get(player).getPlayerSkills().stream()
                 .flatMap(skill -> skill.getBonuses().stream())
-                .filter(bonus -> bonus instanceof MovementSpeedBonus)
-                .mapToDouble(speedBonus -> ((MovementSpeedBonus) speedBonus).getSpeedBonus(player))
-                .sum();
+                .anyMatch(bonus -> bonus instanceof LightLoadMovementBonus)) {
+            lightLoadBonus = PlayerSkillsProvider.get(player).getPlayerSkills().stream()
+                    .flatMap(skill -> skill.getBonuses().stream())
+                    .filter(bonus -> bonus instanceof LightLoadMovementBonus)
+                    .mapToDouble(bonus -> ((LightLoadMovementBonus) bonus).getSpeedBonus(player))
+                    .sum();
+        }
+
+        double totalBonus = cachedMovementBonus + lightLoadBonus;
+        if (totalBonus == 0) return;
+
         double originalBase = 0.1D;
         double newValue = originalBase * (1 + totalBonus);
-        player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newValue);
-
-        totalBonus = PlayerSkillsProvider.get(player).getPlayerSkills().stream()
-                .flatMap(skill -> skill.getBonuses().stream())
-                .filter(bonus -> bonus instanceof MovementSpeedBonus || bonus instanceof LightLoadMovementBonus)
-                .mapToDouble(bonus -> {
-                    if (bonus instanceof MovementSpeedBonus speedBonus) {
-                        return speedBonus.getSpeedBonus(player);
-                    } else if (bonus instanceof LightLoadMovementBonus loadBonus) {
-                        return loadBonus.getSpeedBonus(player);
-                    }
-                    return 0;
-                })
-                .sum();
-        originalBase = 0.1D;
-        newValue = originalBase * (1 + totalBonus);
         player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newValue);
     }
 }

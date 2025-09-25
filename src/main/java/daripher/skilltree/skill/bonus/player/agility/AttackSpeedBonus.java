@@ -23,7 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public final class AttackSpeedBonus implements SkillBonus<AttackSpeedBonus> {
-    private float amount;
+    public float amount;
     private AttributeModifier.Operation operation;
 
     public AttackSpeedBonus(float amount, AttributeModifier.Operation operation) {
@@ -83,6 +83,7 @@ public final class AttackSpeedBonus implements SkillBonus<AttackSpeedBonus> {
     }
 
     public float getAttackSpeedBonus(Player player) {
+        if (player == null) return amount;
         ItemStack heldItem = player.getMainHandItem();
         if (heldItem.canPerformAction(net.minecraftforge.common.ToolActions.SWORD_SWEEP) || heldItem.getItem() instanceof net.minecraft.world.item.SwordItem) {
             return amount;

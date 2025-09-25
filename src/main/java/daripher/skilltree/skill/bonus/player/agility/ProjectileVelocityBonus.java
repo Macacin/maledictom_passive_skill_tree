@@ -78,6 +78,7 @@ public final class ProjectileVelocityBonus implements SkillBonus<ProjectileVeloc
     }
 
     public float getVelocityBonus(Player player) {
+        if (player == null) return amount;
         return amount;
     }
 

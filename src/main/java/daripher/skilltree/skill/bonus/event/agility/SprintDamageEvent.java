@@ -17,19 +17,10 @@ public class SprintDamageEvent {
     public static void onLivingHurt(LivingHurtEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             if (player.isSprinting()) {
-                float totalBonus = 0;
-                for (PassiveSkill skill : PlayerSkillsProvider.get(player).getPlayerSkills()) {
-                    for (SkillBonus<?> bonus : skill.getBonuses()) {
-                        if (bonus instanceof SprintDamageBonus damageBonus) {
-                            float amount = damageBonus.getDamageBonus(player);
-                            if (damageBonus.operation == AttributeModifier.Operation.MULTIPLY_BASE) {
-                                totalBonus += amount;
-                            }
-                        }
-                    }
-                }
+                double totalBonus = PlayerSkillsProvider.get(player).getCachedBonus(SprintDamageBonus.class);
+                if (totalBonus == 0) return;  // Оптимизация
 
-                float damageIncrease = totalBonus;
+                float damageIncrease = (float) totalBonus;  // Sum amount для MULTIPLY_BASE
 
                 float newDamage = event.getAmount() * (1 + damageIncrease);
 

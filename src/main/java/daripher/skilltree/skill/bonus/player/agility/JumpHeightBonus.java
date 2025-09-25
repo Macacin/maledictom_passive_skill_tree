@@ -19,7 +19,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 
 public final class JumpHeightBonus implements SkillBonus<JumpHeightBonus> {
-    private float amount;
+    public float amount;
     private AttributeModifier.Operation operation;
 
 
@@ -84,6 +84,7 @@ public final class JumpHeightBonus implements SkillBonus<JumpHeightBonus> {
     }
 
     public float getJumpHeightMultiplier(Player player) {
+        if (player == null) return amount;
         return amount;
     }
 

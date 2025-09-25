@@ -4,8 +4,12 @@ import daripher.skilltree.config.Config;
 import daripher.skilltree.data.reloader.SkillsReloader;
 import daripher.skilltree.skill.PassiveSkill;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
+import daripher.skilltree.skill.bonus.SkillBonus;
+import daripher.skilltree.skill.bonus.player.agility.*;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -38,6 +42,8 @@ public class PlayerSkills implements IPlayerSkills {
     private double accuracy = Config.getBaseAccuracy();
 
     private int agility = 0;
+
+    private final Map<Class<?>, Double> cachedBonuses = new HashMap<>();
 
     public void addSkillExperience(double amount) {
         if (amount <= 0) return;
@@ -101,6 +107,7 @@ public class PlayerSkills implements IPlayerSkills {
                 agility++;
             }
         }
+        recalculateAllCachedBonuses();
         return added;
     }
 
@@ -121,6 +128,7 @@ public class PlayerSkills implements IPlayerSkills {
         getPlayerSkills().clear();
         skillPoints += refunded;
         agility = 0;
+        cachedBonuses.clear();
     }
 
     @Override
@@ -173,9 +181,39 @@ public class PlayerSkills implements IPlayerSkills {
             }
             skills.add(passiveSkill);
         }
+        recalculateAllCachedBonuses();
         if (!tag.hasUUID("TreeVersion")) {
             tag.putUUID("TreeVersion", TREE_VERSION);
         }
+    }
+
+    private void recalculateAllCachedBonuses() {
+        cachedBonuses.clear();
+        getPlayerSkills().forEach(skill ->
+                skill.getBonuses().forEach(bonus -> {
+                    double value = getBonusValue(bonus);
+                    cachedBonuses.merge(bonus.getClass(), value, Double::sum);
+                })
+        );
+    }
+
+    private double getBonusValue(SkillBonus<?> bonus) {
+        if (bonus instanceof MovementSpeedBonus msb) return msb.getSpeedBonus(null);
+        if (bonus instanceof JumpHeightBonus jhb) return jhb.getJumpHeightMultiplier(null);
+        if (bonus instanceof AttackSpeedBonus asb) return asb.getAttackSpeedBonus(null);
+        if (bonus instanceof AttackReachBonus arb) return arb.getReachBonus(null);
+        if (bonus instanceof AirborneDamageBonus adb) return adb.getDamageBonus(null);
+        if (bonus instanceof LightLoadMovementBonus llmb) return llmb.getSpeedBonus(null);
+        if (bonus instanceof ProjectileResistanceBonus prb) return prb.getResistanceBonus(null);
+        if (bonus instanceof ProjectileVelocityBonus pvb) return pvb.getVelocityBonus(null);
+        if (bonus instanceof SprintDamageBonus sdb) return sdb.getDamageBonus(null);
+        if (bonus instanceof SwimSpeedBonus ssb) return ssb.getSpeedBonus(null);
+        return 0.0;
+    }
+
+    @Override
+    public double getCachedBonus(Class<?> bonusClass) {
+        return cachedBonuses.getOrDefault(bonusClass, 0.0);
     }
 
     @Override

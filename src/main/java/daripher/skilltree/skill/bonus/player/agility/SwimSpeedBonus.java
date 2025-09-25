@@ -81,6 +81,7 @@ public final class SwimSpeedBonus implements SkillBonus<SwimSpeedBonus> {
     }
 
     public float getSpeedBonus(Player player) {
+        if (player == null) return amount;
         if (player.isInWater()) {
             return amount;
         }

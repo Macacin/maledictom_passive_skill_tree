@@ -21,7 +21,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public final class AttackReachBonus implements SkillBonus<AttackReachBonus> {
-    private float amount;
+    public float amount;
     public AttributeModifier.Operation operation;
 
     public AttackReachBonus(float amount, AttributeModifier.Operation operation) {
@@ -81,6 +81,7 @@ public final class AttackReachBonus implements SkillBonus<AttackReachBonus> {
     }
 
     public float getReachBonus(Player player) {
+        if (player == null) return amount;
         return amount;
     }
 

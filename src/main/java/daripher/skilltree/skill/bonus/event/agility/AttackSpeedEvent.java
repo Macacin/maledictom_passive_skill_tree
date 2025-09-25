@@ -16,11 +16,9 @@ public class AttackSpeedEvent {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || event.side.isClient()) return;
         ServerPlayer player = (ServerPlayer) event.player;
-        double totalBonus = PlayerSkillsProvider.get(player).getPlayerSkills().stream()
-                .flatMap(skill -> skill.getBonuses().stream())
-                .filter(bonus -> bonus instanceof AttackSpeedBonus)
-                .mapToDouble(speedBonus -> ((AttackSpeedBonus) speedBonus).getAttackSpeedBonus(player))
-                .sum();
+        double totalBonus = PlayerSkillsProvider.get(player).getCachedBonus(AttackSpeedBonus.class);
+        if (totalBonus == 0) return;
+
         double originalBase = 4.0D;
         double newValue = originalBase * (1 + totalBonus);
         player.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(newValue);

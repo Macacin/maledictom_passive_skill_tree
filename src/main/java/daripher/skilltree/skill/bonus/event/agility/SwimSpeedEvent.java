@@ -19,23 +19,11 @@ public class SwimSpeedEvent {
         if (event.phase != TickEvent.Phase.END || event.side.isClient()) return;
         ServerPlayer player = (ServerPlayer) event.player;
 
-
         double vanillaBase = 1.0D;
 
-        double totalAddition = 0;
-        double totalMultiplier = 0;
-        for (PassiveSkill skill : PlayerSkillsProvider.get(player).getPlayerSkills()) {
-            for (SkillBonus<?> bonus : skill.getBonuses()) {
-                if (bonus instanceof SwimSpeedBonus swimBonus) {
-                    float amount = swimBonus.getSpeedBonus(player);
-                    if (swimBonus.operation == AttributeModifier.Operation.ADDITION) {
-                        totalAddition += amount;
-                    } else if (swimBonus.operation == AttributeModifier.Operation.MULTIPLY_BASE) {
-                        totalMultiplier += amount;
-                    }
-                }
-            }
-        }
+        double totalAddition = 0;  // Если есть ADDITION-бонусы, добавь кэш для них
+        double totalMultiplier = PlayerSkillsProvider.get(player).getCachedBonus(SwimSpeedBonus.class);  // Sum для MULTIPLY_BASE
+        if (totalMultiplier == 0) return;  // Оптимизация
 
         double newValue = vanillaBase * (1 + totalMultiplier) + totalAddition;
 

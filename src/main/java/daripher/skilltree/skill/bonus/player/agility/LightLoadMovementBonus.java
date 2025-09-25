@@ -29,7 +29,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public final class LightLoadMovementBonus implements SkillBonus<LightLoadMovementBonus> {
-    private float amount;
+    public float amount;
     private AttributeModifier.Operation operation;
 
     public LightLoadMovementBonus(float amount, AttributeModifier.Operation operation) {
@@ -89,6 +89,7 @@ public final class LightLoadMovementBonus implements SkillBonus<LightLoadMovemen
     }
 
     public float getSpeedBonus(Player player) {
+        if (player == null) return amount;
         if (!ModList.get().isLoaded("weightmod")) return 0f; // Безопасность, если WeightMod не установлен
 
         return player.getCapability(WeightCapabilities.CAPABILITY).map(cap -> {
@@ -99,7 +100,6 @@ public final class LightLoadMovementBonus implements SkillBonus<LightLoadMovemen
         }).orElse(0f);
     }
 
-    // Копируем методы из WeightEventHandler (или сделай их public/static в WeightMod для реюза)
     private int calculateArmorWeight(Player player) {
         int totalWeight = 0;
         for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {

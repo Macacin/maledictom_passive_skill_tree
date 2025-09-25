@@ -1,5 +1,6 @@
 package daripher.skilltree.mixin.minecraft;
 
+import daripher.skilltree.capability.skill.IPlayerSkills;
 import daripher.skilltree.capability.skill.PlayerSkillsProvider;
 import daripher.skilltree.skill.bonus.player.agility.ProjectileVelocityBonus;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -15,13 +16,11 @@ public class AbstractArrowMixin {
     private void applyVelocityBonus(CallbackInfo info) {
         AbstractArrow arrow = (AbstractArrow) (Object) this;
         if (!(arrow.getOwner() instanceof Player player)) return;
-        if (arrow.tickCount > 1) return; // Apply only on first tick
+        if (arrow.tickCount > 1) return;
 
-        float totalBonus = (float) PlayerSkillsProvider.get(player).getPlayerSkills().stream()
-                .flatMap(skill -> skill.getBonuses().stream())
-                .filter(bonus -> bonus instanceof ProjectileVelocityBonus)
-                .mapToDouble(bonus -> ((ProjectileVelocityBonus) bonus).getVelocityBonus(player))
-                .sum();
+        IPlayerSkills skills = PlayerSkillsProvider.get(player);
+        float totalBonus = (float) skills.getCachedBonus(ProjectileVelocityBonus.class);
+        if (totalBonus == 0) return;
 
         arrow.setDeltaMovement(arrow.getDeltaMovement().scale(1 + totalBonus));
     }
