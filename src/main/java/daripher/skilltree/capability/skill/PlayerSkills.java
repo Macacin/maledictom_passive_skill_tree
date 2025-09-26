@@ -11,6 +11,7 @@ import java.util.UUID;
 import daripher.skilltree.skill.bonus.SkillBonus;
 import daripher.skilltree.skill.bonus.player.agility.*;
 import daripher.skilltree.skill.bonus.player.constitution.FallDamageResistanceBonus;
+import daripher.skilltree.skill.bonus.player.constitution.FullArmorSetBonus;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -217,6 +218,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof SprintDamageBonus sdb) return sdb.getDamageBonus(null);
         if (bonus instanceof SwimSpeedBonus ssb) return ssb.getSpeedBonus(null);
         if (bonus instanceof FallDamageResistanceBonus fdrb) return fdrb.getResistanceBonus(null);
+        if (bonus instanceof FullArmorSetBonus fasb) return fasb.getBonusMultiplier();
         return 0.0;
     }
 

@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import daripher.skilltree.skill.bonus.player.agility.*;
 import daripher.skilltree.skill.bonus.player.constitution.FallDamageResistanceBonus;
+import daripher.skilltree.skill.bonus.player.constitution.FullArmorSetBonus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.*;
 
@@ -89,6 +90,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("light_load_movement", LightLoadMovementBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> FALL_DAMAGE_RESISTANCE =
             REGISTRY.register("fall_damage_resistance", FallDamageResistanceBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> FULL_ARMOR_SET =
+            REGISTRY.register("full_armor_set", FullArmorSetBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {
