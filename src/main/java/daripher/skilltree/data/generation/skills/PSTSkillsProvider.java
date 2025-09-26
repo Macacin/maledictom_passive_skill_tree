@@ -50,6 +50,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("constitution_regeneration", "constitution_1", 16, 1, 5); // Regeneration bonus line
         addSkillBranch("constitution_damage_reflection", "constitution_1", 16, 1, 5); // Damage reflection line
         addSkillBranch("constitution_shield_regeneration", "constitution_1", 16, 1, 5); // Shield regeneration line
+        addSkillBranch("constitution_knockback_resistance", "constitution_1", 16, 1, 5); // Knockback resistance line
     }
 
     private void shapeSkillTree() {
@@ -93,21 +94,17 @@ public class PSTSkillsProvider implements DataProvider {
 
         // Shield regeneration branch: southeast (rotation starting at 45 degrees)
         setSkillBranchPosition("constitution_starting", 10, "constitution_shield_regeneration", 45, 30, 1, 5);
+        // Knockback resistance branch: southwest (rotation starting at 135 degrees)
+        setSkillBranchPosition("constitution_starting", 10, "constitution_knockback_resistance", 135, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
         // Optional small bonuses on starting skill for testing
         addSkillBonus("agility_starting", new MovementSpeedBonus(0.05f, Operation.MULTIPLY_BASE));
         addSkillBonus("agility_starting", new AttackSpeedBonus(0.05f, Operation.MULTIPLY_BASE));
-
-        // Bonuses for movement speed branch
         addSkillBranchBonuses("agility_movement_speed", new MovementSpeedBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
-
-        // Bonuses for attack speed branch
         addSkillBranchBonuses("agility_attack_speed", new AttackSpeedBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
-
         addSkillBranchBonuses("agility_jump_height", new JumpHeightBonus(0.08f, Operation.ADDITION), 1, 5);
-
         addSkillBranchBonuses("agility_projectile_velocity", new ProjectileVelocityBonus(1.0f, Operation.MULTIPLY_BASE), 1, 5); // +10% velocity per node
         addSkillBranchBonuses("agility_attack_reach", new AttackReachBonus(0.5f, Operation.ADDITION), 1, 5);
         addSkillBonus("agility_starting", new SwimSpeedBonus(0.1f, AttributeModifier.Operation.MULTIPLY_BASE)); // +10%
@@ -118,18 +115,13 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("agility_light_load_movement", new LightLoadMovementBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
 
         addSkillBonus("constitution_starting", new FallDamageResistanceBonus(0.05f, Operation.MULTIPLY_TOTAL));
-
         addSkillBranchBonuses("constitution_fall_damage_resistance", new FallDamageResistanceBonus(0.1f, Operation.MULTIPLY_TOTAL), 1, 5);
-
         addSkillBonus("constitution_starting", new FullArmorSetBonus(0.05f, Operation.MULTIPLY_BASE));
-
         addSkillBranchBonuses("constitution_full_armor_set", new FullArmorSetBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
-
         addSkillBranchBonuses("constitution_regeneration", new RegenerationBonus(0.5f, Operation.MULTIPLY_BASE), 1, 5);
-
         addSkillBranchBonuses("constitution_damage_reflection", new DamageReflectionBonus(0.5f, Operation.ADDITION), 1, 5);
-
         addSkillBranchBonuses("constitution_shield_regeneration", new ShieldRegenerationBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+        addSkillBranchBonuses("constitution_knockback_resistance", new KnockbackResistanceBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
