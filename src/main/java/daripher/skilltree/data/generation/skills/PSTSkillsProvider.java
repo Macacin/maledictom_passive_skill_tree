@@ -13,6 +13,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nullable;
 
+import daripher.skilltree.skill.bonus.player.constitution.FallDamageResistanceBonus;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -43,6 +44,8 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("agility_sprint_damage", "agility_1", 16, 1, 5);
         addSkillBranch("agility_airborne_damage", "agility_1", 16, 1, 5);
         addSkillBranch("agility_light_load_movement", "agility_1", 16, 1, 5);
+        addSkill("constitution_starting", "starting_1", 24); // Starting skill for Constitution
+        addSkillBranch("constitution_fall_damage_resistance", "constitution_1", 16, 1, 5); // Fall damage resistance line
     }
 
     private void shapeSkillTree() {
@@ -73,6 +76,10 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("agility_starting", 10, "agility_sprint_damage", 15, 30, 1, 5);
         setSkillBranchPosition("agility_starting", 10, "agility_airborne_damage", 120, 30, 1, 5);
         setSkillBranchPosition("agility_starting", 10, "agility_light_load_movement", 160, 30, 1, 5);
+
+        setSkillPosition(null, 200, 0, "constitution_starting");
+
+        setSkillBranchPosition("constitution_starting", 10, "constitution_fall_damage_resistance", 90, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -96,6 +103,10 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("agility_sprint_damage", new SprintDamageBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +20% per node
         addSkillBranchBonuses("agility_airborne_damage", new AirborneDamageBonus(0.2f, AttributeModifier.Operation.MULTIPLY_BASE), 1, 5); // +20% per node
         addSkillBranchBonuses("agility_light_load_movement", new LightLoadMovementBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+
+        addSkillBonus("constitution_starting", new FallDamageResistanceBonus(0.05f, Operation.MULTIPLY_TOTAL));
+
+        addSkillBranchBonuses("constitution_fall_damage_resistance", new FallDamageResistanceBonus(0.1f, Operation.MULTIPLY_TOTAL), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
@@ -185,6 +196,9 @@ public class PSTSkillsProvider implements DataProvider {
         PassiveSkill skill = new PassiveSkill(skillId, size, backgroundTexture, iconTexture, borderTexture, isStarting);
         if (name.startsWith("agility_")) {
             skill.getTags().add("Agility");
+        }
+        if (name.startsWith("constitution_")) {
+            skill.getTags().add("Constitution");
         }
         skills.put(skillId, skill);
     }

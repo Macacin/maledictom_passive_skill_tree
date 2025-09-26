@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import daripher.skilltree.skill.bonus.SkillBonus;
 import daripher.skilltree.skill.bonus.player.agility.*;
+import daripher.skilltree.skill.bonus.player.constitution.FallDamageResistanceBonus;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -42,6 +43,7 @@ public class PlayerSkills implements IPlayerSkills {
     private double accuracy = Config.getBaseAccuracy();
 
     private int agility = 0;
+    private int constitution = 0;
 
     private final Map<Class<?>, Double> cachedBonuses = new HashMap<>();
 
@@ -106,6 +108,9 @@ public class PlayerSkills implements IPlayerSkills {
             if (passiveSkill.getTags().contains("Agility")) {
                 agility++;
             }
+            if (passiveSkill.getTags().contains("Constitution")) {
+                constitution++;
+            }
         }
         recalculateAllCachedBonuses();
         return added;
@@ -128,6 +133,7 @@ public class PlayerSkills implements IPlayerSkills {
         getPlayerSkills().clear();
         skillPoints += refunded;
         agility = 0;
+        constitution = 0;
         cachedBonuses.clear();
     }
 
@@ -145,6 +151,7 @@ public class PlayerSkills implements IPlayerSkills {
         tag.putInt("ConsecutiveMiningActions", consecutiveMiningActions);
         tag.putDouble("Accuracy", accuracy);
         tag.putInt("Agility", agility);
+        tag.putInt("Constitution", constitution);
         ListTag skillsTag = new ListTag();
         skills.forEach(skill -> skillsTag.add(StringTag.valueOf(skill.getId().toString())));
         tag.put("Skills", skillsTag);
@@ -162,6 +169,7 @@ public class PlayerSkills implements IPlayerSkills {
         lastMiningXPTime = tag.getLong("LastMiningXPTime");
         consecutiveMiningActions = tag.getInt("ConsecutiveMiningActions");
         agility = tag.getInt("Agility");
+        constitution = tag.getInt("Constitution");
         if (tag.contains("Accuracy")) {
             accuracy = tag.getDouble("Accuracy");
         } else {
@@ -208,6 +216,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof ProjectileVelocityBonus pvb) return pvb.getVelocityBonus(null);
         if (bonus instanceof SprintDamageBonus sdb) return sdb.getDamageBonus(null);
         if (bonus instanceof SwimSpeedBonus ssb) return ssb.getSpeedBonus(null);
+        if (bonus instanceof FallDamageResistanceBonus fdrb) return fdrb.getResistanceBonus(null);
         return 0.0;
     }
 
@@ -289,5 +298,10 @@ public class PlayerSkills implements IPlayerSkills {
     @Override
     public int getAgility() {
         return agility;
+    }
+
+    @Override
+    public int getConstitution() {
+        return constitution;
     }
 }

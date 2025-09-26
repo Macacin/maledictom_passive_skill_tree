@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-25T19:17:50.9155126	Skills Provider
+// 1.20.1	2025-09-26T10:48:18.1928123	Skills Provider
 c7f0b8a26442dad70ef328bcdd5c8b983eefb2f4 data/skilltree/skills/agility_airborne_damage_1.json
 c7b3f45796a747d3a6db4d273b1790a41ebdb832 data/skilltree/skills/agility_airborne_damage_2.json
 4074fd8af01175ce64e16b0311f2fc084edb5f41 data/skilltree/skills/agility_airborne_damage_3.json
@@ -50,3 +50,9 @@ b1c279e54719a493cde770a52aa53ae16eb19e0d data/skilltree/skills/agility_swim_spee
 ca742d5b084b49775fd3a030ddcdfc3b728fc60e data/skilltree/skills/agility_swim_speed_3.json
 0548f2993411987c5b55fdb0fbae1abf940a6faf data/skilltree/skills/agility_swim_speed_4.json
 591e7d7158667ea3276fcc76d561db4226de2c8f data/skilltree/skills/agility_swim_speed_5.json
+27c8560dbc511b21e15e3aeb2be107d6a24c9e8d data/skilltree/skills/constitution_fall_damage_resistance_1.json
+20ca2cd1fa1a21c505f702379ab5a97a55744d98 data/skilltree/skills/constitution_fall_damage_resistance_2.json
+150e6896ad97ea1d0c10340f06c01ee3808b01cb data/skilltree/skills/constitution_fall_damage_resistance_3.json
+a28644fd36c7529715668a491468385a4d797a11 data/skilltree/skills/constitution_fall_damage_resistance_4.json
+c079678ad07944d83a193c4d52fdd239b91a7762 data/skilltree/skills/constitution_fall_damage_resistance_5.json
+3af1a72a18c6ca089c2c541db00473e058f35935 data/skilltree/skills/constitution_starting.json
