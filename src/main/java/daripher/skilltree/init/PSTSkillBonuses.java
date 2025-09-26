@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 import daripher.skilltree.skill.bonus.player.agility.*;
-import daripher.skilltree.skill.bonus.player.constitution.FallDamageResistanceBonus;
-import daripher.skilltree.skill.bonus.player.constitution.FullArmorSetBonus;
-import daripher.skilltree.skill.bonus.player.constitution.RegenerationBonus;
+import daripher.skilltree.skill.bonus.player.constitution.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.*;
 
@@ -95,6 +93,10 @@ public class PSTSkillBonuses {
             REGISTRY.register("full_armor_set", FullArmorSetBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> REGENERATION_BONUS =
             REGISTRY.register("regeneration_bonus", RegenerationBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> DAMAGE_REFLECTION =
+            REGISTRY.register("damage_reflection", DamageReflectionBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> SHIELD_REGENERATION =
+            REGISTRY.register("shield_regeneration", ShieldRegenerationBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

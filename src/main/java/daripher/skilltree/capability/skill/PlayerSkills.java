@@ -10,9 +10,7 @@ import java.util.UUID;
 
 import daripher.skilltree.skill.bonus.SkillBonus;
 import daripher.skilltree.skill.bonus.player.agility.*;
-import daripher.skilltree.skill.bonus.player.constitution.FallDamageResistanceBonus;
-import daripher.skilltree.skill.bonus.player.constitution.FullArmorSetBonus;
-import daripher.skilltree.skill.bonus.player.constitution.RegenerationBonus;
+import daripher.skilltree.skill.bonus.player.constitution.*;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -221,6 +219,8 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof FallDamageResistanceBonus fdrb) return fdrb.getResistanceBonus(null);
         if (bonus instanceof FullArmorSetBonus fasb) return fasb.getBonusMultiplier();
         if (bonus instanceof RegenerationBonus rb) return rb.getBonusMultiplier();
+        if (bonus instanceof DamageReflectionBonus drb) return drb.getChance();
+        if (bonus instanceof ShieldRegenerationBonus srb) return srb.getRegenAmount();
         return 0.0;
     }
 
