@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-26T16:41:16.8901275	Skills Provider
+// 1.20.1	2025-09-26T17:19:06.1357346	Skills Provider
 c7f0b8a26442dad70ef328bcdd5c8b983eefb2f4 data/skilltree/skills/agility_airborne_damage_1.json
 c7b3f45796a747d3a6db4d273b1790a41ebdb832 data/skilltree/skills/agility_airborne_damage_2.json
 4074fd8af01175ce64e16b0311f2fc084edb5f41 data/skilltree/skills/agility_airborne_damage_3.json
@@ -60,4 +60,9 @@ d3d51e2f773d713a889af6e1222974878f68aee3 data/skilltree/skills/constitution_full
 2625710a1de3008ff6fe391b94093f7ce5ad3c8d data/skilltree/skills/constitution_full_armor_set_3.json
 c1a8160db32d35319f149f386af4ba24580fc7ed data/skilltree/skills/constitution_full_armor_set_4.json
 d592fa807179cde8ce5c1efe3f10e88ad9c49493 data/skilltree/skills/constitution_full_armor_set_5.json
-02573055713dfd39711b68ee65d82cd520ff5756 data/skilltree/skills/constitution_starting.json
+5696546b802871a0f0d23a5712872d4569ae05bf data/skilltree/skills/constitution_regeneration_1.json
+831ebe0282cd695521ba6bd77387f6c19bfb9430 data/skilltree/skills/constitution_regeneration_2.json
+d1d5c0ff64988547e972befe756e625bd634d1a7 data/skilltree/skills/constitution_regeneration_3.json
+0ff624c67154da5cefbff5a8f726e07c0f4965e2 data/skilltree/skills/constitution_regeneration_4.json
+d4b339cfc9324da0bb241d5cd58bcb262af22bb1 data/skilltree/skills/constitution_regeneration_5.json
+450954354158b623aadf6bb587140f66f8aa5676 data/skilltree/skills/constitution_starting.json

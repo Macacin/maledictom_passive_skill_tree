@@ -15,6 +15,7 @@ import javax.annotation.Nullable;
 
 import daripher.skilltree.skill.bonus.player.constitution.FallDamageResistanceBonus;
 import daripher.skilltree.skill.bonus.player.constitution.FullArmorSetBonus;
+import daripher.skilltree.skill.bonus.player.constitution.RegenerationBonus;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -48,6 +49,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkill("constitution_starting", "starting_1", 24); // Starting skill for Constitution
         addSkillBranch("constitution_fall_damage_resistance", "constitution_1", 16, 1, 5); // Fall damage resistance line
         addSkillBranch("constitution_full_armor_set", "constitution_1", 16, 1, 5); // Full armor set line
+        addSkillBranch("constitution_regeneration", "constitution_1", 16, 1, 5); // Regeneration bonus line
     }
 
     private void shapeSkillTree() {
@@ -85,6 +87,7 @@ public class PSTSkillsProvider implements DataProvider {
 
         // Full armor set branch: rightward (rotation starting at 0 degrees)
         setSkillBranchPosition("constitution_starting", 10, "constitution_full_armor_set", 0, 30, 1, 5);
+        setSkillBranchPosition("constitution_starting", 10, "constitution_regeneration", 180, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -116,6 +119,8 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBonus("constitution_starting", new FullArmorSetBonus(0.05f, Operation.MULTIPLY_BASE));
 
         addSkillBranchBonuses("constitution_full_armor_set", new FullArmorSetBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+
+        addSkillBranchBonuses("constitution_regeneration", new RegenerationBonus(0.5f, Operation.MULTIPLY_BASE), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
