@@ -222,6 +222,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof DamageReflectionBonus drb) return drb.getChance();
         if (bonus instanceof ShieldRegenerationBonus srb) return srb.getRegenAmount();
         if (bonus instanceof KnockbackResistanceBonus krb) return krb.getResistanceBonus(null);
+        if (bonus instanceof NegativeEffectReductionBonus nerb) return nerb.getReduction();
         return 0.0;
     }
 
