@@ -101,6 +101,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("knockback_resistance", KnockbackResistanceBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> NEGATIVE_EFFECT_REDUCTION =
             REGISTRY.register("negative_effect_reduction", NegativeEffectReductionBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> CARRY_CAPACITY =
+            REGISTRY.register("carry_capacity", CarryCapacityBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

@@ -52,6 +52,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("constitution_shield_regeneration", "constitution_1", 16, 1, 5); // Shield regeneration line
         addSkillBranch("constitution_knockback_resistance", "constitution_1", 16, 1, 5); // Knockback resistance line
         addSkillBranch("constitution_negative_effect_reduction", "constitution_1", 16, 1, 5); // Negative effect reduction line
+        addSkillBranch("constitution_carry_capacity", "constitution_1", 16, 1, 5); // Carry capacity line
     }
 
     private void shapeSkillTree() {
@@ -99,6 +100,8 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("constitution_starting", 10, "constitution_knockback_resistance", 135, 30, 1, 5);
         // Negative effect reduction branch: northeast (rotation starting at -45 degrees)
         setSkillBranchPosition("constitution_starting", 10, "constitution_negative_effect_reduction", -45, 30, 1, 5);
+        // Carry capacity branch: southwest (rotation starting at -135 degrees)
+        setSkillBranchPosition("constitution_starting", 10, "constitution_carry_capacity", -135, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -126,6 +129,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("constitution_shield_regeneration", new ShieldRegenerationBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
         addSkillBranchBonuses("constitution_knockback_resistance", new KnockbackResistanceBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5);
         addSkillBranchBonuses("constitution_negative_effect_reduction", new NegativeEffectReductionBonus(0.1f, Operation.ADDITION), 1, 5);
+        addSkillBranchBonuses("constitution_carry_capacity", new CarryCapacityBonus(10f, Operation.ADDITION), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
