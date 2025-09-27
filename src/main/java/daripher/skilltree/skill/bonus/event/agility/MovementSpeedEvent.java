@@ -48,7 +48,6 @@ public class MovementSpeedEvent {
         double newValue = originalBase * (1 + totalBonus);
         player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newValue);
 
-        // Добавление бонуса к roll distance при light load
         if (ModList.get().isLoaded("combatroll")) {
             if (ROLL_DISTANCE_ATTR == null) {
                 ROLL_DISTANCE_ATTR = ForgeRegistries.ATTRIBUTES.getValue(new ResourceLocation("combatroll", "distance"));
@@ -57,7 +56,7 @@ public class MovementSpeedEvent {
                 AttributeInstance rollAttr = player.getAttribute(ROLL_DISTANCE_ATTR);
                 if (rollAttr != null) {
                     rollAttr.removeModifier(LIGHT_LOAD_ROLL_UUID);
-                    if (lightLoadBonus > 0) { // Поскольку lightLoadBonus уже 0 если не light load
+                    if (lightLoadBonus > 0) {
                         rollAttr.addTransientModifier(new AttributeModifier(
                                 LIGHT_LOAD_ROLL_UUID,
                                 "Light Load Roll Bonus",

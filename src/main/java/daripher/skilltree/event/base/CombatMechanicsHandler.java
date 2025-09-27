@@ -69,12 +69,11 @@ public class CombatMechanicsHandler {
         float originalBlocked = event.getBlockedDamage();
         float reduction = (float) Config.getShieldReduction();
         event.setBlockedDamage(originalBlocked * reduction);
-        System.out.println("Shield blocked reduced to " + (originalBlocked * reduction));
     }
 
     @SubscribeEvent
     public static void applyShieldSlowdown(TickEvent.PlayerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) return;  // Только в конце тика
+        if (event.phase != TickEvent.Phase.END) return;
         if (event.player.level().isClientSide) return;
         Player player = event.player;
 
@@ -84,7 +83,7 @@ public class CombatMechanicsHandler {
 
         boolean hasShield = mainhand.getItem() instanceof ShieldItem || offhand.getItem() instanceof ShieldItem;
 
-        if (hasShield) {  // Щит в любой руке
+        if (hasShield) {
             if (!speedAttr.hasModifier(getShieldSlowdownModifier())) {
                 speedAttr.addTransientModifier(getShieldSlowdownModifier());
             }
