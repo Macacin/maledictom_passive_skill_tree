@@ -224,6 +224,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof KnockbackResistanceBonus krb) return krb.getResistanceBonus(null);
         if (bonus instanceof NegativeEffectReductionBonus nerb) return nerb.getReduction();
         if (bonus instanceof CarryCapacityBonus ccb) return ccb.getCapacityBonus(null);
+        if (bonus instanceof HeavyLoadSpeedBonus hlsb) return hlsb.getSpeedBonus(null);
         return 0.0;
     }
 
