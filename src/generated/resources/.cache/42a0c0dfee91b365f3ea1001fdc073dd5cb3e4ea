@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-28T17:54:35.0767769	Skills Provider
+// 1.20.1	2025-09-28T18:36:43.8474505	Skills Provider
 c7f0b8a26442dad70ef328bcdd5c8b983eefb2f4 data/skilltree/skills/agility_airborne_damage_1.json
 c7b3f45796a747d3a6db4d273b1790a41ebdb832 data/skilltree/skills/agility_airborne_damage_2.json
 4074fd8af01175ce64e16b0311f2fc084edb5f41 data/skilltree/skills/agility_airborne_damage_3.json
@@ -121,4 +121,9 @@ d206da772cfc55554305769d5b56f8e54504783a data/skilltree/skills/endurance_evasion
 b68666a191b4dfbb6731f7477d614c5a6726244a data/skilltree/skills/endurance_max_health_3.json
 d2c5d82f2713d7140b5227adefbd1778e725597d data/skilltree/skills/endurance_max_health_4.json
 1182f91720294d4d93f8ceaef32b24b7a9032697 data/skilltree/skills/endurance_max_health_5.json
-53a9a51b466f182c421b3d2cc6ac49912f9312e6 data/skilltree/skills/endurance_starting.json
+ccdf8dca09f0e2ce9c749dd1c57edcb5be81a801 data/skilltree/skills/endurance_roll_recharge_1.json
+249731c0c01dd855ee02fc9294cbb0af5b323afe data/skilltree/skills/endurance_roll_recharge_2.json
+86afd51042861009113c7f6b39c0340acf61bda9 data/skilltree/skills/endurance_roll_recharge_3.json
+70a50677d5c807904e2957d7e4051eec6bddd38e data/skilltree/skills/endurance_roll_recharge_4.json
+64701dabc6d346090f3ef7d5d45c0c02f9302203 data/skilltree/skills/endurance_roll_recharge_5.json
+3fd535f9f566dc3316badc65d01cbc343489c189 data/skilltree/skills/endurance_starting.json

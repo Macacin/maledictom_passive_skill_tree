@@ -11,10 +11,7 @@ import java.util.UUID;
 import daripher.skilltree.skill.bonus.SkillBonus;
 import daripher.skilltree.skill.bonus.player.agility.*;
 import daripher.skilltree.skill.bonus.player.constitution.*;
-import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusMagic;
-import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusPhysical;
-import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusProjectile;
-import daripher.skilltree.skill.bonus.player.endurance.MaxHealthBonus;
+import daripher.skilltree.skill.bonus.player.endurance.*;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -237,6 +234,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof EvasionBonusPhysical ebp) return ebp.getEvasionChance(null);
         if (bonus instanceof EvasionBonusMagic ebm) return ebm.getEvasionChance(null);
         if (bonus instanceof EvasionBonusProjectile ebp) return ebp.getEvasionChance(null);
+        if (bonus instanceof RollRechargeBonus rrb) return rrb.getRechargeBonus(null);
         return 0.0;
     }
 

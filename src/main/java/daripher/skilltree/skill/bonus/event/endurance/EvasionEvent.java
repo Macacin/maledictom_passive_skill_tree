@@ -62,13 +62,12 @@ public class EvasionEvent {
 
         boolean isMagicProjectile = projectile instanceof ThrownPotion || projectile instanceof AbstractHurtingProjectile;
 
-        double evasionChance = 0;
+        double evasionChance;
         if (isMagicProjectile) evasionChance = magicBonus;
         else evasionChance = projectileBonus;
 
         if (evasionChance > 0 && random.nextFloat() < Math.min(evasionChance, 1.0)) {
             event.setCanceled(true);
-            // Optional: player.playSound(...);
         }
     }
 }

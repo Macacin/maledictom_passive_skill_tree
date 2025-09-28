@@ -14,10 +14,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nullable;
 
 import daripher.skilltree.skill.bonus.player.constitution.*;
-import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusMagic;
-import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusPhysical;
-import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusProjectile;
-import daripher.skilltree.skill.bonus.player.endurance.MaxHealthBonus;
+import daripher.skilltree.skill.bonus.player.endurance.*;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -64,6 +61,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("endurance_evasion_physical", "agility_1", 16, 1, 5); // Reuse icon for now
         addSkillBranch("endurance_evasion_magic", "agility_1", 16, 1, 5);
         addSkillBranch("endurance_evasion_projectile", "agility_1", 16, 1, 5);
+        addSkillBranch("endurance_roll_recharge", "agility_1", 16, 1, 5); // Reuse icon
     }
 
     private void shapeSkillTree() {
@@ -125,6 +123,7 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_physical", 90, 15, 1, 5); // Slightly up-right
         setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_magic", 60, 15, 1, 5); // Straight right
         setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_projectile", 30, 15, 1, 5); // Slightly down-right
+        setSkillBranchPosition("endurance_starting", 10, "endurance_roll_recharge", 120, 15, 1, 5); // Down-right spread
     }
 
     private void setSkillsAttributeModifiers() {
@@ -161,6 +160,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("endurance_evasion_physical", new EvasionBonusPhysical(0.2f, Operation.ADDITION), 1, 5); // +20% per node
         addSkillBranchBonuses("endurance_evasion_magic", new EvasionBonusMagic(0.2f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("endurance_evasion_projectile", new EvasionBonusProjectile(0.2f, Operation.ADDITION), 1, 5);
+        addSkillBranchBonuses("endurance_roll_recharge", new RollRechargeBonus(0.3f, Operation.MULTIPLY_BASE), 1, 5); // +10% per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
