@@ -14,6 +14,7 @@ import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nullable;
 
 import daripher.skilltree.skill.bonus.player.constitution.*;
+import daripher.skilltree.skill.bonus.player.endurance.MaxHealthBonus;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -55,6 +56,8 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("constitution_carry_capacity", "constitution_1", 16, 1, 5); // Carry capacity line
         addSkillBranch("constitution_heavy_load_speed", "constitution_1", 16, 1, 5); // Heavy load speed line
         addSkillBranch("constitution_shield_block", "constitution_1", 16, 1, 5); // Shield block line
+        addSkill("endurance_starting", "starting_1", 24); // Starting skill for Endurance
+        addSkillBranch("endurance_max_health", "constitution_1", 16, 1, 5); // Max health line (reuse icon for now)
     }
 
     private void shapeSkillTree() {
@@ -108,6 +111,11 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("constitution_starting", 10, "constitution_heavy_load_speed", 25, 30, 1, 5);
         // Shield block branch: eastward (rotation starting at 0 degrees)
         setSkillBranchPosition("constitution_starting", 10, "constitution_shield_block", 115, 30, 1, 5);
+        // Endurance: Starting far right for horizontal expansion
+        setSkillPosition(null, 200, 90, "endurance_starting"); // Справа от Constitution (200,0), уменьшил с 400 для плотности
+
+// Max Health branch: Horizontal right (0 degrees base, with small vertical spread for visibility)
+        setSkillBranchPosition("endurance_starting", 10, "endurance_max_health", 0, 15, 1, 5); // 0° - вправо, rotationPerNode=15° для легкого веера вверх/вниз
     }
 
     private void setSkillsAttributeModifiers() {
@@ -138,6 +146,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("constitution_carry_capacity", new CarryCapacityBonus(10f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("constitution_heavy_load_speed", new HeavyLoadSpeedBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5);
         addSkillBranchBonuses("constitution_shield_block", new ShieldBlockBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5);
+
+        addSkillBonus("endurance_starting", new MaxHealthBonus(1f, Operation.ADDITION)); // +2 HP per node
+        addSkillBranchBonuses("endurance_max_health", new MaxHealthBonus(2f, Operation.ADDITION), 1, 5); // +2 HP per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
@@ -230,6 +241,9 @@ public class PSTSkillsProvider implements DataProvider {
         }
         if (name.startsWith("constitution_")) {
             skill.getTags().add("Constitution");
+        }
+        if (name.startsWith("endurance_")) {
+            skill.getTags().add("Endurance");
         }
         skills.put(skillId, skill);
     }

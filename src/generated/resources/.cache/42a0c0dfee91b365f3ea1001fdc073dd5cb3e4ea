@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-27T13:11:11.9765317	Skills Provider
+// 1.20.1	2025-09-27T19:33:05.6282443	Skills Provider
 c7f0b8a26442dad70ef328bcdd5c8b983eefb2f4 data/skilltree/skills/agility_airborne_damage_1.json
 c7b3f45796a747d3a6db4d273b1790a41ebdb832 data/skilltree/skills/agility_airborne_damage_2.json
 4074fd8af01175ce64e16b0311f2fc084edb5f41 data/skilltree/skills/agility_airborne_damage_3.json
@@ -101,3 +101,9 @@ ed63b3aec5988d2d75465f20186a0ac8bf0505c7 data/skilltree/skills/constitution_shie
 19f0b2b4949e5c1ef28ebbae987af2dfd60b3820 data/skilltree/skills/constitution_shield_regeneration_4.json
 87e7a844d88b4619983da3b54937a1ca82c16bb3 data/skilltree/skills/constitution_shield_regeneration_5.json
 6b2dcb05e9cb8c7cac35cfa7742796ec8f2b838c data/skilltree/skills/constitution_starting.json
+4a7eeb6a83e987fea5c4025c0564ef620cf3a3c1 data/skilltree/skills/endurance_max_health_1.json
+81da33396a61311c6e5cf056f3e4ca85ae8317d2 data/skilltree/skills/endurance_max_health_2.json
+b68666a191b4dfbb6731f7477d614c5a6726244a data/skilltree/skills/endurance_max_health_3.json
+d2c5d82f2713d7140b5227adefbd1778e725597d data/skilltree/skills/endurance_max_health_4.json
+1182f91720294d4d93f8ceaef32b24b7a9032697 data/skilltree/skills/endurance_max_health_5.json
+0dd8f3bd4c632e54a17fa0090aa130ed3ee63c07 data/skilltree/skills/endurance_starting.json

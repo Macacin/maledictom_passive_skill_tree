@@ -11,6 +11,7 @@ import java.util.UUID;
 import daripher.skilltree.skill.bonus.SkillBonus;
 import daripher.skilltree.skill.bonus.player.agility.*;
 import daripher.skilltree.skill.bonus.player.constitution.*;
+import daripher.skilltree.skill.bonus.player.endurance.MaxHealthBonus;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -23,10 +24,6 @@ import javax.annotation.Nonnull;
 
 public class PlayerSkills implements IPlayerSkills {
     private static final UUID TREE_VERSION = UUID.fromString("fd21c2a9-7ab5-4a1e-b06d-ddb87b56047f");
-
-    private static final int BASE_LEVEL_COST = 18;
-    private static final double GROWTH_FACTOR = 1.2;
-//    private static final int MAX_LEVEL = 10000;
 
     private long lastCraftingXPTime = 0;
     private int consecutiveCraftingActions = 0;
@@ -44,6 +41,7 @@ public class PlayerSkills implements IPlayerSkills {
 
     private int agility = 0;
     private int constitution = 0;
+    private int endurance = 0;
 
     private final Map<Class<?>, Double> cachedBonuses = new HashMap<>();
 
@@ -111,6 +109,9 @@ public class PlayerSkills implements IPlayerSkills {
             if (passiveSkill.getTags().contains("Constitution")) {
                 constitution++;
             }
+            if (passiveSkill.getTags().contains("Endurance")) {
+                endurance++;
+            }
         }
         recalculateAllCachedBonuses();
         return added;
@@ -134,6 +135,7 @@ public class PlayerSkills implements IPlayerSkills {
         skillPoints += refunded;
         agility = 0;
         constitution = 0;
+        endurance = 0;
         cachedBonuses.clear();
     }
 
@@ -152,6 +154,7 @@ public class PlayerSkills implements IPlayerSkills {
         tag.putDouble("Accuracy", accuracy);
         tag.putInt("Agility", agility);
         tag.putInt("Constitution", constitution);
+        tag.putInt("Endurance", endurance);
         ListTag skillsTag = new ListTag();
         skills.forEach(skill -> skillsTag.add(StringTag.valueOf(skill.getId().toString())));
         tag.put("Skills", skillsTag);
@@ -170,6 +173,7 @@ public class PlayerSkills implements IPlayerSkills {
         consecutiveMiningActions = tag.getInt("ConsecutiveMiningActions");
         agility = tag.getInt("Agility");
         constitution = tag.getInt("Constitution");
+        endurance = tag.getInt("Endurance");
         if (tag.contains("Accuracy")) {
             accuracy = tag.getDouble("Accuracy");
         } else {
@@ -226,6 +230,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof CarryCapacityBonus ccb) return ccb.getCapacityBonus(null);
         if (bonus instanceof HeavyLoadSpeedBonus hlsb) return hlsb.getSpeedBonus(null);
         if (bonus instanceof ShieldBlockBonus sbb) return sbb.getBlockBonus(null);
+        if (bonus instanceof MaxHealthBonus mhb) return mhb.getHealthBonus(null);
         return 0.0;
     }
 
@@ -312,5 +317,10 @@ public class PlayerSkills implements IPlayerSkills {
     @Override
     public int getConstitution() {
         return constitution;
+    }
+
+    @Override
+    public int getEndurance() {
+        return endurance;
     }
 }
