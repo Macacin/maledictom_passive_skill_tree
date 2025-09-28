@@ -16,6 +16,7 @@ public class AttackSpeedEvent {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || event.side.isClient()) return;
         ServerPlayer player = (ServerPlayer) event.player;
+        if (!player.isAlive() || player.isDeadOrDying()) return;
         double totalBonus = PlayerSkillsProvider.get(player).getCachedBonus(AttackSpeedBonus.class);
         if (totalBonus == 0) return;
 

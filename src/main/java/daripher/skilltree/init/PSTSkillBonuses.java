@@ -10,6 +10,9 @@ import java.util.Objects;
 
 import daripher.skilltree.skill.bonus.player.agility.*;
 import daripher.skilltree.skill.bonus.player.constitution.*;
+import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusMagic;
+import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusPhysical;
+import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusProjectile;
 import daripher.skilltree.skill.bonus.player.endurance.MaxHealthBonus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.*;
@@ -110,6 +113,12 @@ public class PSTSkillBonuses {
             REGISTRY.register("shield_block", ShieldBlockBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> MAX_HEALTH =
             REGISTRY.register("max_health", MaxHealthBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> EVASION_PHYSICAL =
+            REGISTRY.register("evasion_physical", EvasionBonusPhysical.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> EVASION_MAGIC =
+            REGISTRY.register("evasion_magic", EvasionBonusMagic.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> EVASION_PROJECTILE =
+            REGISTRY.register("evasion_projectile", EvasionBonusProjectile.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

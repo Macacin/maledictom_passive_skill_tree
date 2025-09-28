@@ -18,15 +18,12 @@ public class AttackReachEvent {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || event.side.isClient()) return;
         ServerPlayer player = (ServerPlayer) event.player;
-
+        if (!player.isAlive() || player.isDeadOrDying()) return;  // <-- Добавь это
         double vanillaBase = player.isCreative() ? 4.5D : 3.0D;
-
         double totalAddition = 0;
         double totalMultiplier = PlayerSkillsProvider.get(player).getCachedBonus(AttackReachBonus.class);
         if (totalMultiplier == 0 && totalAddition == 0) return;
-
         double newValue = vanillaBase * (1 + totalMultiplier) + totalAddition;
-
         player.getAttribute(ForgeMod.ENTITY_REACH.get()).setBaseValue(newValue);
     }
 }

@@ -14,6 +14,9 @@ import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nullable;
 
 import daripher.skilltree.skill.bonus.player.constitution.*;
+import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusMagic;
+import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusPhysical;
+import daripher.skilltree.skill.bonus.player.endurance.EvasionBonusProjectile;
 import daripher.skilltree.skill.bonus.player.endurance.MaxHealthBonus;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
@@ -58,6 +61,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("constitution_shield_block", "constitution_1", 16, 1, 5); // Shield block line
         addSkill("endurance_starting", "starting_1", 24); // Starting skill for Endurance
         addSkillBranch("endurance_max_health", "constitution_1", 16, 1, 5); // Max health line (reuse icon for now)
+        addSkillBranch("endurance_evasion_physical", "agility_1", 16, 1, 5); // Reuse icon for now
+        addSkillBranch("endurance_evasion_magic", "agility_1", 16, 1, 5);
+        addSkillBranch("endurance_evasion_projectile", "agility_1", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -114,8 +120,11 @@ public class PSTSkillsProvider implements DataProvider {
         // Endurance: Starting far right for horizontal expansion
         setSkillPosition(null, 200, 90, "endurance_starting"); // Справа от Constitution (200,0), уменьшил с 400 для плотности
 
-// Max Health branch: Horizontal right (0 degrees base, with small vertical spread for visibility)
-        setSkillBranchPosition("endurance_starting", 10, "endurance_max_health", 0, 15, 1, 5); // 0° - вправо, rotationPerNode=15° для легкого веера вверх/вниз
+        setSkillBranchPosition("endurance_starting", 10, "endurance_max_health", 0, 15, 1, 5);
+
+        setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_physical", 90, 15, 1, 5); // Slightly up-right
+        setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_magic", 60, 15, 1, 5); // Straight right
+        setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_projectile", 30, 15, 1, 5); // Slightly down-right
     }
 
     private void setSkillsAttributeModifiers() {
@@ -149,6 +158,9 @@ public class PSTSkillsProvider implements DataProvider {
 
         addSkillBonus("endurance_starting", new MaxHealthBonus(1f, Operation.ADDITION)); // +2 HP per node
         addSkillBranchBonuses("endurance_max_health", new MaxHealthBonus(2f, Operation.ADDITION), 1, 5); // +2 HP per node
+        addSkillBranchBonuses("endurance_evasion_physical", new EvasionBonusPhysical(0.2f, Operation.ADDITION), 1, 5); // +20% per node
+        addSkillBranchBonuses("endurance_evasion_magic", new EvasionBonusMagic(0.2f, Operation.ADDITION), 1, 5);
+        addSkillBranchBonuses("endurance_evasion_projectile", new EvasionBonusProjectile(0.2f, Operation.ADDITION), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

@@ -20,6 +20,7 @@ public class MaxHealthEvent {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || event.side.isClient()) return;
         if (!(event.player instanceof ServerPlayer player)) return;
+        if (!player.isAlive() || player.isDeadOrDying()) return;
 
         double bonus = PlayerSkillsProvider.get(player).getCachedBonus(MaxHealthBonus.class);
 
