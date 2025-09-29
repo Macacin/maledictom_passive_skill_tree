@@ -240,6 +240,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof MiningSpeedBonus msb) return msb.getSpeedBonus(null);
         if (bonus instanceof FullHungerDamageBonus fhdb) return fhdb.getDamageBonus(null);
         if (bonus instanceof PhysicalResistanceBonus prb) return prb.getResistanceBonus(null);
+        if (bonus instanceof MediumArmorMovementBonus mamb) return mamb.getSpeedBonus(null);
         return 0.0;
     }
 

@@ -126,6 +126,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("full_hunger_damage", FullHungerDamageBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> PHYSICAL_RESISTANCE =
             REGISTRY.register("physical_resistance", PhysicalResistanceBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> MEDIUM_ARMOR_MOVEMENT =
+            REGISTRY.register("medium_armor_movement", MediumArmorMovementBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

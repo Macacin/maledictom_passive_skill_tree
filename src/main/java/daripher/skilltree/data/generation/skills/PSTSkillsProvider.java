@@ -66,6 +66,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("endurance_mining_speed", "icon_mining_speed", 16, 1, 5); // Reuse icon
         addSkillBranch("endurance_full_hunger_damage", "icon_full_hunger_damage", 16, 1, 5);
         addSkillBranch("endurance_physical_resistance", "icon_physical_resistance", 16, 1, 5);
+        addSkillBranch("endurance_medium_armor_movement", "icon_medium_armor_movement", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -132,6 +133,7 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("endurance_starting", 10, "endurance_mining_speed", 180, 15, 1, 5); // Down spread
         setSkillBranchPosition("endurance_starting", 10, "endurance_full_hunger_damage", 210, 15, 1, 5);
         setSkillBranchPosition("endurance_starting", 10, "endurance_physical_resistance", -60, 15, 1, 5);
+        setSkillBranchPosition("endurance_starting", 10, "endurance_medium_armor_movement", -90, 15, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -173,6 +175,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("endurance_mining_speed", new MiningSpeedBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5); // +20% per node НО ОЧЕНЬ СЛАБО РАБОТАЕТ, НАДО БУДЕТ ИЗМЕНИТЬ В ТУЛТИПЕ
         addSkillBranchBonuses("endurance_full_hunger_damage", new FullHungerDamageBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5);
         addSkillBranchBonuses("endurance_physical_resistance", new PhysicalResistanceBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+        addSkillBranchBonuses("endurance_medium_armor_movement", new MediumArmorMovementBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
