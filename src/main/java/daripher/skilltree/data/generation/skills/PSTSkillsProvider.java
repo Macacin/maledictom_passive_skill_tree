@@ -34,34 +34,36 @@ public class PSTSkillsProvider implements DataProvider {
     }
 
     private void addSkills() {
-        addSkill("agility_starting", "starting_1", 24); // Starting skill
-        addSkillBranch("agility_movement_speed", "agility_1", 16, 1, 5); // Movement speed line
-        addSkillBranch("agility_attack_speed", "agility_1", 16, 1, 5); // Attack speed line
-        addSkillBranch("agility_jump_height", "agility_1", 16, 1, 5); // Новая линия: 5 нод для jump height
-        addSkillBranch("agility_projectile_velocity", "agility_1", 16, 1, 5); // Новая линия: 5 нод для projectile velocity
-        addSkillBranch("agility_attack_reach", "agility_1", 16, 1, 5); // 5 нод, как другие
-        addSkillBranch("agility_swim_speed", "agility_1", 16, 1, 5);
-        addSkillBranch("agility_projectile_resistance", "agility_1", 16, 1, 5);
-        addSkillBranch("agility_sprint_damage", "agility_1", 16, 1, 5);
-        addSkillBranch("agility_airborne_damage", "agility_1", 16, 1, 5);
-        addSkillBranch("agility_light_load_movement", "agility_1", 16, 1, 5);
-        addSkill("constitution_starting", "starting_1", 24); // Starting skill for Constitution
-        addSkillBranch("constitution_fall_damage_resistance", "constitution_1", 16, 1, 5); // Fall damage resistance line
-        addSkillBranch("constitution_full_armor_set", "constitution_1", 16, 1, 5); // Full armor set line
-        addSkillBranch("constitution_regeneration", "constitution_1", 16, 1, 5); // Regeneration bonus line
-        addSkillBranch("constitution_damage_reflection", "constitution_1", 16, 1, 5); // Damage reflection line
-        addSkillBranch("constitution_shield_regeneration", "constitution_1", 16, 1, 5); // Shield regeneration line
-        addSkillBranch("constitution_knockback_resistance", "constitution_1", 16, 1, 5); // Knockback resistance line
-        addSkillBranch("constitution_negative_effect_reduction", "constitution_1", 16, 1, 5); // Negative effect reduction line
-        addSkillBranch("constitution_carry_capacity", "constitution_1", 16, 1, 5); // Carry capacity line
-        addSkillBranch("constitution_heavy_load_speed", "constitution_1", 16, 1, 5); // Heavy load speed line
-        addSkillBranch("constitution_shield_block", "constitution_1", 16, 1, 5); // Shield block line
-        addSkill("endurance_starting", "starting_1", 24); // Starting skill for Endurance
-        addSkillBranch("endurance_max_health", "constitution_1", 16, 1, 5); // Max health line (reuse icon for now)
-        addSkillBranch("endurance_evasion_physical", "agility_1", 16, 1, 5); // Reuse icon for now
-        addSkillBranch("endurance_evasion_magic", "agility_1", 16, 1, 5);
-        addSkillBranch("endurance_evasion_projectile", "agility_1", 16, 1, 5);
-        addSkillBranch("endurance_roll_recharge", "agility_1", 16, 1, 5); // Reuse icon
+        addSkill("agility_starting", "icon_starting_agility", 24); // Starting skill
+        addSkillBranch("agility_movement_speed", "icon_movement_speed", 16, 1, 5); // Movement speed line
+        addSkillBranch("agility_attack_speed", "icon_attack_speed", 16, 1, 5); // Attack speed line
+        addSkillBranch("agility_jump_height", "icon_jump_height", 16, 1, 5); // Новая линия: 5 нод для jump height
+        addSkillBranch("agility_projectile_velocity", "icon_projectile_velocilty", 16, 1, 5); // Новая линия: 5 нод для projectile velocity
+        addSkillBranch("agility_attack_reach", "icon_attack_reach", 16, 1, 5); // 5 нод, как другие
+        addSkillBranch("agility_swim_speed", "icon_swim_speed", 16, 1, 5);
+        addSkillBranch("agility_projectile_resistance", "icon_projectile_resistance", 16, 1, 5);
+        addSkillBranch("agility_sprint_damage", "icon_sprint_damage", 16, 1, 5);
+        addSkillBranch("agility_airborne_damage", "icon_airborne_damage", 16, 1, 5);
+        addSkillBranch("agility_light_load_movement", "icon_light_load_movement", 16, 1, 5);
+        addSkill("constitution_starting", "icon_starting_constitution", 24); // Starting skill for Constitution
+        addSkillBranch("constitution_fall_damage_resistance", "icon_fall_damage_resistance", 16, 1, 5); // Fall damage resistance line
+        addSkillBranch("constitution_full_armor_set", "icon_full_armor_set", 16, 1, 5); // Full armor set line
+        addSkillBranch("constitution_regeneration", "icon_regeneration", 16, 1, 5); // Regeneration bonus line
+        addSkillBranch("constitution_damage_reflection", "icon_reflection", 16, 1, 5); // Damage reflection line
+        addSkillBranch("constitution_shield_regeneration", "icon_shield_regeneration", 16, 1, 5); // Shield regeneration line
+        addSkillBranch("constitution_knockback_resistance", "icon_knockback_resistance", 16, 1, 5); // Knockback resistance line
+        addSkillBranch("constitution_negative_effect_reduction", "icon_negative_effect_reduction", 16, 1, 5); // Negative effect reduction line
+        addSkillBranch("constitution_carry_capacity", "icon_carry_capacity", 16, 1, 5); // Carry capacity line
+        addSkillBranch("constitution_heavy_load_speed", "icon_heavy_load_speed", 16, 1, 5); // Heavy load speed line
+        addSkillBranch("constitution_shield_block", "icon_shield_block", 16, 1, 5); // Shield block line
+        addSkill("endurance_starting", "icon_starting_endurance", 24); // Starting skill for Endurance
+        addSkillBranch("endurance_max_health", "icon_max_health", 16, 1, 5); // Max health line (reuse icon for now)
+        addSkillBranch("endurance_evasion_physical", "icon_evasion_physical", 16, 1, 5); // Reuse icon for now
+        addSkillBranch("endurance_evasion_magic", "icon_evasion_magic", 16, 1, 5);
+        addSkillBranch("endurance_evasion_projectile", "icon_evasion_projectile", 16, 1, 5);
+        addSkillBranch("endurance_roll_recharge", "icon_roll_recharge", 16, 1, 5); // Reuse icon
+        addSkillBranch("endurance_hunger_reduction", "icon_hunger_reduction", 16, 1, 5); // Reuse icon
+        addSkillBranch("endurance_mining_speed", "icon_mining_speed", 16, 1, 5); // Reuse icon
     }
 
     private void shapeSkillTree() {
@@ -124,6 +126,8 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_magic", 60, 15, 1, 5); // Straight right
         setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_projectile", 30, 15, 1, 5); // Slightly down-right
         setSkillBranchPosition("endurance_starting", 10, "endurance_roll_recharge", 120, 15, 1, 5); // Down-right spread
+        setSkillBranchPosition("endurance_starting", 10, "endurance_hunger_reduction", 150, 15, 1, 5); // Up-right spread
+        setSkillBranchPosition("endurance_starting", 10, "endurance_mining_speed", 180, 15, 1, 5); // Down spread
     }
 
     private void setSkillsAttributeModifiers() {
@@ -161,6 +165,8 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("endurance_evasion_magic", new EvasionBonusMagic(0.2f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("endurance_evasion_projectile", new EvasionBonusProjectile(0.2f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("endurance_roll_recharge", new RollRechargeBonus(0.3f, Operation.MULTIPLY_BASE), 1, 5); // +10% per node
+        addSkillBranchBonuses("endurance_hunger_reduction", new HungerReductionBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5); // -10% per node
+        addSkillBranchBonuses("endurance_mining_speed", new MiningSpeedBonus(2.2f, Operation.MULTIPLY_BASE), 1, 5); // +10% per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

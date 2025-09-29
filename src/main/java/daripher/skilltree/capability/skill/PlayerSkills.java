@@ -199,7 +199,8 @@ public class PlayerSkills implements IPlayerSkills {
         }
     }
 
-    private void recalculateAllCachedBonuses() {
+    @Override
+    public void recalculateAllCachedBonuses() {
         cachedBonuses.clear();
         getPlayerSkills().forEach(skill ->
                 skill.getBonuses().forEach(bonus -> {
@@ -235,12 +236,29 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof EvasionBonusMagic ebm) return ebm.getEvasionChance(null);
         if (bonus instanceof EvasionBonusProjectile ebp) return ebp.getEvasionChance(null);
         if (bonus instanceof RollRechargeBonus rrb) return rrb.getRechargeBonus(null);
+        if (bonus instanceof HungerReductionBonus hrb) return hrb.getReduction(null);
+        if (bonus instanceof MiningSpeedBonus msb) return msb.getSpeedBonus(null);
         return 0.0;
     }
 
     @Override
     public double getCachedBonus(Class<?> bonusClass) {
         return cachedBonuses.getOrDefault(bonusClass, 0.0);
+    }
+
+    @Override
+    public void setAgility(int i) {
+
+    }
+
+    @Override
+    public void setConstitution(int i) {
+
+    }
+
+    @Override
+    public void setEndurance(int i) {
+
     }
 
     @Override

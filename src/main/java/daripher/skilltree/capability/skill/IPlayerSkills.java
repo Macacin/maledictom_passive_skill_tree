@@ -66,4 +66,12 @@ public interface IPlayerSkills extends INBTSerializable<CompoundTag> {
     int getEndurance();
 
     double getCachedBonus(Class<?> bonusClass);
+
+    void setAgility(int i);
+
+    void setConstitution(int i);
+
+    void setEndurance(int i);
+
+    void recalculateAllCachedBonuses();
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import daripher.skilltree.skill.bonus.player.endurance.MiningSpeedBonus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -89,10 +90,30 @@ public class SyncPlayerSkillsMessage {
         ctx.setPacketHandled(true);
 
         capability.getPlayerSkills().clear();
-        message.learnedSkills.stream()
-                .map(SkillsReloader::getSkillById)
-                .filter(Objects::nonNull)
-                .forEach(capability.getPlayerSkills()::add);
+        int loadedSkillsCount = 0;  // Track for potential reset
+        for (ResourceLocation skillId : message.learnedSkills) {
+            PassiveSkill skill = SkillsReloader.getSkillById(skillId);
+            if (skill != null) {
+                capability.getPlayerSkills().add(skill);
+                loadedSkillsCount++;
+                // Update agility/constitution/endurance counters to match server (from learnSkill logic)
+                if (skill.getTags().contains("Agility")) {
+                    capability.setAgility(capability.getAgility() + 1);  // Increment as on server
+                } else if (skill.getTags().contains("Constitution")) {
+                    capability.setConstitution(capability.getConstitution() + 1);
+                } else if (skill.getTags().contains("Endurance")) {
+                    capability.setEndurance(capability.getEndurance() + 1);
+                }
+            }
+        }
+
+        // Handle potential reset if not all skills loaded (mimic deserializeNBT logic)
+        if (loadedSkillsCount < message.learnedSkills.size()) {
+            capability.getPlayerSkills().clear();
+            capability.setTreeReset(true);
+            capability.grantSkillPoints(message.learnedSkills.size() - loadedSkillsCount);  // Refund missing
+        }
+
         capability.setSkillPoints(message.skillPoints);
         capability.setSkillExperience(message.skillExperience);
         capability.setCurrentLevel(message.currentLevel);
@@ -103,6 +124,11 @@ public class SyncPlayerSkillsMessage {
         capability.setConsecutiveMiningActions(message.consecutiveMiningActions);
         capability.setAccuracy(message.accuracy);
 
+        // KEY FIX: Recalculate cached bonuses after adding skills (missing in original)
+        capability.recalculateAllCachedBonuses();  // This populates cachedBonuses on client
+
+        // Debug print to confirm (remove after testing)
+        System.out.println("Client synced: skills count=" + capability.getPlayerSkills().size() + ", mining bonus=" + capability.getCachedBonus(MiningSpeedBonus.class));
 
         if (minecraft.screen instanceof SkillTreeScreen screen) {
             screen.skillPoints = capability.getSkillPoints() - screen.newlyLearnedSkills.size();
