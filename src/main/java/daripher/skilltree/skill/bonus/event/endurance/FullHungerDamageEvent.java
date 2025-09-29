@@ -18,28 +18,15 @@ public class FullHungerDamageEvent {
         if (!player.isAlive()) return;
 
         double bonus = PlayerSkillsProvider.get(player).getCachedBonus(FullHungerDamageBonus.class);
-        String side = player.level().isClientSide() ? "client" : "server";
         int foodLevel = player.getFoodData().getFoodLevel();
 
-        // Always log event fire and current state for debug
-        System.out.println("Full hunger damage event fired on " + side + ": bonus=" + bonus + ", current food level=" + foodLevel + " for player " + player.getName().getString());
-
         if (bonus == 0) {
-            System.out.println("No bonus available on " + side + " for player " + player.getName().getString());
             return;
         }
-
-        // Apply only if full hunger
         if (foodLevel == 20) {
             float originalDamage = event.getAmount();
             float newDamage = originalDamage * (1f + (float) bonus);
             event.setAmount(newDamage);
-
-            // Success log
-            System.out.println("Full hunger damage bonus applied on " + side + ": original=" + originalDamage + ", new=" + newDamage + ", bonus=" + bonus + " for player " + player.getName().getString());
-        } else {
-            // Failure log for debug
-            System.out.println("Hunger not full on " + side + " (food level=" + foodLevel + ") - bonus not applied for player " + player.getName().getString());
         }
     }
 }

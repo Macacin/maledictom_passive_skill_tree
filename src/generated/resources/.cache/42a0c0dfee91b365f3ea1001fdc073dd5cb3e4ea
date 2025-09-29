@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-29T18:42:39.4745303	Skills Provider
+// 1.20.1	2025-09-29T22:04:06.0289079	Skills Provider
 826a5ace739cb0c8c95d04e61834e9c09610fbfc data/skilltree/skills/agility_airborne_damage_1.json
 1c130f669590c3dc067670684366113921f29a56 data/skilltree/skills/agility_airborne_damage_2.json
 929695680013c59bb9a638508325e50988a6f9af data/skilltree/skills/agility_airborne_damage_3.json
@@ -152,3 +152,9 @@ d97b988c8c0e25c37f0a9418bed06ad6f55ebd2c data/skilltree/skills/endurance_roll_re
 8995ee2ee6fa9d5912dbd5053d4783a096506467 data/skilltree/skills/endurance_roll_recharge_4.json
 2f3426025e13bd619e1315281ef07d457513012c data/skilltree/skills/endurance_roll_recharge_5.json
 569e8dfd63d445786a60008da78fd187f950e972 data/skilltree/skills/endurance_starting.json
+1c06803f0a3c78078e4c4680bd7883fd668d69d4 data/skilltree/skills/strength_crit_chance_1.json
+61c0acb1cd3d4130f2f2689d55bcf39b72fc4873 data/skilltree/skills/strength_crit_chance_2.json
+addd194e849e3ec6fe0f95bb4141655e40898e62 data/skilltree/skills/strength_crit_chance_3.json
+2286beb7c69cd91ead2c241c76f35ead52d9662f data/skilltree/skills/strength_crit_chance_4.json
+fa65d9a780de67bbd4c0fef6e6ff65c1a468617c data/skilltree/skills/strength_crit_chance_5.json
+1f6398ffb444c50f47bff669664fd0542d59e858 data/skilltree/skills/strength_starting.json

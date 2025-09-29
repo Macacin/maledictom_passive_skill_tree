@@ -12,6 +12,7 @@ import daripher.skilltree.skill.bonus.SkillBonus;
 import daripher.skilltree.skill.bonus.player.agility.*;
 import daripher.skilltree.skill.bonus.player.constitution.*;
 import daripher.skilltree.skill.bonus.player.endurance.*;
+import daripher.skilltree.skill.bonus.player.strength.*;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -42,6 +43,7 @@ public class PlayerSkills implements IPlayerSkills {
     private int agility = 0;
     private int constitution = 0;
     private int endurance = 0;
+    private int strength = 0;
 
     private final Map<Class<?>, Double> cachedBonuses = new HashMap<>();
 
@@ -112,6 +114,9 @@ public class PlayerSkills implements IPlayerSkills {
             if (passiveSkill.getTags().contains("Endurance")) {
                 endurance++;
             }
+            if (passiveSkill.getTags().contains("Strength")) {
+                strength++;
+            }
         }
         recalculateAllCachedBonuses();
         return added;
@@ -155,6 +160,7 @@ public class PlayerSkills implements IPlayerSkills {
         tag.putInt("Agility", agility);
         tag.putInt("Constitution", constitution);
         tag.putInt("Endurance", endurance);
+        tag.putInt("Strength", strength);
         ListTag skillsTag = new ListTag();
         skills.forEach(skill -> skillsTag.add(StringTag.valueOf(skill.getId().toString())));
         tag.put("Skills", skillsTag);
@@ -174,6 +180,7 @@ public class PlayerSkills implements IPlayerSkills {
         agility = tag.getInt("Agility");
         constitution = tag.getInt("Constitution");
         endurance = tag.getInt("Endurance");
+        strength = tag.getInt("Strength");
         if (tag.contains("Accuracy")) {
             accuracy = tag.getDouble("Accuracy");
         } else {
@@ -241,6 +248,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof FullHungerDamageBonus fhdb) return fhdb.getDamageBonus(null);
         if (bonus instanceof PhysicalResistanceBonus prb) return prb.getResistanceBonus(null);
         if (bonus instanceof MediumArmorMovementBonus mamb) return mamb.getSpeedBonus(null);
+        if (bonus instanceof CritChanceBonus ccb) return ccb.getChance(null);
         return 0.0;
     }
 
@@ -347,5 +355,10 @@ public class PlayerSkills implements IPlayerSkills {
     @Override
     public int getEndurance() {
         return endurance;
+    }
+
+    @Override
+    public int getStrength() {
+        return strength;
     }
 }

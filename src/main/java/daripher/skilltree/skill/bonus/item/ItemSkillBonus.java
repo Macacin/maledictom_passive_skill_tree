@@ -7,9 +7,10 @@ import daripher.skilltree.data.serializers.SerializationHelper;
 import daripher.skilltree.init.PSTItemBonuses;
 import daripher.skilltree.network.NetworkHelper;
 import daripher.skilltree.skill.bonus.SkillBonus;
-import daripher.skilltree.skill.bonus.player.DamageBonus;
 import java.util.Objects;
 import java.util.function.Consumer;
+
+import daripher.skilltree.skill.bonus.player.agility.MovementSpeedBonus;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -157,7 +158,7 @@ public final class ItemSkillBonus implements ItemBonus<ItemSkillBonus> {
 
     @Override
     public ItemBonus<?> createDefaultInstance() {
-      return new ItemSkillBonus(new DamageBonus(0.1f, AttributeModifier.Operation.MULTIPLY_BASE));
+      return new ItemSkillBonus(new MovementSpeedBonus(0.1f, AttributeModifier.Operation.MULTIPLY_BASE));
     }
   }
 }

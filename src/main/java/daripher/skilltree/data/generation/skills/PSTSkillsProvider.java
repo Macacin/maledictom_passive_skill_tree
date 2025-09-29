@@ -15,6 +15,7 @@ import javax.annotation.Nullable;
 
 import daripher.skilltree.skill.bonus.player.constitution.*;
 import daripher.skilltree.skill.bonus.player.endurance.*;
+import daripher.skilltree.skill.bonus.player.strength.*;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -67,6 +68,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("endurance_full_hunger_damage", "icon_full_hunger_damage", 16, 1, 5);
         addSkillBranch("endurance_physical_resistance", "icon_physical_resistance", 16, 1, 5);
         addSkillBranch("endurance_medium_armor_movement", "icon_medium_armor_movement", 16, 1, 5);
+
+        addSkill("strength_starting", "icon_starting_strength", 24); // Starting skill for Strength
+        addSkillBranch("strength_crit_chance", "icon_crit_chance", 16, 1, 5); // Crit chance line
     }
 
     private void shapeSkillTree() {
@@ -134,6 +138,9 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("endurance_starting", 10, "endurance_full_hunger_damage", 210, 15, 1, 5);
         setSkillBranchPosition("endurance_starting", 10, "endurance_physical_resistance", -60, 15, 1, 5);
         setSkillBranchPosition("endurance_starting", 10, "endurance_medium_armor_movement", -90, 15, 1, 5);
+
+        setSkillPosition(null, 200, 270, "strength_starting");
+        setSkillBranchPosition("strength_starting", 10, "strength_crit_chance", 90, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -176,6 +183,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("endurance_full_hunger_damage", new FullHungerDamageBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5);
         addSkillBranchBonuses("endurance_physical_resistance", new PhysicalResistanceBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
         addSkillBranchBonuses("endurance_medium_armor_movement", new MediumArmorMovementBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+
+        addSkillBonus("strength_starting", new CritChanceBonus(0.05f, Operation.ADDITION)); // +5% base
+        addSkillBranchBonuses("strength_crit_chance", new CritChanceBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
@@ -271,6 +281,9 @@ public class PSTSkillsProvider implements DataProvider {
         }
         if (name.startsWith("endurance_")) {
             skill.getTags().add("Endurance");
+        }
+        if (name.startsWith("strength_")) {
+            skill.getTags().add("Strength");
         }
         skills.put(skillId, skill);
     }

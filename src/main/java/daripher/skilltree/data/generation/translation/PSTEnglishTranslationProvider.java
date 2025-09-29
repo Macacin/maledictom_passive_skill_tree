@@ -270,10 +270,6 @@ public class PSTEnglishTranslationProvider extends PSTTranslationProvider {
     addSkillBranch("miner_subclass_2_defensive", "Armor and Evasion", 1, 4);
     addSkillBranch("miner_subclass_2_life", "Max Health", 1, 4);
     addSkillBranch("miner_subclass_2_crafting", "Gems Power in Jewelry", 1, 5);
-    // skill bonuses
-    add(PSTSkillBonuses.DAMAGE.get(), "Damage");
-    add(PSTSkillBonuses.CRIT_DAMAGE.get(), "Critical Hit Damage");
-    add(PSTSkillBonuses.CRIT_CHANCE.get(), "Critical Hit Chance");
     add(PSTSkillBonuses.CRAFTED_ITEM_BONUS.get(), "Crafted %s: %s");
     add(PSTSkillBonuses.PLAYER_SOCKETS.get(), "Gem Sockets in %s");
     add(PSTSkillBonuses.BLOCK_BREAK_SPEED.get(), "Block Break Speed");
@@ -572,8 +568,6 @@ public class PSTEnglishTranslationProvider extends PSTTranslationProvider {
         PSTAttributes.STEALTH.get().getDescriptionId() + ".info",
         "(Stealth reduces monsters aggression range)");
     // effects
-    add(PSTEffects.CRIT_DAMAGE_BONUS.get(), "Critical Damage");
-    add(PSTEffects.DAMAGE_BONUS.get(), "Damage");
     add(PSTEffects.LIFE_REGENERATION_BONUS.get(), "Life Regeneration");
     // system messages
     add("skilltree.message.reset", "Skill Tree has changed. Your skill points have been restored.");

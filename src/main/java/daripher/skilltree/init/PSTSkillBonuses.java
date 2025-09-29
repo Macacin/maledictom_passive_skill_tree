@@ -11,6 +11,7 @@ import java.util.Objects;
 import daripher.skilltree.skill.bonus.player.agility.*;
 import daripher.skilltree.skill.bonus.player.constitution.*;
 import daripher.skilltree.skill.bonus.player.endurance.*;
+import daripher.skilltree.skill.bonus.player.strength.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.*;
 
@@ -24,12 +25,6 @@ public class PSTSkillBonuses {
             REGISTRY.register("attribute", AttributeBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> COMMAND =
             REGISTRY.register("command", CommandBonus.Serializer::new);
-    public static final RegistryObject<SkillBonus.Serializer> DAMAGE =
-            REGISTRY.register("damage", DamageBonus.Serializer::new);
-    public static final RegistryObject<SkillBonus.Serializer> CRIT_DAMAGE =
-            REGISTRY.register("crit_damage", CritDamageBonus.Serializer::new);
-    public static final RegistryObject<SkillBonus.Serializer> CRIT_CHANCE =
-            REGISTRY.register("crit_chance", CritChanceBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> CRAFTED_ITEM_BONUS =
             REGISTRY.register("crafted_item_bonus", CraftedItemBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> PLAYER_SOCKETS =
@@ -128,6 +123,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("physical_resistance", PhysicalResistanceBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> MEDIUM_ARMOR_MOVEMENT =
             REGISTRY.register("medium_armor_movement", MediumArmorMovementBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> CRIT_CHANCE_STRENGTH =
+            REGISTRY.register("crit_chance_strength", CritChanceBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

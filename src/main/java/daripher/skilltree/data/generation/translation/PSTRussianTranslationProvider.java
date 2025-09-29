@@ -273,9 +273,6 @@ public class PSTRussianTranslationProvider extends PSTTranslationProvider {
     addSkillBranch("miner_subclass_2_life", "Здоровье", 1, 4);
     addSkillBranch("miner_subclass_2_crafting", "Сила самоцветов в бижутерии", 1, 5);
     // skill bonuses
-    add(PSTSkillBonuses.DAMAGE.get(), "Урон");
-    add(PSTSkillBonuses.CRIT_DAMAGE.get(), "Критический урон");
-    add(PSTSkillBonuses.CRIT_CHANCE.get(), "Шанс критического удара");
     add(PSTSkillBonuses.CRAFTED_ITEM_BONUS.get(), "Создаваем%s: %s");
     add(PSTSkillBonuses.PLAYER_SOCKETS.get(), "Гнёзда Самоцветов в %s");
     add(PSTSkillBonuses.BLOCK_BREAK_SPEED.get(), "Скорость добычи Блоков");
@@ -657,8 +654,6 @@ public class PSTRussianTranslationProvider extends PSTTranslationProvider {
         PSTAttributes.STEALTH.get().getDescriptionId() + ".info",
         "(Скрытность снижает дальность агрессии монстров)");
     // effects
-    add(PSTEffects.CRIT_DAMAGE_BONUS.get(), "Критический урон");
-    add(PSTEffects.DAMAGE_BONUS.get(), "Урон");
     add(PSTEffects.LIFE_REGENERATION_BONUS.get(), "Регенерация здоровья");
     // system messages
     add(
