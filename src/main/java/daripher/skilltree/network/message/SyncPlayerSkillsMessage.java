@@ -96,9 +96,8 @@ public class SyncPlayerSkillsMessage {
             if (skill != null) {
                 capability.getPlayerSkills().add(skill);
                 loadedSkillsCount++;
-                // Update agility/constitution/endurance counters to match server (from learnSkill logic)
                 if (skill.getTags().contains("Agility")) {
-                    capability.setAgility(capability.getAgility() + 1);  // Increment as on server
+                    capability.setAgility(capability.getAgility() + 1);
                 } else if (skill.getTags().contains("Constitution")) {
                     capability.setConstitution(capability.getConstitution() + 1);
                 } else if (skill.getTags().contains("Endurance")) {
@@ -107,11 +106,10 @@ public class SyncPlayerSkillsMessage {
             }
         }
 
-        // Handle potential reset if not all skills loaded (mimic deserializeNBT logic)
         if (loadedSkillsCount < message.learnedSkills.size()) {
             capability.getPlayerSkills().clear();
             capability.setTreeReset(true);
-            capability.grantSkillPoints(message.learnedSkills.size() - loadedSkillsCount);  // Refund missing
+            capability.grantSkillPoints(message.learnedSkills.size() - loadedSkillsCount);
         }
 
         capability.setSkillPoints(message.skillPoints);
@@ -124,11 +122,8 @@ public class SyncPlayerSkillsMessage {
         capability.setConsecutiveMiningActions(message.consecutiveMiningActions);
         capability.setAccuracy(message.accuracy);
 
-        // KEY FIX: Recalculate cached bonuses after adding skills (missing in original)
-        capability.recalculateAllCachedBonuses();  // This populates cachedBonuses on client
+        capability.recalculateAllCachedBonuses();
 
-        // Debug print to confirm (remove after testing)
-        System.out.println("Client synced: skills count=" + capability.getPlayerSkills().size() + ", mining bonus=" + capability.getCachedBonus(MiningSpeedBonus.class));
 
         if (minecraft.screen instanceof SkillTreeScreen screen) {
             screen.skillPoints = capability.getSkillPoints() - screen.newlyLearnedSkills.size();

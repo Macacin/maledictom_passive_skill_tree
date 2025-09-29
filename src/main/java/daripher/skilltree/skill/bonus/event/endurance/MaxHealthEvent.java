@@ -4,6 +4,7 @@ import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.capability.skill.PlayerSkillsProvider;
 import daripher.skilltree.skill.bonus.player.endurance.MaxHealthBonus;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.event.TickEvent;
@@ -24,10 +25,14 @@ public class MaxHealthEvent {
 
         double bonus = PlayerSkillsProvider.get(player).getCachedBonus(MaxHealthBonus.class);
 
-        var attribute = player.getAttribute(Attributes.MAX_HEALTH);
+        AttributeInstance attribute = player.getAttribute(Attributes.MAX_HEALTH);
         if (attribute == null) return;
 
-        // Remove old modifier if exists
+        AttributeModifier existingModifier = attribute.getModifier(MAX_HEALTH_BONUS_UUID);
+        double existingBonus = (existingModifier != null) ? existingModifier.getAmount() : 0;
+
+        if (bonus == existingBonus) return;
+
         attribute.removeModifier(MAX_HEALTH_BONUS_UUID);
 
         if (bonus != 0) {
@@ -42,6 +47,10 @@ public class MaxHealthEvent {
             float newMaxHealth = player.getMaxHealth();
             if (newMaxHealth > prevMaxHealth && player.getHealth() > 0) {
                 player.heal(newMaxHealth - prevMaxHealth);
+            } else if (newMaxHealth < prevMaxHealth) {
+                if (player.getHealth() > newMaxHealth) {
+                    player.setHealth(newMaxHealth);
+                }
             }
         }
     }

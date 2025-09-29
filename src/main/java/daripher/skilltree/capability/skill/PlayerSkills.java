@@ -238,6 +238,8 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof RollRechargeBonus rrb) return rrb.getRechargeBonus(null);
         if (bonus instanceof HungerReductionBonus hrb) return hrb.getReduction(null);
         if (bonus instanceof MiningSpeedBonus msb) return msb.getSpeedBonus(null);
+        if (bonus instanceof FullHungerDamageBonus fhdb) return fhdb.getDamageBonus(null);
+        if (bonus instanceof PhysicalResistanceBonus prb) return prb.getResistanceBonus(null);
         return 0.0;
     }
 

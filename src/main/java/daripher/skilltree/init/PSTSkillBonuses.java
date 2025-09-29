@@ -122,6 +122,10 @@ public class PSTSkillBonuses {
             REGISTRY.register("hunger_reduction", HungerReductionBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> MINING_SPEED =
             REGISTRY.register("mining_speed", MiningSpeedBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> FULL_HUNGER_DAMAGE =
+            REGISTRY.register("full_hunger_damage", FullHungerDamageBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> PHYSICAL_RESISTANCE =
+            REGISTRY.register("physical_resistance", PhysicalResistanceBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {
