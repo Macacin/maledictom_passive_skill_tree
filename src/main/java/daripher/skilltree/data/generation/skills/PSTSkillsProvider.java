@@ -71,6 +71,7 @@ public class PSTSkillsProvider implements DataProvider {
 
         addSkill("strength_starting", "icon_starting_strength", 24); // Starting skill for Strength
         addSkillBranch("strength_crit_chance", "icon_crit_chance", 16, 1, 5); // Crit chance line
+        addSkillBranch("strength_crit_damage", "icon_crit_damage", 16, 1, 5); // Crit damage line
     }
 
     private void shapeSkillTree() {
@@ -140,7 +141,8 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("endurance_starting", 10, "endurance_medium_armor_movement", -90, 15, 1, 5);
 
         setSkillPosition(null, 200, 270, "strength_starting");
-        setSkillBranchPosition("strength_starting", 10, "strength_crit_chance", 90, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_crit_chance", 0, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_crit_damage", 30, 30, 1, 5); // Upward, как attack_speed в agility
     }
 
     private void setSkillsAttributeModifiers() {
@@ -185,7 +187,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("endurance_medium_armor_movement", new MediumArmorMovementBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
 
         addSkillBonus("strength_starting", new CritChanceBonus(0.05f, Operation.ADDITION)); // +5% base
-        addSkillBranchBonuses("strength_crit_chance", new CritChanceBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
+        addSkillBranchBonuses("strength_crit_chance", new CritChanceBonus(0.1f, Operation.ADDITION), 1, 5);
+        addSkillBonus("strength_starting", new CritDamageBonus(0.05f, Operation.ADDITION)); // +5% base
+        addSkillBranchBonuses("strength_crit_damage", new CritDamageBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

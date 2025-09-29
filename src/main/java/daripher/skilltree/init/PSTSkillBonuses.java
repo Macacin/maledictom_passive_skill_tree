@@ -125,6 +125,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("medium_armor_movement", MediumArmorMovementBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> CRIT_CHANCE_STRENGTH =
             REGISTRY.register("crit_chance_strength", CritChanceBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> CRIT_DAMAGE_STRENGTH =
+            REGISTRY.register("crit_damage_strength", CritDamageBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {
