@@ -253,6 +253,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof ProjectileCritChanceBonus pccb) return pccb.getChance(null);
         if (bonus instanceof ProjectileCritDamageBonus pcdb) return pcdb.getDamageBonus(null);
         if (bonus instanceof ArmorIgnoreBonus aib) return aib.getIgnore(null);
+        if (bonus instanceof ExplosionResistanceBonus erb) return erb.getResistance(null);
         return 0.0;
     }
 
