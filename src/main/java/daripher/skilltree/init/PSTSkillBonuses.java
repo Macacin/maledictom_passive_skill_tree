@@ -133,6 +133,9 @@ public class PSTSkillBonuses {
             REGISTRY.register("projectile_crit_chance", ProjectileCritChanceBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> PROJECTILE_CRIT_DAMAGE =
             REGISTRY.register("projectile_crit_damage", ProjectileCritDamageBonus.Serializer::new);
+    // После PROJECTILE_CRIT_DAMAGE
+    public static final RegistryObject<SkillBonus.Serializer> ARMOR_IGNORE =
+            REGISTRY.register("armor_ignore", ArmorIgnoreBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

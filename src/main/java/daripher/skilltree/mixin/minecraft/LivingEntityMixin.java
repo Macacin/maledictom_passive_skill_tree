@@ -12,12 +12,15 @@ import daripher.skilltree.init.PSTAttributes;
 import daripher.skilltree.skill.PassiveSkill;
 import daripher.skilltree.skill.bonus.SkillBonus;
 import daripher.skilltree.skill.bonus.event.agility.JumpHeightEvent;
+import daripher.skilltree.skill.bonus.player.strength.ArmorIgnoreBonus;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.CombatRules;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
@@ -65,5 +68,21 @@ public abstract class LivingEntityMixin implements EquippedEntity {
         if (self instanceof Player player && player.isBlocking()) {
             ci.cancel();
         }
+    }
+
+    @Inject(method = "getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F", at = @At("HEAD"), cancellable = true)
+    private void applyArmorIgnore(DamageSource source, float damage, CallbackInfoReturnable<Float> callback) {
+        if (!(source.getEntity() instanceof ServerPlayer player)) return;
+        double totalIgnore = PlayerSkillsProvider.get(player).getCachedBonus(ArmorIgnoreBonus.class);
+        if (totalIgnore <= 0) return;
+        totalIgnore = Math.min(1.0, totalIgnore);
+        LivingEntity target = (LivingEntity) (Object) this;
+        double armor = target.getAttributeValue(Attributes.ARMOR);
+        double toughness = target.getAttributeValue(Attributes.ARMOR_TOUGHNESS);
+        double effectiveArmor = armor * (1 - totalIgnore);
+
+        float modifiedDamage = CombatRules.getDamageAfterAbsorb(damage, (float) effectiveArmor, (float) toughness);
+
+        callback.setReturnValue(modifiedDamage);
     }
 }

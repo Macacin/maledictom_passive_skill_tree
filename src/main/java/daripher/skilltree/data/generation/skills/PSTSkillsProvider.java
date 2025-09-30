@@ -46,6 +46,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("agility_sprint_damage", "icon_sprint_damage", 16, 1, 5);
         addSkillBranch("agility_airborne_damage", "icon_airborne_damage", 16, 1, 5);
         addSkillBranch("agility_light_load_movement", "icon_light_load_movement", 16, 1, 5);
+
         addSkill("constitution_starting", "icon_starting_constitution", 24); // Starting skill for Constitution
         addSkillBranch("constitution_fall_damage_resistance", "icon_fall_damage_resistance", 16, 1, 5); // Fall damage resistance line
         addSkillBranch("constitution_full_armor_set", "icon_full_armor_set", 16, 1, 5); // Full armor set line
@@ -57,6 +58,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("constitution_carry_capacity", "icon_carry_capacity", 16, 1, 5); // Carry capacity line
         addSkillBranch("constitution_heavy_load_speed", "icon_heavy_load_speed", 16, 1, 5); // Heavy load speed line
         addSkillBranch("constitution_shield_block", "icon_shield_block", 16, 1, 5); // Shield block line
+
         addSkill("endurance_starting", "icon_starting_endurance", 24); // Starting skill for Endurance
         addSkillBranch("endurance_max_health", "icon_max_health", 16, 1, 5); // Max health line (reuse icon for now)
         addSkillBranch("endurance_evasion_physical", "icon_evasion_physical", 16, 1, 5); // Reuse icon for now
@@ -69,90 +71,62 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("endurance_physical_resistance", "icon_physical_resistance", 16, 1, 5);
         addSkillBranch("endurance_medium_armor_movement", "icon_medium_armor_movement", 16, 1, 5);
 
-        addSkill("strength_starting", "icon_starting_strength", 24); // Starting skill for Strength
-        addSkillBranch("strength_crit_chance", "icon_crit_chance", 16, 1, 5); // Crit chance line
-        addSkillBranch("strength_crit_damage", "icon_crit_damage", 16, 1, 5); // Crit damage line
-        addSkillBranch("strength_projectile_damage", "icon_projectile_damage", 16, 1, 5); // Projectile damage line
-        addSkillBranch("strength_projectile_crit_chance", "icon_projectile_crit_chance", 16, 1, 5); // Projectile crit chance line
-        addSkillBranch("strength_projectile_crit_damage", "icon_projectile_crit_damage", 16, 1, 5); // Projectile crit damage line
+        addSkill("strength_starting", "icon_starting_strength", 24);
+        addSkillBranch("strength_crit_chance", "icon_crit_chance", 16, 1, 5);
+        addSkillBranch("strength_crit_damage", "icon_crit_damage", 16, 1, 5);
+        addSkillBranch("strength_projectile_damage", "icon_projectile_damage", 16, 1, 5);
+        addSkillBranch("strength_projectile_crit_chance", "icon_projectile_crit_chance", 16, 1, 5);
+        addSkillBranch("strength_projectile_crit_damage", "icon_projectile_crit_damage", 16, 1, 5);
+        addSkillBranch("strength_armor_ignore", "icon_armor_ignore", 16, 1, 5); // Armor ignore line
     }
 
     private void shapeSkillTree() {
-        setSkillPosition(null, 0, 0, "agility_starting"); // Center, no previous
-
-        // Movement speed branch: downward (rotation starting at 90 degrees)
-        setSkillBranchPosition("agility_starting", 10, "agility_movement_speed", 90, 30, 1, 5);
-
-        // Attack speed branch: upward (rotation starting at -90 degrees)
-        setSkillBranchPosition("agility_starting", 10, "agility_attack_speed", -90, 30, 1, 5);
-
-        // Jump height branch: leftward (rotation starting at 180 degrees)
-        setSkillBranchPosition("agility_starting", 10, "agility_jump_height", 180, 30, 1, 5);
-
-        // Projectile velocity branch: rightward (rotation starting at 0 degrees)
-        setSkillBranchPosition("agility_starting", 10, "agility_projectile_velocity", 0, 30, 1, 5);
-
-        // Attack reach branch: northeast (45 degrees)
-        setSkillBranchPosition("agility_starting", 10, "agility_attack_reach", 45, 30, 1, 5);
-
-        // Swim speed branch: southeast (135 degrees)
-        setSkillBranchPosition("agility_starting", 10, "agility_swim_speed", 135, 30, 1, 5);
-
-        // Projectile resistance branch: southwest (-135 degrees)
-        setSkillBranchPosition("agility_starting", 10, "agility_projectile_resistance", -135, 30, 1, 5);
-
-        // Sprint damage branch: westward (270 degrees)
-        setSkillBranchPosition("agility_starting", 10, "agility_sprint_damage", 15, 30, 1, 5);
-        setSkillBranchPosition("agility_starting", 10, "agility_airborne_damage", 120, 30, 1, 5);
-        setSkillBranchPosition("agility_starting", 10, "agility_light_load_movement", 160, 30, 1, 5);
+        setSkillPosition(null, 0, 0, "agility_starting");
+        setSkillBranchPosition("agility_starting", 10, "agility_movement_speed", 0, 30, 1, 5);
+        setSkillBranchPosition("agility_starting", 10, "agility_attack_speed", 30, 30, 1, 5);
+        setSkillBranchPosition("agility_starting", 10, "agility_jump_height", 60, 30, 1, 5);
+        setSkillBranchPosition("agility_starting", 10, "agility_projectile_velocity", 90, 30, 1, 5);
+        setSkillBranchPosition("agility_starting", 10, "agility_attack_reach", 120, 30, 1, 5);
+        setSkillBranchPosition("agility_starting", 10, "agility_swim_speed", 150, 30, 1, 5);
+        setSkillBranchPosition("agility_starting", 10, "agility_projectile_resistance", 180, 30, 1, 5);
+        setSkillBranchPosition("agility_starting", 10, "agility_sprint_damage", 210, 30, 1, 5);
+        setSkillBranchPosition("agility_starting", 10, "agility_airborne_damage", 240, 30, 1, 5);
+        setSkillBranchPosition("agility_starting", 10, "agility_light_load_movement", 270, 30, 1, 5);
 
         setSkillPosition(null, 200, 0, "constitution_starting");
+        setSkillBranchPosition("constitution_starting", 10, "constitution_fall_damage_resistance", 0, 30, 1, 5);
+        setSkillBranchPosition("constitution_starting", 10, "constitution_full_armor_set", 30, 30, 1, 5);
+        setSkillBranchPosition("constitution_starting", 10, "constitution_regeneration", 60, 30, 1, 5);
+        setSkillBranchPosition("constitution_starting", 10, "constitution_damage_reflection", 90, 30, 1, 5);
+        setSkillBranchPosition("constitution_starting", 10, "constitution_shield_regeneration", 120, 30, 1, 5);
+        setSkillBranchPosition("constitution_starting", 10, "constitution_knockback_resistance", 150, 30, 1, 5);
+        setSkillBranchPosition("constitution_starting", 10, "constitution_negative_effect_reduction", 180, 30, 1, 5);
+        setSkillBranchPosition("constitution_starting", 10, "constitution_carry_capacity", 210, 30, 1, 5);
+        setSkillBranchPosition("constitution_starting", 10, "constitution_heavy_load_speed", 240, 30, 1, 5);
+        setSkillBranchPosition("constitution_starting", 10, "constitution_shield_block", 270, 30, 1, 5);
 
-        setSkillBranchPosition("constitution_starting", 10, "constitution_fall_damage_resistance", 90, 30, 1, 5);
-
-        // Full armor set branch: rightward (rotation starting at 0 degrees)
-        setSkillBranchPosition("constitution_starting", 10, "constitution_full_armor_set", 0, 30, 1, 5);
-        setSkillBranchPosition("constitution_starting", 10, "constitution_regeneration", 180, 30, 1, 5);
-        // Damage reflection branch: upward (rotation starting at -90 degrees)
-        setSkillBranchPosition("constitution_starting", 10, "constitution_damage_reflection", -90, 30, 1, 5);
-
-        // Shield regeneration branch: southeast (rotation starting at 45 degrees)
-        setSkillBranchPosition("constitution_starting", 10, "constitution_shield_regeneration", 45, 30, 1, 5);
-        // Knockback resistance branch: southwest (rotation starting at 135 degrees)
-        setSkillBranchPosition("constitution_starting", 10, "constitution_knockback_resistance", 135, 30, 1, 5);
-        // Negative effect reduction branch: northeast (rotation starting at -45 degrees)
-        setSkillBranchPosition("constitution_starting", 10, "constitution_negative_effect_reduction", -45, 30, 1, 5);
-        // Carry capacity branch: southwest (rotation starting at -135 degrees)
-        setSkillBranchPosition("constitution_starting", 10, "constitution_carry_capacity", -135, 30, 1, 5);
-        // Heavy load speed branch: westward (rotation starting at 180 degrees)
-        setSkillBranchPosition("constitution_starting", 10, "constitution_heavy_load_speed", 25, 30, 1, 5);
-        // Shield block branch: eastward (rotation starting at 0 degrees)
-        setSkillBranchPosition("constitution_starting", 10, "constitution_shield_block", 115, 30, 1, 5);
-        // Endurance: Starting far right for horizontal expansion
-        setSkillPosition(null, 200, 90, "endurance_starting"); // Справа от Constitution (200,0), уменьшил с 400 для плотности
-
+        setSkillPosition(null, 200, 90, "endurance_starting");
         setSkillBranchPosition("endurance_starting", 10, "endurance_max_health", 0, 15, 1, 5);
-
-        setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_physical", 90, 15, 1, 5); // Slightly up-right
-        setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_magic", 60, 15, 1, 5); // Straight right
-        setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_projectile", 30, 15, 1, 5); // Slightly down-right
-        setSkillBranchPosition("endurance_starting", 10, "endurance_roll_recharge", 120, 15, 1, 5); // Down-right spread
-        setSkillBranchPosition("endurance_starting", 10, "endurance_hunger_reduction", 150, 15, 1, 5); // Up-right spread
-        setSkillBranchPosition("endurance_starting", 10, "endurance_mining_speed", 180, 15, 1, 5); // Down spread
+        setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_physical", 90, 15, 1, 5);
+        setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_magic", 60, 15, 1, 5);
+        setSkillBranchPosition("endurance_starting", 10, "endurance_evasion_projectile", 30, 15, 1, 5);
+        setSkillBranchPosition("endurance_starting", 10, "endurance_roll_recharge", 120, 15, 1, 5);
+        setSkillBranchPosition("endurance_starting", 10, "endurance_hunger_reduction", 150, 15, 1, 5);
+        setSkillBranchPosition("endurance_starting", 10, "endurance_mining_speed", 180, 15, 1, 5);
         setSkillBranchPosition("endurance_starting", 10, "endurance_full_hunger_damage", 210, 15, 1, 5);
         setSkillBranchPosition("endurance_starting", 10, "endurance_physical_resistance", -60, 15, 1, 5);
         setSkillBranchPosition("endurance_starting", 10, "endurance_medium_armor_movement", -90, 15, 1, 5);
 
         setSkillPosition(null, 200, 270, "strength_starting");
         setSkillBranchPosition("strength_starting", 10, "strength_crit_chance", 0, 30, 1, 5);
-        setSkillBranchPosition("strength_starting", 10, "strength_crit_damage", 30, 30, 1, 5); // Upward, как attack_speed в agility
-        setSkillBranchPosition("strength_starting", 10, "strength_projectile_damage", 60, 30, 1, 5); // Rightward
-        setSkillBranchPosition("strength_starting", 10, "strength_projectile_crit_chance", 90, 30, 1, 5); // Southeast
-        setSkillBranchPosition("strength_starting", 10, "strength_projectile_crit_damage", 120, 30, 1, 5); // Northeast (для симметрии)
+        setSkillBranchPosition("strength_starting", 10, "strength_crit_damage", 30, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_projectile_damage", 60, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_projectile_crit_chance", 90, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_projectile_crit_damage", 120, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_armor_ignore", 150, 30, 1, 5); // Southeast, for variety
     }
 
     private void setSkillsAttributeModifiers() {
-        // Optional small bonuses on starting skill for testing
         addSkillBonus("agility_starting", new MovementSpeedBonus(0.05f, Operation.MULTIPLY_BASE));
         addSkillBonus("agility_starting", new AttackSpeedBonus(0.05f, Operation.MULTIPLY_BASE));
         addSkillBranchBonuses("agility_movement_speed", new MovementSpeedBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
@@ -199,6 +173,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("strength_projectile_damage", new ProjectileDamageBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5); // +10% per node
         addSkillBranchBonuses("strength_projectile_crit_chance", new ProjectileCritChanceBonus(0.2f, Operation.ADDITION), 1, 5); // +10% chance per node
         addSkillBranchBonuses("strength_projectile_crit_damage", new ProjectileCritDamageBonus(0.2f, Operation.ADDITION), 1, 5); // +10% damage per node
+        addSkillBranchBonuses("strength_armor_ignore", new ArmorIgnoreBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
