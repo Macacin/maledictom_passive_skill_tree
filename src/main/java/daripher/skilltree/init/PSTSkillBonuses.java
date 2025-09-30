@@ -139,6 +139,20 @@ public class PSTSkillBonuses {
             REGISTRY.register("explosion_resistance", ExplosionResistanceBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> NO_ARMOR_DAMAGE =
             REGISTRY.register("no_armor_damage", NoArmorDamageBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> SWORD_DAMAGE =
+            REGISTRY.register("sword_damage", SwordDamageBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> AXE_DAMAGE =
+            REGISTRY.register("axe_damage", AxeDamageBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> HAMMER_DAMAGE =
+            REGISTRY.register("hammer_damage", HammerDamageBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> TRIDENT_DAMAGE =
+            REGISTRY.register("trident_damage", TridentDamageBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> DAGGER_DAMAGE =
+            REGISTRY.register("dagger_damage", DaggerDamageBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> SCYTHE_DAMAGE =
+            REGISTRY.register("scythe_damage", ScytheDamageBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> CHAKRAM_DAMAGE =
+            REGISTRY.register("chakram_damage", ChakramDamageBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

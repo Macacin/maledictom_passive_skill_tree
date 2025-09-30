@@ -80,6 +80,13 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("strength_armor_ignore", "icon_armor_ignore", 16, 1, 5); // Armor ignore line
         addSkillBranch("strength_explosion_resistance", "icon_explosion_resistance", 16, 1, 5); // Explosion resistance line
         addSkillBranch("strength_no_armor_damage", "icon_no_armor_damage", 16, 1, 5); // No armor damage bonus line
+        addSkillBranch("strength_sword_damage", "icon_sword_damage", 16, 1, 5);
+        addSkillBranch("strength_axe_damage", "icon_axe_damage", 16, 1, 5);
+        addSkillBranch("strength_hammer_damage", "icon_hammer_damage", 16, 1, 5);
+        addSkillBranch("strength_trident_damage", "icon_trident_damage", 16, 1, 5);
+        addSkillBranch("strength_dagger_damage", "icon_dagger_damage", 16, 1, 5);
+        addSkillBranch("strength_scythe_damage", "icon_scythe_damage", 16, 1, 5);
+        addSkillBranch("strength_chakram_damage", "icon_chakram_damage", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -128,6 +135,13 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("strength_starting", 10, "strength_armor_ignore", 150, 30, 1, 5); // Southeast, for variety
         setSkillBranchPosition("strength_starting", 10, "strength_explosion_resistance", 180, 30, 1, 5); // Downward
         setSkillBranchPosition("strength_starting", 10, "strength_no_armor_damage", 210, 30, 1, 5); // Leftward
+        setSkillBranchPosition("strength_starting", 10, "strength_sword_damage", 230, 30, 1, 5); // Right
+        setSkillBranchPosition("strength_starting", 10, "strength_axe_damage", 250, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_hammer_damage", 270, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_trident_damage", 290, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_dagger_damage", 310, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_scythe_damage", 330, 30, 1, 5);
+        setSkillBranchPosition("strength_starting", 10, "strength_chakram_damage", 350, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -180,6 +194,13 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("strength_armor_ignore", new ArmorIgnoreBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
         addSkillBranchBonuses("strength_explosion_resistance", new ExplosionResistanceBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
         addSkillBranchBonuses("strength_no_armor_damage", new NoArmorDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5); // +10% per node
+        addSkillBranchBonuses("strength_sword_damage", new SwordDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+        addSkillBranchBonuses("strength_axe_damage", new AxeDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+        addSkillBranchBonuses("strength_hammer_damage", new HammerDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+        addSkillBranchBonuses("strength_trident_damage", new TridentDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+        addSkillBranchBonuses("strength_dagger_damage", new DaggerDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+        addSkillBranchBonuses("strength_scythe_damage", new ScytheDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+        addSkillBranchBonuses("strength_chakram_damage", new ChakramDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

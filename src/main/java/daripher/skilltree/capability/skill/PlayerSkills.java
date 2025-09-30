@@ -255,6 +255,13 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof ArmorIgnoreBonus aib) return aib.getIgnore(null);
         if (bonus instanceof ExplosionResistanceBonus erb) return erb.getResistance(null);
         if (bonus instanceof NoArmorDamageBonus nadb) return nadb.getDamageBonus(null);
+        if (bonus instanceof SwordDamageBonus sdb) return sdb.getDamageBonus(null);
+        if (bonus instanceof AxeDamageBonus adb) return adb.getDamageBonus(null);
+        if (bonus instanceof HammerDamageBonus hdb) return hdb.getDamageBonus(null);
+        if (bonus instanceof TridentDamageBonus tdb) return tdb.getDamageBonus(null);
+        if (bonus instanceof DaggerDamageBonus ddb) return ddb.getDamageBonus(null);
+        if (bonus instanceof ScytheDamageBonus sdb) return sdb.getDamageBonus(null);
+        if (bonus instanceof ChakramDamageBonus cdb) return cdb.getDamageBonus(null);
         return 0.0;
     }
 
