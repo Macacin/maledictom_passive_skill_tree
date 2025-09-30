@@ -79,6 +79,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("strength_projectile_crit_damage", "icon_projectile_crit_damage", 16, 1, 5);
         addSkillBranch("strength_armor_ignore", "icon_armor_ignore", 16, 1, 5); // Armor ignore line
         addSkillBranch("strength_explosion_resistance", "icon_explosion_resistance", 16, 1, 5); // Explosion resistance line
+        addSkillBranch("strength_no_armor_damage", "icon_no_armor_damage", 16, 1, 5); // No armor damage bonus line
     }
 
     private void shapeSkillTree() {
@@ -126,6 +127,7 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("strength_starting", 10, "strength_projectile_crit_damage", 120, 30, 1, 5);
         setSkillBranchPosition("strength_starting", 10, "strength_armor_ignore", 150, 30, 1, 5); // Southeast, for variety
         setSkillBranchPosition("strength_starting", 10, "strength_explosion_resistance", 180, 30, 1, 5); // Downward
+        setSkillBranchPosition("strength_starting", 10, "strength_no_armor_damage", 210, 30, 1, 5); // Leftward
     }
 
     private void setSkillsAttributeModifiers() {
@@ -177,6 +179,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("strength_projectile_crit_damage", new ProjectileCritDamageBonus(0.2f, Operation.ADDITION), 1, 5); // +10% damage per node
         addSkillBranchBonuses("strength_armor_ignore", new ArmorIgnoreBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
         addSkillBranchBonuses("strength_explosion_resistance", new ExplosionResistanceBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
+        addSkillBranchBonuses("strength_no_armor_damage", new NoArmorDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5); // +10% per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

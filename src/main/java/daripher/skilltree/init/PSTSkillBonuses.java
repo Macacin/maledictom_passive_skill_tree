@@ -137,6 +137,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("armor_ignore", ArmorIgnoreBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> EXPLOSION_RESISTANCE =
             REGISTRY.register("explosion_resistance", ExplosionResistanceBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> NO_ARMOR_DAMAGE =
+            REGISTRY.register("no_armor_damage", NoArmorDamageBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {
