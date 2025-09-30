@@ -51,7 +51,7 @@ public class CritChanceEvent {
         if (RANDOM.nextDouble() < totalChance) {
             float multiplier = BASE_CUSTOM_CRIT_MULTIPLIER;
             if (totalCritDamage > 0) {
-                multiplier *= (float) (1 + totalCritDamage);
+                multiplier += (float) (1 + totalCritDamage);
             }
             event.setAmount(event.getAmount() * multiplier);
         }

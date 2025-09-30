@@ -72,6 +72,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkill("strength_starting", "icon_starting_strength", 24); // Starting skill for Strength
         addSkillBranch("strength_crit_chance", "icon_crit_chance", 16, 1, 5); // Crit chance line
         addSkillBranch("strength_crit_damage", "icon_crit_damage", 16, 1, 5); // Crit damage line
+        addSkillBranch("strength_projectile_damage", "icon_projectile_damage", 16, 1, 5); // Projectile damage line
+        addSkillBranch("strength_projectile_crit_chance", "icon_projectile_crit_chance", 16, 1, 5); // Projectile crit chance line
+        addSkillBranch("strength_projectile_crit_damage", "icon_projectile_crit_damage", 16, 1, 5); // Projectile crit damage line
     }
 
     private void shapeSkillTree() {
@@ -143,6 +146,9 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillPosition(null, 200, 270, "strength_starting");
         setSkillBranchPosition("strength_starting", 10, "strength_crit_chance", 0, 30, 1, 5);
         setSkillBranchPosition("strength_starting", 10, "strength_crit_damage", 30, 30, 1, 5); // Upward, как attack_speed в agility
+        setSkillBranchPosition("strength_starting", 10, "strength_projectile_damage", 60, 30, 1, 5); // Rightward
+        setSkillBranchPosition("strength_starting", 10, "strength_projectile_crit_chance", 90, 30, 1, 5); // Southeast
+        setSkillBranchPosition("strength_starting", 10, "strength_projectile_crit_damage", 120, 30, 1, 5); // Northeast (для симметрии)
     }
 
     private void setSkillsAttributeModifiers() {
@@ -190,6 +196,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("strength_crit_chance", new CritChanceBonus(0.1f, Operation.ADDITION), 1, 5);
         addSkillBonus("strength_starting", new CritDamageBonus(0.05f, Operation.ADDITION)); // +5% base
         addSkillBranchBonuses("strength_crit_damage", new CritDamageBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
+        addSkillBranchBonuses("strength_projectile_damage", new ProjectileDamageBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5); // +10% per node
+        addSkillBranchBonuses("strength_projectile_crit_chance", new ProjectileCritChanceBonus(0.2f, Operation.ADDITION), 1, 5); // +10% chance per node
+        addSkillBranchBonuses("strength_projectile_crit_damage", new ProjectileCritDamageBonus(0.2f, Operation.ADDITION), 1, 5); // +10% damage per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

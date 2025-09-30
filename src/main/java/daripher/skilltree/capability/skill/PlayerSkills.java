@@ -249,6 +249,9 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof PhysicalResistanceBonus prb) return prb.getResistanceBonus(null);
         if (bonus instanceof MediumArmorMovementBonus mamb) return mamb.getSpeedBonus(null);
         if (bonus instanceof CritChanceBonus ccb) return ccb.getChance(null);
+        if (bonus instanceof ProjectileDamageBonus pdb) return pdb.getDamageBonus(null);
+        if (bonus instanceof ProjectileCritChanceBonus pccb) return pccb.getChance(null);
+        if (bonus instanceof ProjectileCritDamageBonus pcdb) return pcdb.getDamageBonus(null);
         return 0.0;
     }
 
