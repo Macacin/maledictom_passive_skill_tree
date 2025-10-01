@@ -128,7 +128,6 @@
   "item_bonus.skilltree.food_healing": "Восстанавливает %s Здоровья",
   "item_bonus.skilltree.food_saturation": "Насыщение",
   "item_bonus.skilltree.potion_amplification": "Шанс Усиления",
-  "item_bonus.skilltree.potion_duration": "Длительность",
   "item_bonus.skilltree.quiver_capacity": "Вместимость",
   "item_bonus.skilltree.sockets": "+%d Гнезда для Самоцветов",
   "item_condition.skilltree.enchanted": "Зачарованн%s",

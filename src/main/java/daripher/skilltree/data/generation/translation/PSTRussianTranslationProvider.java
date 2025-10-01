@@ -315,7 +315,6 @@ public class PSTRussianTranslationProvider extends PSTTranslationProvider {
     add(PSTItemBonuses.DURABILITY.get(), "Прочность");
     add(PSTItemBonuses.QUIVER_CAPACITY.get(), "Вместимость");
     add(PSTItemBonuses.POTION_AMPLIFICATION.get(), "Шанс Усиления");
-    add(PSTItemBonuses.POTION_DURATION.get(), "Длительность");
     add(PSTItemBonuses.FOOD_EFFECT.get(), "%s на %s");
     add(PSTItemBonuses.FOOD_SATURATION.get(), "Насыщение");
     add(PSTItemBonuses.FOOD_HEALING.get(), "Восстанавливает %s Здоровья");

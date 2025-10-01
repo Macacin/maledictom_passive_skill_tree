@@ -25,8 +25,6 @@ public class PSTItemBonuses {
       REGISTRY.register("quiver_capacity", QuiverCapacityBonus.Serializer::new);
   public static final RegistryObject<ItemBonus.Serializer> POTION_AMPLIFICATION =
       REGISTRY.register("potion_amplification", PotionAmplificationBonus.Serializer::new);
-  public static final RegistryObject<ItemBonus.Serializer> POTION_DURATION =
-      REGISTRY.register("potion_duration", PotionDurationBonus.Serializer::new);
   public static final RegistryObject<ItemBonus.Serializer> FOOD_EFFECT =
       REGISTRY.register("food_effect", FoodEffectBonus.Serializer::new);
   public static final RegistryObject<ItemBonus.Serializer> FOOD_SATURATION =

@@ -3,7 +3,6 @@ package daripher.skilltree.potion;
 import daripher.skilltree.config.Config;
 import daripher.skilltree.item.ItemHelper;
 import daripher.skilltree.skill.bonus.item.PotionAmplificationBonus;
-import daripher.skilltree.skill.bonus.item.PotionDurationBonus;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -36,10 +35,6 @@ public class PotionHelper {
 
   public static float getDurationMultiplier(ItemStack stack) {
     float multiplier = 1f;
-    multiplier += ItemHelper.getItemBonuses(stack, PotionDurationBonus.class).stream()
-        .map(PotionDurationBonus::getMultiplier)
-        .reduce(Float::sum)
-        .orElse(0f);
     return multiplier;
   }
 

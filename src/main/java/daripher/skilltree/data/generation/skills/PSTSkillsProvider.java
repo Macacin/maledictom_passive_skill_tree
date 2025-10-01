@@ -94,6 +94,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("wisdom_spell_damage", "icon_spell_damage", 16, 1, 5);
         addSkillBranch("wisdom_magic_crit_chance", "icon_magic_crit_chance", 16, 1, 5);
         addSkillBranch("wisdom_magic_crit_damage", "icon_magic_crit_damage", 16, 1, 5);
+        addSkillBranch("wisdom_potion_duration", "icon_potion_duration", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -155,6 +156,7 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("wisdom_starting", 10, "wisdom_spell_damage", 30, 30, 1, 5);
         setSkillBranchPosition("wisdom_starting", 10, "wisdom_magic_crit_chance", 60, 30, 1, 5);
         setSkillBranchPosition("wisdom_starting", 10, "wisdom_magic_crit_damage", 90, 30, 1, 5);
+        setSkillBranchPosition("wisdom_starting", 10, "wisdom_potion_duration", 120, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -220,6 +222,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("wisdom_spell_damage", new SpellDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
         addSkillBranchBonuses("wisdom_magic_crit_chance", new MagicCritChanceBonus(0.1f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("wisdom_magic_crit_damage", new MagicCritDamageBonus(0.1f, Operation.ADDITION), 1, 5);
+        addSkillBranchBonuses("wisdom_potion_duration", new PotionDurationBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

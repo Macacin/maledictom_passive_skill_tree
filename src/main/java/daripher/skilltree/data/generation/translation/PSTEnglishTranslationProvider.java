@@ -312,7 +312,6 @@ public class PSTEnglishTranslationProvider extends PSTTranslationProvider {
     add(PSTItemBonuses.DURABILITY.get(), "Durability");
     add(PSTItemBonuses.QUIVER_CAPACITY.get(), "Capacity");
     add(PSTItemBonuses.POTION_AMPLIFICATION.get(), "Amplification Chance");
-    add(PSTItemBonuses.POTION_DURATION.get(), "Duration");
     add(PSTItemBonuses.FOOD_EFFECT.get(), "%s for %s");
     add(PSTItemBonuses.FOOD_SATURATION.get(), "Saturation");
     add(PSTItemBonuses.FOOD_HEALING.get(), "Restores %s Health");

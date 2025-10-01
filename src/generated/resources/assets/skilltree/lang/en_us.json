@@ -126,7 +126,6 @@
   "item_bonus.skilltree.food_healing": "Restores %s Health",
   "item_bonus.skilltree.food_saturation": "Saturation",
   "item_bonus.skilltree.potion_amplification": "Amplification Chance",
-  "item_bonus.skilltree.potion_duration": "Duration",
   "item_bonus.skilltree.quiver_capacity": "Capacity",
   "item_bonus.skilltree.sockets": "+%d Gem Sockets",
   "item_condition.skilltree.enchanted": "Enchanted %s",
