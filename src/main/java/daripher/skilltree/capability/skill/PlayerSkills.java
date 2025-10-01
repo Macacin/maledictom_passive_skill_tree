@@ -276,6 +276,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof MagicCritDamageBonus mcdb) return mcdb.getDamageBonus(null);
         if (bonus instanceof PotionDurationBonus pdb) return pdb.getDurationBonus(null);
         if (bonus instanceof BlockReachBonus brb) return brb.getReachBonus(null);
+        if (bonus instanceof MagicResistanceBonus mrb) return mrb.getResistanceBonus(null);
         return 0.0;
     }
 

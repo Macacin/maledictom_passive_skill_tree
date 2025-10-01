@@ -166,6 +166,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("potion_duration", PotionDurationBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> BLOCK_REACH =
             REGISTRY.register("block_reach", BlockReachBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> MAGIC_RESISTANCE =
+            REGISTRY.register("magic_resistance", MagicResistanceBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {
