@@ -156,6 +156,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("chakram_damage", ChakramDamageBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> MAGIC_WEAPON_DAMAGE =
             REGISTRY.register("magic_weapon_damage", MagicWeaponDamageBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> SPELL_DAMAGE =
+            REGISTRY.register("spell_damage", SpellDamageBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

@@ -91,6 +91,7 @@ public class PSTSkillsProvider implements DataProvider {
 
         addSkill("wisdom_starting", "icon_starting_wisdom", 24); // Assuming you have an icon for wisdom
         addSkillBranch("wisdom_magic_damage", "icon_magic_damage", 16, 1, 5); // Icon for magic damage bonus
+        addSkillBranch("wisdom_spell_damage", "icon_spell_damage", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -149,6 +150,7 @@ public class PSTSkillsProvider implements DataProvider {
 
         setSkillPosition(null, 200, 180, "wisdom_starting");
         setSkillBranchPosition("wisdom_starting", 10, "wisdom_magic_damage", 0, 30, 1, 5);
+        setSkillBranchPosition("wisdom_starting", 10, "wisdom_spell_damage", 30, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -211,6 +213,7 @@ public class PSTSkillsProvider implements DataProvider {
 
         addSkillBonus("wisdom_starting", new MagicWeaponDamageBonus(0.05f, Operation.MULTIPLY_BASE));
         addSkillBranchBonuses("wisdom_magic_damage", new MagicWeaponDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+        addSkillBranchBonuses("wisdom_spell_damage", new SpellDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

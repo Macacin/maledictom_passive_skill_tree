@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-01T16:13:45.4502455	Skills Provider
+// 1.20.1	2025-10-01T16:37:04.4308067	Skills Provider
 1656abf5302e03f66e080267eab39c752763d2d4 data/skilltree/skills/agility_airborne_damage_1.json
 e17598c0a6d448b0bf7c889c807fa1eb9bd2b0e5 data/skilltree/skills/agility_airborne_damage_2.json
 aad6cb44edcb83458b93c5babff30d3b8803c1e1 data/skilltree/skills/agility_airborne_damage_3.json
@@ -233,4 +233,9 @@ b75064981655e4cd9fc8590421ec0df9197dcaa7 data/skilltree/skills/strength_trident_
 c4a34830b9caa0f71bcd15c8877c542542e9aae0 data/skilltree/skills/wisdom_magic_damage_3.json
 0386294943cfb54c76d46cbb2b18f21630fe5736 data/skilltree/skills/wisdom_magic_damage_4.json
 53fbf5dfa6b642d1f764d1033ef4c8ca554a77cc data/skilltree/skills/wisdom_magic_damage_5.json
-874cac45bcf38ad2bd76a8f3d2938afde0610df1 data/skilltree/skills/wisdom_starting.json
+e9d7b3eff539063dcc54f6935b9b8b2749d78595 data/skilltree/skills/wisdom_spell_damage_1.json
+bbb2d43536ebe90ff09f483c65e0db3c362045de data/skilltree/skills/wisdom_spell_damage_2.json
+206284a6b322d956cd75298fa5c76b1642327e85 data/skilltree/skills/wisdom_spell_damage_3.json
+1523010bf3c5248f5723ec294f2a8711144e8611 data/skilltree/skills/wisdom_spell_damage_4.json
+13ce61170b98aa3ca539244411a9416d975844ed data/skilltree/skills/wisdom_spell_damage_5.json
+62368364b7b7f79544322e5fb09fc5cc49e13699 data/skilltree/skills/wisdom_starting.json
