@@ -272,6 +272,8 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof ChakramDamageBonus cdb) return cdb.getDamageBonus(null);
         if (bonus instanceof MagicWeaponDamageBonus mwdb) return mwdb.getDamageBonus(null);
         if (bonus instanceof SpellDamageBonus sdb) return sdb.getDamageBonus(null);
+        if (bonus instanceof MagicCritChanceBonus mccb) return mccb.getChance(null);
+        if (bonus instanceof MagicCritDamageBonus mcdb) return mcdb.getDamageBonus(null);
         return 0.0;
     }
 
