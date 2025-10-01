@@ -279,6 +279,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof MagicResistanceBonus mrb) return mrb.getResistanceBonus(null);
         if (bonus instanceof SpellCooldownReductionBonus scrb) return scrb.getReductionBonus(null);
         if (bonus instanceof AccuracyBonus ab) return ab.getAccuracyBonus(null);
+        if (bonus instanceof DoubleLootChanceBonus dlcb) return dlcb.getChance(null);
         return 0.0;
     }
 
