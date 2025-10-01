@@ -6,16 +6,17 @@ import daripher.skilltree.SkillTreeMod;
 import daripher.skilltree.data.reloader.SkillsReloader;
 import daripher.skilltree.skill.PassiveSkill;
 import daripher.skilltree.skill.bonus.SkillBonus;
-import daripher.skilltree.skill.bonus.player.agility.*;
 
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nullable;
 
+import daripher.skilltree.skill.bonus.player.agility.*;
 import daripher.skilltree.skill.bonus.player.constitution.*;
 import daripher.skilltree.skill.bonus.player.endurance.*;
 import daripher.skilltree.skill.bonus.player.strength.*;
+import daripher.skilltree.skill.bonus.player.wisdom.*;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -87,6 +88,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("strength_dagger_damage", "icon_dagger_damage", 16, 1, 5);
         addSkillBranch("strength_scythe_damage", "icon_scythe_damage", 16, 1, 5);
         addSkillBranch("strength_chakram_damage", "icon_chakram_damage", 16, 1, 5);
+
+        addSkill("wisdom_starting", "icon_starting_wisdom", 24); // Assuming you have an icon for wisdom
+        addSkillBranch("wisdom_magic_damage", "icon_magic_damage", 16, 1, 5); // Icon for magic damage bonus
     }
 
     private void shapeSkillTree() {
@@ -142,6 +146,9 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("strength_starting", 10, "strength_dagger_damage", 310, 30, 1, 5);
         setSkillBranchPosition("strength_starting", 10, "strength_scythe_damage", 330, 30, 1, 5);
         setSkillBranchPosition("strength_starting", 10, "strength_chakram_damage", 350, 30, 1, 5);
+
+        setSkillPosition(null, 200, 180, "wisdom_starting");
+        setSkillBranchPosition("wisdom_starting", 10, "wisdom_magic_damage", 0, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -201,6 +208,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("strength_dagger_damage", new DaggerDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
         addSkillBranchBonuses("strength_scythe_damage", new ScytheDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
         addSkillBranchBonuses("strength_chakram_damage", new ChakramDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
+
+        addSkillBonus("wisdom_starting", new MagicWeaponDamageBonus(0.05f, Operation.MULTIPLY_BASE));
+        addSkillBranchBonuses("wisdom_magic_damage", new MagicWeaponDamageBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
@@ -299,6 +309,9 @@ public class PSTSkillsProvider implements DataProvider {
         }
         if (name.startsWith("strength_")) {
             skill.getTags().add("Strength");
+        }
+        if (name.startsWith("wisdom_")) {
+            skill.getTags().add("Wisdom");
         }
         skills.put(skillId, skill);
     }

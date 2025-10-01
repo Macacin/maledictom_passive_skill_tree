@@ -13,6 +13,7 @@ import daripher.skilltree.skill.bonus.player.agility.*;
 import daripher.skilltree.skill.bonus.player.constitution.*;
 import daripher.skilltree.skill.bonus.player.endurance.*;
 import daripher.skilltree.skill.bonus.player.strength.*;
+import daripher.skilltree.skill.bonus.player.wisdom.*;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -44,6 +45,7 @@ public class PlayerSkills implements IPlayerSkills {
     private int constitution = 0;
     private int endurance = 0;
     private int strength = 0;
+    private int wisdom = 0;
 
     private final Map<Class<?>, Double> cachedBonuses = new HashMap<>();
 
@@ -117,6 +119,9 @@ public class PlayerSkills implements IPlayerSkills {
             if (passiveSkill.getTags().contains("Strength")) {
                 strength++;
             }
+            if (passiveSkill.getTags().contains("Wisdom")) {
+                wisdom++;
+            }
         }
         recalculateAllCachedBonuses();
         return added;
@@ -141,6 +146,7 @@ public class PlayerSkills implements IPlayerSkills {
         agility = 0;
         constitution = 0;
         endurance = 0;
+        wisdom = 0;
         cachedBonuses.clear();
     }
 
@@ -161,6 +167,7 @@ public class PlayerSkills implements IPlayerSkills {
         tag.putInt("Constitution", constitution);
         tag.putInt("Endurance", endurance);
         tag.putInt("Strength", strength);
+        tag.putInt("Wisdom", wisdom);
         ListTag skillsTag = new ListTag();
         skills.forEach(skill -> skillsTag.add(StringTag.valueOf(skill.getId().toString())));
         tag.put("Skills", skillsTag);
@@ -181,6 +188,7 @@ public class PlayerSkills implements IPlayerSkills {
         constitution = tag.getInt("Constitution");
         endurance = tag.getInt("Endurance");
         strength = tag.getInt("Strength");
+        wisdom = tag.getInt("Wisdom");
         if (tag.contains("Accuracy")) {
             accuracy = tag.getDouble("Accuracy");
         } else {
@@ -262,6 +270,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof DaggerDamageBonus ddb) return ddb.getDamageBonus(null);
         if (bonus instanceof ScytheDamageBonus sdb) return sdb.getDamageBonus(null);
         if (bonus instanceof ChakramDamageBonus cdb) return cdb.getDamageBonus(null);
+        if (bonus instanceof MagicWeaponDamageBonus mwdb) return mwdb.getDamageBonus(null);
         return 0.0;
     }
 
@@ -373,5 +382,20 @@ public class PlayerSkills implements IPlayerSkills {
     @Override
     public int getStrength() {
         return strength;
+    }
+
+    @Override
+    public void setStrength(int i) {
+
+    }
+
+    @Override
+    public int getWisdom() {
+        return wisdom;
+    }
+
+    @Override
+    public void setWisdom(int i) {
+
     }
 }

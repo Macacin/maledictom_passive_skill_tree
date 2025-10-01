@@ -12,6 +12,7 @@ import daripher.skilltree.skill.bonus.player.agility.*;
 import daripher.skilltree.skill.bonus.player.constitution.*;
 import daripher.skilltree.skill.bonus.player.endurance.*;
 import daripher.skilltree.skill.bonus.player.strength.*;
+import daripher.skilltree.skill.bonus.player.wisdom.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.*;
 
@@ -153,6 +154,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("scythe_damage", ScytheDamageBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> CHAKRAM_DAMAGE =
             REGISTRY.register("chakram_damage", ChakramDamageBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> MAGIC_WEAPON_DAMAGE =
+            REGISTRY.register("magic_weapon_damage", MagicWeaponDamageBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {
