@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-01T17:19:44.8423788	Skills Provider
+// 1.20.1	2025-10-01T17:31:47.1674062	Skills Provider
 1656abf5302e03f66e080267eab39c752763d2d4 data/skilltree/skills/agility_airborne_damage_1.json
 e17598c0a6d448b0bf7c889c807fa1eb9bd2b0e5 data/skilltree/skills/agility_airborne_damage_2.json
 aad6cb44edcb83458b93c5babff30d3b8803c1e1 data/skilltree/skills/agility_airborne_damage_3.json
@@ -228,6 +228,11 @@ b61ffd4362818f7e5f5045346eb29a8d1bb79069 data/skilltree/skills/strength_sword_da
 bc01a168ebb402663f49ebdaa053fe02bd423d2a data/skilltree/skills/strength_trident_damage_3.json
 060d6c72cf3c3cb2bb3464ca12a75aa03ec291e5 data/skilltree/skills/strength_trident_damage_4.json
 b75064981655e4cd9fc8590421ec0df9197dcaa7 data/skilltree/skills/strength_trident_damage_5.json
+36e6d808a320e36635dea440e3a23307dc0217ee data/skilltree/skills/wisdom_block_reach_1.json
+4498d4937602abe683da703b649ed385ef9a178a data/skilltree/skills/wisdom_block_reach_2.json
+726267083c90d7534680f746979cb09eaad935be data/skilltree/skills/wisdom_block_reach_3.json
+9d987a721f68e33e99e6d347d5930272418b9fdd data/skilltree/skills/wisdom_block_reach_4.json
+b84adfcff4461153a4fa1800d547b727666f74af data/skilltree/skills/wisdom_block_reach_5.json
 99c961b75f59fb288920f9124cd8310466baee0b data/skilltree/skills/wisdom_magic_crit_chance_1.json
 54cd6778c266fc86e20e728dffaa2a3e0377e260 data/skilltree/skills/wisdom_magic_crit_chance_2.json
 6cc047122418b33fb60f7058d0f38cc648e113e0 data/skilltree/skills/wisdom_magic_crit_chance_3.json
@@ -253,4 +258,4 @@ bbb2d43536ebe90ff09f483c65e0db3c362045de data/skilltree/skills/wisdom_spell_dama
 206284a6b322d956cd75298fa5c76b1642327e85 data/skilltree/skills/wisdom_spell_damage_3.json
 1523010bf3c5248f5723ec294f2a8711144e8611 data/skilltree/skills/wisdom_spell_damage_4.json
 13ce61170b98aa3ca539244411a9416d975844ed data/skilltree/skills/wisdom_spell_damage_5.json
-ad433502ad4fa44c3ee8183b0a8ac18bb55b14a0 data/skilltree/skills/wisdom_starting.json
+b958a874da691056fe6080912cf554f9759e755b data/skilltree/skills/wisdom_starting.json
