@@ -170,6 +170,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("magic_resistance", MagicResistanceBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> SPELL_COOLDOWN_REDUCTION =
             REGISTRY.register("spell_cooldown_reduction", SpellCooldownReductionBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> ACCURACY =
+            REGISTRY.register("accuracy", AccuracyBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

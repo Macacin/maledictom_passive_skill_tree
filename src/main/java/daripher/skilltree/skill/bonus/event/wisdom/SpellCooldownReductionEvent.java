@@ -20,25 +20,21 @@ public class SpellCooldownReductionEvent {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        System.out.println("[SpellCooldownReductionEvent] Tick for player: " + event.player);
 
         if (event.phase != TickEvent.Phase.END || event.side.isClient()) return;
 
         boolean modLoaded = ModList.get().isLoaded("irons_spellbooks");
-        System.out.println("[SpellCooldownReductionEvent] Is irons_spellbooks loaded? " + modLoaded);
         if (!modLoaded) return;
 
         if (!(event.player instanceof ServerPlayer player)) return;
         if (!player.isAlive()) return;
 
         AttributeInstance attr = player.getAttribute(AttributeRegistry.COOLDOWN_REDUCTION.get());
-        System.out.println("[SpellCooldownReductionEvent] Cooldown Reduction attribute found? " + (attr != null));
         if (attr == null) return;
 
         attr.removeModifier(SPELL_COOLDOWN_UUID);
 
         double bonus = PlayerSkillsProvider.get(player).getCachedBonus(SpellCooldownReductionBonus.class);
-        System.out.println("[SpellCooldownReductionEvent] Cached bonus: " + bonus);
         if (bonus == 0) return;
 
         attr.addTransientModifier(new AttributeModifier(
@@ -47,6 +43,5 @@ public class SpellCooldownReductionEvent {
                 bonus,
                 AttributeModifier.Operation.ADDITION
         ));
-        System.out.println("[SpellCooldownReductionEvent] Modifier applied successfully");
     }
 }
