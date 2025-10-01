@@ -97,6 +97,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("wisdom_potion_duration", "icon_potion_duration", 16, 1, 5);
         addSkillBranch("wisdom_block_reach", "icon_block_reach", 16, 1, 5);
         addSkillBranch("wisdom_magic_resistance", "icon_magic_resistance", 16, 1, 5);
+        addSkillBranch("wisdom_spell_cooldown_reduction", "icon_spell_cooldown_reduction", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -161,6 +162,7 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("wisdom_starting", 10, "wisdom_potion_duration", 120, 30, 1, 5);
         setSkillBranchPosition("wisdom_starting", 10, "wisdom_block_reach", 150, 30, 1, 5);
         setSkillBranchPosition("wisdom_starting", 10, "wisdom_magic_resistance", 180, 30, 1, 5);
+        setSkillBranchPosition("wisdom_starting", 10, "wisdom_spell_cooldown_reduction", 210, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -229,6 +231,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("wisdom_potion_duration", new PotionDurationBonus(0.2f, Operation.MULTIPLY_BASE), 1, 5);
         addSkillBranchBonuses("wisdom_block_reach", new BlockReachBonus(0.5f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("wisdom_magic_resistance", new MagicResistanceBonus(0.1f, Operation.MULTIPLY_TOTAL), 1, 5);
+        addSkillBranchBonuses("wisdom_spell_cooldown_reduction", new SpellCooldownReductionBonus(0.1f, Operation.ADDITION), 1, 5);
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
