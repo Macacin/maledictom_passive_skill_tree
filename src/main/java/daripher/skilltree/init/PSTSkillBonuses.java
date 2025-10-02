@@ -13,6 +13,7 @@ import daripher.skilltree.skill.bonus.player.constitution.*;
 import daripher.skilltree.skill.bonus.player.endurance.*;
 import daripher.skilltree.skill.bonus.player.strength.*;
 import daripher.skilltree.skill.bonus.player.wisdom.*;
+import daripher.skilltree.skill.bonus.player.intelligence.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.*;
 
@@ -174,6 +175,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("accuracy", AccuracyBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> DOUBLE_LOOT_CHANCE =
             REGISTRY.register("double_loot_chance", DoubleLootChanceBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> SPELL_CAST_TIME_REDUCTION =
+            REGISTRY.register("spell_cast_time_reduction", SpellCastTimeReductionBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

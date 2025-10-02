@@ -14,6 +14,7 @@ import daripher.skilltree.skill.bonus.player.constitution.*;
 import daripher.skilltree.skill.bonus.player.endurance.*;
 import daripher.skilltree.skill.bonus.player.strength.*;
 import daripher.skilltree.skill.bonus.player.wisdom.*;
+import daripher.skilltree.skill.bonus.player.intelligence.*;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -46,6 +47,7 @@ public class PlayerSkills implements IPlayerSkills {
     private int endurance = 0;
     private int strength = 0;
     private int wisdom = 0;
+    private int intelligence = 0;
 
     private final Map<Class<?>, Double> cachedBonuses = new HashMap<>();
 
@@ -122,6 +124,9 @@ public class PlayerSkills implements IPlayerSkills {
             if (passiveSkill.getTags().contains("Wisdom")) {
                 wisdom++;
             }
+            if (passiveSkill.getTags().contains("Intelligence")) {
+                intelligence++;
+            }
         }
         recalculateAllCachedBonuses();
         return added;
@@ -147,6 +152,7 @@ public class PlayerSkills implements IPlayerSkills {
         constitution = 0;
         endurance = 0;
         wisdom = 0;
+        intelligence = 0;
         cachedBonuses.clear();
     }
 
@@ -168,6 +174,7 @@ public class PlayerSkills implements IPlayerSkills {
         tag.putInt("Endurance", endurance);
         tag.putInt("Strength", strength);
         tag.putInt("Wisdom", wisdom);
+        tag.putInt("Intelligence", intelligence);
         ListTag skillsTag = new ListTag();
         skills.forEach(skill -> skillsTag.add(StringTag.valueOf(skill.getId().toString())));
         tag.put("Skills", skillsTag);
@@ -189,6 +196,7 @@ public class PlayerSkills implements IPlayerSkills {
         endurance = tag.getInt("Endurance");
         strength = tag.getInt("Strength");
         wisdom = tag.getInt("Wisdom");
+        intelligence = tag.getInt("Intelligence");
         if (tag.contains("Accuracy")) {
             accuracy = tag.getDouble("Accuracy");
         } else {
@@ -280,6 +288,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof SpellCooldownReductionBonus scrb) return scrb.getReductionBonus(null);
         if (bonus instanceof AccuracyBonus ab) return ab.getAccuracyBonus(null);
         if (bonus instanceof DoubleLootChanceBonus dlcb) return dlcb.getChance(null);
+        if (bonus instanceof SpellCastTimeReductionBonus sctrb) return sctrb.getReductionBonus(null);
         return 0.0;
     }
 
@@ -406,5 +415,15 @@ public class PlayerSkills implements IPlayerSkills {
     @Override
     public void setWisdom(int i) {
 
+    }
+
+    @Override
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    @Override
+    public void setIntelligence(int i) {
+        this.intelligence = i;
     }
 }

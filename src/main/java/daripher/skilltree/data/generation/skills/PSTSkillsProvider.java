@@ -17,6 +17,7 @@ import daripher.skilltree.skill.bonus.player.constitution.*;
 import daripher.skilltree.skill.bonus.player.endurance.*;
 import daripher.skilltree.skill.bonus.player.strength.*;
 import daripher.skilltree.skill.bonus.player.wisdom.*;
+import daripher.skilltree.skill.bonus.player.intelligence.*;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -100,6 +101,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("wisdom_spell_cooldown_reduction", "icon_spell_cooldown_reduction", 16, 1, 5);
         addSkillBranch("wisdom_accuracy", "icon_accuracy", 16, 1, 5);
         addSkillBranch("wisdom_double_loot", "icon_double_loot", 16, 1, 5);
+
+        addSkill("intelligence_starting", "icon_starting_intelligence", 24); // Assuming you have an icon
+        addSkillBranch("intelligence_spell_cast_time_reduction", "icon_spell_cast_time_reduction", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -167,6 +171,9 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("wisdom_starting", 10, "wisdom_spell_cooldown_reduction", 210, 30, 1, 5);
         setSkillBranchPosition("wisdom_starting", 10, "wisdom_accuracy", 240, 30, 1, 5);
         setSkillBranchPosition("wisdom_starting", 10, "wisdom_double_loot", 270, 30, 1, 5);
+
+        setSkillPosition(null, 300, 45, "intelligence_starting"); // Example position, adjust as needed
+        setSkillBranchPosition("intelligence_starting", 10, "intelligence_spell_cast_time_reduction", 0, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -238,6 +245,9 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("wisdom_spell_cooldown_reduction", new SpellCooldownReductionBonus(0.1f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("wisdom_accuracy", new AccuracyBonus(5f, Operation.ADDITION), 1, 5); // +5 per node
         addSkillBranchBonuses("wisdom_double_loot", new DoubleLootChanceBonus(0.1f, Operation.ADDITION), 1, 5);
+
+        addSkillBonus("intelligence_starting", new SpellCastTimeReductionBonus(0.05f, Operation.ADDITION)); // +5% base
+        addSkillBranchBonuses("intelligence_spell_cast_time_reduction", new SpellCastTimeReductionBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
@@ -339,6 +349,9 @@ public class PSTSkillsProvider implements DataProvider {
         }
         if (name.startsWith("wisdom_")) {
             skill.getTags().add("Wisdom");
+        }
+        if (name.startsWith("intelligence_")) {
+            skill.getTags().add("Intelligence");
         }
         skills.put(skillId, skill);
     }

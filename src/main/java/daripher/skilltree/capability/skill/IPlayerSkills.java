@@ -82,4 +82,8 @@ public interface IPlayerSkills extends INBTSerializable<CompoundTag> {
     int getWisdom();
 
     void setWisdom(int i);
+
+    int getIntelligence();
+
+    void setIntelligence(int i);
 }
