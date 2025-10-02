@@ -179,6 +179,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("spell_cast_time_reduction", SpellCastTimeReductionBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> MANA =
             REGISTRY.register("mana", ManaBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> MANA_REGEN =
+            REGISTRY.register("mana_regen", ManaRegenBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

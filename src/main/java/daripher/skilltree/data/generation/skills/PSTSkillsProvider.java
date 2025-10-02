@@ -105,6 +105,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkill("intelligence_starting", "icon_starting_intelligence", 24); // Assuming you have an icon
         addSkillBranch("intelligence_spell_cast_time_reduction", "icon_spell_cast_time_reduction", 16, 1, 5);
         addSkillBranch("intelligence_mana", "icon_mana", 16, 1, 5);
+        addSkillBranch("intelligence_mana_regen", "icon_mana_regen", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -176,6 +177,7 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillPosition(null, 300, 45, "intelligence_starting"); // Example position, adjust as needed
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_spell_cast_time_reduction", 0, 30, 1, 5);
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_mana", 30, 30, 1, 5); // Рядом с предыдущей branch
+        setSkillBranchPosition("intelligence_starting", 10, "intelligence_mana_regen", 60, 30, 1, 5); // Рядом, на 60 градусов
     }
 
     private void setSkillsAttributeModifiers() {
@@ -250,7 +252,9 @@ public class PSTSkillsProvider implements DataProvider {
 
         addSkillBonus("intelligence_starting", new SpellCastTimeReductionBonus(0.05f, Operation.ADDITION)); // +5% base
         addSkillBranchBonuses("intelligence_spell_cast_time_reduction", new SpellCastTimeReductionBonus(0.1f, Operation.ADDITION), 1, 5);
-        addSkillBranchBonuses("intelligence_mana", new ManaBonus(10f, Operation.ADDITION), 1, 5); // +10 per node
+        addSkillBranchBonuses("intelligence_mana", new ManaBonus(10f, Operation.ADDITION), 1, 5);
+        addSkillBranchBonuses("intelligence_mana_regen", new ManaRegenBonus(10f, Operation.ADDITION), 1, 5); // дает примерно 10 маны в сек
+
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
