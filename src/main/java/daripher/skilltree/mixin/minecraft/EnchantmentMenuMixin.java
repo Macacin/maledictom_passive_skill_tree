@@ -1,31 +1,28 @@
 package daripher.skilltree.mixin.minecraft;
 
-import daripher.skilltree.capability.enchant.CraftingXPUtil;
-import daripher.skilltree.container.ContainerHelper;
 import daripher.skilltree.container.menu.EnchantmentMenuExtension;
 //import daripher.skilltree.skill.bonus.SkillBonusHandler;
 
 import java.util.List;
 import javax.annotation.Nonnull;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.RandomSource;
+import daripher.skilltree.skill.bonus.event.intelligence.ContextHelper;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.EnchantmentMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.event.ForgeEventFactory;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EnchantmentMenu.class)
 public abstract class EnchantmentMenuMixin implements EnchantmentMenuExtension {
@@ -34,6 +31,7 @@ public abstract class EnchantmentMenuMixin implements EnchantmentMenuExtension {
     @Final int[] costs;
     private @Shadow
     @Final DataSlot enchantmentSeed;
+    @Shadow(remap = false) private Container enchantSlots;
 
 //    @Redirect(
 //            method = {"lambda$slotsChanged$0", "m_39483_"},
@@ -102,8 +100,31 @@ public abstract class EnchantmentMenuMixin implements EnchantmentMenuExtension {
         return costsBeforeReduction;
     }
 
-    @Override
-    public int getEnchantmentSeed() {
-        return enchantmentSeed.get();
+    @Unique
+    private Player skilltree$player;
+
+    protected EnchantmentMenuMixin(MenuType<?> pMenuType, int pId) {
+        super();
+    }
+
+    @Inject(method = "<init>(ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/inventory/ContainerLevelAccess;)V", at = @At("TAIL"))
+    private void setPlayer(int pId, Inventory pPlayerInventory, ContainerLevelAccess pAccess, CallbackInfo ci) {
+        this.skilltree$player = pPlayerInventory.player;
+    }
+
+    @Inject(method = "slotsChanged", at = @At("HEAD"))
+    private void setCurrentEnchanter(Container pInventory, CallbackInfo ci) {
+        if (pInventory == this.enchantSlots) {
+            System.out.println("Setting enchanter for side: " + (this.skilltree$player.level().isClientSide ? "client" : "server") + " player: " + this.skilltree$player.getClass().getSimpleName());
+            ContextHelper.CURRENT_ENCHANTER.set(this.skilltree$player);
+        }
+    }
+
+    @Inject(method = "slotsChanged", at = @At("TAIL"))
+    private void removeCurrentEnchanter(Container pInventory, CallbackInfo ci) {
+        if (pInventory == this.enchantSlots) {
+            System.out.println("Removing enchanter for side: " + (this.skilltree$player.level().isClientSide ? "client" : "server"));
+            ContextHelper.CURRENT_ENCHANTER.remove();
+        }
     }
 }

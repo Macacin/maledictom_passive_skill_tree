@@ -115,6 +115,8 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("intelligence_necklace_slot", "icon_necklace_slot", 16, 1, 5);
         addSkillBranch("intelligence_void_resistance", "icon_void_resistance", 16, 1, 5);
         addSkillBranch("intelligence_experience_drop", "icon_experience_drop", 16, 1, 5);
+        addSkillBranch("intelligence_curse_chance_reduction", "icon_curse_reduction", 16, 1, 5);
+        addSkillBranch("intelligence_max_enchant_level", "icon_max_enchant_level", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -196,6 +198,8 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_necklace_slot", 220, 30, 1, 5);
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_void_resistance", 250, 30, 1, 5);
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_experience_drop", 280, 30, 1, 5);
+        setSkillBranchPosition("intelligence_starting", 10, "intelligence_curse_chance_reduction", 310, 30, 1, 5); // Adjust angles as needed for final branches
+        setSkillBranchPosition("intelligence_starting", 10, "intelligence_max_enchant_level", 340, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -281,6 +285,8 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("intelligence_necklace_slot", new NecklaceSlotBonus(1f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("intelligence_void_resistance", new VoidResistanceBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
         addSkillBranchBonuses("intelligence_experience_drop", new ExperienceDropBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5); // ставить побольше
+        addSkillBranchBonuses("intelligence_curse_chance_reduction", new CurseChanceReductionBonus(0.1f, Operation.ADDITION), 1, 5); // -10% per node
+        addSkillBranchBonuses("intelligence_max_enchant_level", new MaxEnchantLevelBonus(3f, Operation.ADDITION), 1, 5); // +1 per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {

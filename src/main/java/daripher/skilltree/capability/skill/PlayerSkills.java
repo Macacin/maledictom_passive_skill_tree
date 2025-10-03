@@ -300,6 +300,8 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof NecklaceSlotBonus nsb) return nsb.getAmount(null);
         if (bonus instanceof VoidResistanceBonus vrb) return vrb.getResistanceBonus(null);
         if (bonus instanceof ExperienceDropBonus edb) return edb.getMultiplier(null);
+        if (bonus instanceof CurseChanceReductionBonus ccrb) return ccrb.getReduction(null);
+        if (bonus instanceof MaxEnchantLevelBonus melb) return melb.getLevelBonus(null);
         return 0.0;
     }
 

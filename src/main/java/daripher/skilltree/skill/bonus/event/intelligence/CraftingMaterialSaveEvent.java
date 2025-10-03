@@ -34,10 +34,8 @@ public class CraftingMaterialSaveEvent {
             if (stack.isEmpty()) continue;
 
             if (RANDOM.nextDouble() < chance) {
-                // Сохраняем материал: не consume, оставляем stack как есть
-                // Но поскольку event после consume, возвращаем copy в inventory или grid
                 ItemStack savedStack = stack.copy();
-                savedStack.setCount(1); // Только 1, если stack >1
+                savedStack.setCount(1); 
                 if (!player.getInventory().add(savedStack)) {
                     player.drop(savedStack, false);
                 }

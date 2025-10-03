@@ -128,9 +128,6 @@ dependencies {
     // dummy target
     implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:4602101")
     implementation fg.deobf("curse.maven:selene-499980:4656567")
-    // easy magic
-    implementation fg.deobf("curse.maven:easy-magic-456239:4658750")
-    implementation fg.deobf("curse.maven:puzzles-lib-495476:4673053")
     // farmer's delight
     implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
     // jei

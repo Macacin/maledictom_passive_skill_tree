@@ -199,6 +199,10 @@ public class PSTSkillBonuses {
             REGISTRY.register("void_resistance", VoidResistanceBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> EXPERIENCE_DROP =
             REGISTRY.register("experience_drop_bonus", ExperienceDropBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> CURSE_CHANCE_REDUCTION =
+            REGISTRY.register("curse_chance_reduction", CurseChanceReductionBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> MAX_ENCHANT_LEVEL =
+            REGISTRY.register("max_enchant_level", MaxEnchantLevelBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {
