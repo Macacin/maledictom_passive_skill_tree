@@ -113,6 +113,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("intelligence_bracelet_slot", "icon_bracelet_slot", 16, 1, 5);
         addSkillBranch("intelligence_belt_slot", "icon_belt_slot", 16, 1, 5);
         addSkillBranch("intelligence_necklace_slot", "icon_necklace_slot", 16, 1, 5);
+        addSkillBranch("intelligence_void_resistance", "icon_void_resistance", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -192,6 +193,7 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_bracelet_slot", 180, 30, 1, 5);
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_belt_slot", 200, 30, 1, 5);
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_necklace_slot", 220, 30, 1, 5);
+        setSkillBranchPosition("intelligence_starting", 10, "intelligence_void_resistance", 250, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -275,8 +277,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("intelligence_bracelet_slot", new BraceletSlotBonus(1f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("intelligence_belt_slot", new BeltSlotBonus(1f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("intelligence_necklace_slot", new NecklaceSlotBonus(1f, Operation.ADDITION), 1, 5);
-
-
+        addSkillBranchBonuses("intelligence_void_resistance", new VoidResistanceBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
     }
 
     private void addSkillBranchBonuses(String branchName, SkillBonus<?> bonus, int from, int to) {
