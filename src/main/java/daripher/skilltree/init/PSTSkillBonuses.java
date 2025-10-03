@@ -197,6 +197,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("necklace_slot", NecklaceSlotBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> VOID_RESISTANCE =
             REGISTRY.register("void_resistance", VoidResistanceBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> EXPERIENCE_DROP =
+            REGISTRY.register("experience_drop_bonus", ExperienceDropBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

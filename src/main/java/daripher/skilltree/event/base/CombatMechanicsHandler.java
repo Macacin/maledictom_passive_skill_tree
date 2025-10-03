@@ -37,7 +37,6 @@ public class CombatMechanicsHandler {
         IPlayerSkills skills = PlayerSkillsProvider.get(player);
         double accuracyChance = skills.getAccuracy() / 100.0f;
         if (player.getRandom().nextFloat() > accuracyChance) {
-            System.out.println("Attack cancelled");
             event.setCanceled(true);
         }
     }
