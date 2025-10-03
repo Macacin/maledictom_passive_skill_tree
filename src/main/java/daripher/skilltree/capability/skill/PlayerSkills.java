@@ -292,6 +292,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof ManaBonus mb) return mb.getManaBonus(null);
         if (bonus instanceof ManaRegenBonus mrb) return mrb.getRegenBonus(null);
         if (bonus instanceof CraftingMaterialSaveBonus cmsb) return cmsb.getSaveChance(null);
+        if (bonus instanceof DurabilityBonus db) return db.getMultiplier(null);
         return 0.0;
     }
 

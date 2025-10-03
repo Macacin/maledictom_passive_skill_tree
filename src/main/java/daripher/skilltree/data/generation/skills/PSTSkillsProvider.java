@@ -107,6 +107,7 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranch("intelligence_mana", "icon_mana", 16, 1, 5);
         addSkillBranch("intelligence_mana_regen", "icon_mana_regen", 16, 1, 5);
         addSkillBranch("intelligence_crafting_material_save", "icon_crafting_save", 16, 1, 5);
+        addSkillBranch("intelligence_durability", "icon_durability", 16, 1, 5);
     }
 
     private void shapeSkillTree() {
@@ -180,6 +181,7 @@ public class PSTSkillsProvider implements DataProvider {
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_mana", 30, 30, 1, 5); // Рядом с предыдущей branch
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_mana_regen", 60, 30, 1, 5); // Рядом, на 60 градусов
         setSkillBranchPosition("intelligence_starting", 10, "intelligence_crafting_material_save", 90, 30, 1, 5); // Следующая ветвь
+        setSkillBranchPosition("intelligence_starting", 10, "intelligence_durability", 120, 30, 1, 5);
     }
 
     private void setSkillsAttributeModifiers() {
@@ -257,6 +259,8 @@ public class PSTSkillsProvider implements DataProvider {
         addSkillBranchBonuses("intelligence_mana", new ManaBonus(10f, Operation.ADDITION), 1, 5);
         addSkillBranchBonuses("intelligence_mana_regen", new ManaRegenBonus(10f, Operation.ADDITION), 1, 5); // дает примерно 10 маны в сек
         addSkillBranchBonuses("intelligence_crafting_material_save", new CraftingMaterialSaveBonus(0.1f, Operation.ADDITION), 1, 5); // +10% per node
+        addSkillBranchBonuses("intelligence_durability", new DurabilityBonus(0.1f, Operation.MULTIPLY_BASE), 1, 5); // +10% per node
+
 
     }
 
