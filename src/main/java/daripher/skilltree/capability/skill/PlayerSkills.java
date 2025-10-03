@@ -293,6 +293,11 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof ManaRegenBonus mrb) return mrb.getRegenBonus(null);
         if (bonus instanceof CraftingMaterialSaveBonus cmsb) return cmsb.getSaveChance(null);
         if (bonus instanceof DurabilityBonus db) return db.getMultiplier(null);
+        if (bonus instanceof AmuletSlotBonus asb) return asb.getAmount(null);
+        if (bonus instanceof RingSlotBonus rsb) return rsb.getAmount(null);
+        if (bonus instanceof BraceletSlotBonus bsb) return bsb.getAmount(null);
+        if (bonus instanceof BeltSlotBonus bs) return bs.getAmount(null); // different bsb
+        if (bonus instanceof NecklaceSlotBonus nsb) return nsb.getAmount(null);
         return 0.0;
     }
 

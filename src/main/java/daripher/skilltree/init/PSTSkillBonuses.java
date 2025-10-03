@@ -185,6 +185,16 @@ public class PSTSkillBonuses {
             REGISTRY.register("crafting_material_save", CraftingMaterialSaveBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> DURABILITY_BONUS =
             REGISTRY.register("durability_bonus", DurabilityBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> AMULET_SLOT =
+            REGISTRY.register("amulet_slot", AmuletSlotBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> RING_SLOT =
+            REGISTRY.register("ring_slot", RingSlotBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> BRACELET_SLOT =
+            REGISTRY.register("bracelet_slot", BraceletSlotBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> BELT_SLOT =
+            REGISTRY.register("belt_slot", BeltSlotBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> NECKLACE_SLOT =
+            REGISTRY.register("necklace_slot", NecklaceSlotBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

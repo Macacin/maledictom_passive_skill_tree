@@ -23,14 +23,11 @@ public class DurabilityBonusEvent {
         if (crafted.isEmpty() || !isDurableItem(crafted)) return;
 
         int baseDurability = crafted.getMaxDamage();
-        System.out.println("Before applying bonus for " + crafted.getDisplayName().getString() + ": Max Damage = " + baseDurability);
 
         int newDurability = (int) Math.round(baseDurability * (1 + bonus));
         crafted.getOrCreateTag().putInt("CustomMaxDamage", newDurability);
 
         int afterDurability = crafted.getMaxDamage();
-        System.out.println("After applying bonus for " + crafted.getDisplayName().getString() + ": Max Damage = " + afterDurability);
-        // Note: Without a mixin, afterDurability will still be baseDurability, as getMaxDamage() doesn't read the custom tag yet.
     }
 
     private static boolean isDurableItem(ItemStack stack) {
