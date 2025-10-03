@@ -181,6 +181,8 @@ public class PSTSkillBonuses {
             REGISTRY.register("mana", ManaBonus.Serializer::new);
     public static final RegistryObject<SkillBonus.Serializer> MANA_REGEN =
             REGISTRY.register("mana_regen", ManaRegenBonus.Serializer::new);
+    public static final RegistryObject<SkillBonus.Serializer> CRAFTING_MATERIAL_SAVE =
+            REGISTRY.register("crafting_material_save", CraftingMaterialSaveBonus.Serializer::new);
 
     @SuppressWarnings("rawtypes")
     public static List<SkillBonus> bonusList() {

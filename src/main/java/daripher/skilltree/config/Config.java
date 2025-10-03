@@ -28,6 +28,7 @@ public class Config {
 
     public static final ForgeConfigSpec.DoubleValue BASE_ACCURACY;
     public static final ForgeConfigSpec.DoubleValue RANGED_DAMAGE_MULTIPLIER;
+    public static final ForgeConfigSpec.DoubleValue MAGIC_DAMAGE_MULTIPLIER;
     public static final ForgeConfigSpec.DoubleValue RANGED_VELOCITY_MULTIPLIER;
     public static final ForgeConfigSpec.DoubleValue CURSE_CHANCE;
     public static final ForgeConfigSpec.DoubleValue LEVEL_SCALE_FACTOR;
@@ -130,6 +131,7 @@ public class Config {
         BUILDER.push("Base mechanics");
         BASE_ACCURACY = BUILDER.defineInRange("base_accuracy", 70.0, 0.0, 100.0);
         RANGED_DAMAGE_MULTIPLIER = BUILDER.defineInRange("rangedDamageMultiplier", 0.6, 0.0, 1.0);
+        MAGIC_DAMAGE_MULTIPLIER = BUILDER.defineInRange("magicDamageMultiplier", 0.6, 0.0, 1.0);
         RANGED_VELOCITY_MULTIPLIER = BUILDER.defineInRange("rangedVelocityMultiplier", 0.5, 0.0, 1.0);
         CURSE_CHANCE = BUILDER.defineInRange("curseChance", 0.7, 0.0, 1.0);
         LEVEL_SCALE_FACTOR = BUILDER.defineInRange("levelScaleFactor", 2.0 / 3.0, 0.0, 1.0);
@@ -385,5 +387,9 @@ public class Config {
 
     public static double getShieldReduction() {
         return SHIELD_DAMAGE_REDUCTION.get();
+    }
+
+    public static double getMagicDamageReduction() {
+        return MAGIC_DAMAGE_MULTIPLIER.get();
     }
 }

@@ -18,6 +18,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 
@@ -90,5 +91,20 @@ public class CombatMechanicsHandler {
         } else {
             speedAttr.removeModifier(SHIELD_SLOWDOWN_UUID);
         }
+    }
+
+    @SubscribeEvent
+    public static void weakenMagicDamage(LivingHurtEvent event) {
+        if (!ModList.get().isLoaded("irons_spellbooks")) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        if (event.getEntity().level().isClientSide) return;
+
+        DamageSource source = event.getSource();
+
+        boolean containsMagic = source.getMsgId().contains("magic");
+        if (!containsMagic) return;
+
+        double reduction = Config.getMagicDamageReduction();
+        event.setAmount((float) (event.getAmount() * (1 - reduction)));
     }
 }

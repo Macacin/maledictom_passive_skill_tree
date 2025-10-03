@@ -291,6 +291,7 @@ public class PlayerSkills implements IPlayerSkills {
         if (bonus instanceof SpellCastTimeReductionBonus sctrb) return sctrb.getReductionBonus(null);
         if (bonus instanceof ManaBonus mb) return mb.getManaBonus(null);
         if (bonus instanceof ManaRegenBonus mrb) return mrb.getRegenBonus(null);
+        if (bonus instanceof CraftingMaterialSaveBonus cmsb) return cmsb.getSaveChance(null);
         return 0.0;
     }
 
